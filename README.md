@@ -1,6 +1,6 @@
 # Print-Optimizer
 
-Reverse-engineered analysis of the **NotesCrafter** Android app (package `com.notescrafter.app`) print-optimization ("Flow") pipeline: how a PDF is turned into a clean, print-ready document — entirely **on-device**.
+Reverse-engineered analysis of the **NotesCrafter** Android app (package `com.notescrafter.app`): the print-optimization ("Flow") pipeline — how a PDF is turned into a clean, print-ready document — and the "Quick Tools" suite, entirely **on-device**.
 
 > Analysis of the developer's own app, from their own device (APK extract + decompile + native disassembly). No server interaction is involved in any of the processing.
 
@@ -40,14 +40,18 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 ├── sources/                # Key decompiled sources (package structure preserved)
 │   ├── com/notescrafter/service/PDFProcessor.java   # JNI bridge
 │   ├── p083t3/             # Y.java (FlowViewModel), L.java (success screen),
-│   │                       # X/V (download workers), A.java (Preview/PdfCrop), C2306q (Enhance)
+│   │                       # X/V (download workers), A.java (Preview/PdfCrop), C2306q (Enhance),
+│   │                       # C2315v (back-dispatch), C2311t (analytics), C2323z/C2319x (ads/header)
 │   ├── p087u3/             # All flow data models & enums (a–u)
 │   ├── p092v3/q.java       # Core processing worker
-│   └── p102x3/             # LandingScreen (AbstractC2574m6), UploadScreen (ef)
+│   └── p102x3/             # LandingScreen (AbstractC2574m6), UploadScreen (ef),
+│                           # Ud.java (QuickToolsScreen + registry), Rd.java (QuickTool),
+│                           # Td.java (ToolCard), Q8.java (PdfMergeScreen), GlobalHomeScreen (t5)
 └── docs/
     ├── 01-architecture.md     # App architecture, state machine, layers
     ├── 02-user-journey.md     # Landing → download: exact strings & screen logic
     ├── 03-values-defaults.md  # Enums, prefs keys, defaults, formatting rules
+    ├── 04-tools.md            # Quick Tools: registry, routes, isolation, add-a-tool recipe
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -81,9 +85,10 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 1. **[01 — App architecture](docs/01-architecture.md)** — stack, package map, FlowViewModel state machine (`-1` Landing → 0 Upload → 2 Reorder → 3 Preview → 4 Enhance → Success), worker, native side.
 2. **[02 — User journey](docs/02-user-journey.md)** — every screen with its exact UI strings (landing copy, 12 feature tiles, social-proof stats, success buttons) and the logic behind each transition.
 3. **[03 — Values & defaults](docs/03-values-defaults.md)** — full `enhance_prefs` key table, enum values (Quality 72/150/300 DPI, PageSize, Orientation), data-class defaults, rendering constants, PDF writer constants.
-4. **[Flow](docs/flow.md)** — processing pipeline end to end.
-5. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-6. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+4. **[04 — Quick Tools](docs/04-tools.md)** — the Tools suite: static registry (`QuickTool` list), string-route navigation, 10 tools & their routes, shared components, isolation model, ad/header rules, recipe for adding a new tool.
+5. **[Flow](docs/flow.md)** — processing pipeline end to end.
+6. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+7. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

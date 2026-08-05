@@ -37,12 +37,30 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 
 ```
 ├── README.md
+├── sources/                # Key decompiled sources (package structure preserved)
+│   ├── com/notescrafter/service/PDFProcessor.java   # JNI bridge
+│   ├── p083t3/             # Y.java (FlowViewModel), L.java (success screen),
+│   │                       # X/V (download workers), A.java (Preview/PdfCrop), C2306q (Enhance)
+│   ├── p087u3/             # All flow data models & enums (a–u)
+│   ├── p092v3/q.java       # Core processing worker
+│   └── p102x3/             # LandingScreen (AbstractC2574m6), UploadScreen (ef)
 └── docs/
-    ├── flow.md              # End-to-end flow: upload → process → download
-    ├── native_algorithm.md  # processPage() native pipeline, step by step
-    └── disassembly/
-        ├── processPage.txt  # rizin disassembly of Java_com_notescrafter_service_PDFProcessor_processPage
-        └── processPage_rest.txt
+    ├── 01-architecture.md     # App architecture, state machine, layers
+    ├── 02-user-journey.md     # Landing → download: exact strings & screen logic
+    ├── 03-values-defaults.md  # Enums, prefs keys, defaults, formatting rules
+    ├── flow.md                # End-to-end flow: upload → process → download
+    ├── native_algorithm.md    # processPage() native pipeline, step by step
+    └── disassembly/           # rizin dumps of every JNI export
+        ├── processPage.txt
+        ├── processPage_rest.txt
+        ├── removeLogo.txt
+        ├── invertRegion.txt
+        ├── invertRegionOval.txt
+        ├── fillRegion.txt
+        ├── fillRegionOval.txt
+        ├── initPdfWriter.txt
+        ├── writePageNative.txt
+        └── finishPdfWriter.txt
 ```
 
 ## Key files in the original app (obfuscated names)
@@ -57,6 +75,15 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 | Per-page manual edits (`InvertRect`, `InvertOval`, `MaskRect(rect,color)`, `MaskOval(rect,color)`) | `p087u3/h` |
 | Success/download screen (View / Share / Process Another) | `p083t3/L` |
 | Download (reprocess) worker | `p083t3/X`, `p083t3/V` |
+
+## Documentation index
+
+1. **[01 — App architecture](docs/01-architecture.md)** — stack, package map, FlowViewModel state machine (`-1` Landing → 0 Upload → 2 Reorder → 3 Preview → 4 Enhance → Success), worker, native side.
+2. **[02 — User journey](docs/02-user-journey.md)** — every screen with its exact UI strings (landing copy, 12 feature tiles, social-proof stats, success buttons) and the logic behind each transition.
+3. **[03 — Values & defaults](docs/03-values-defaults.md)** — full `enhance_prefs` key table, enum values (Quality 72/150/300 DPI, PageSize, Orientation), data-class defaults, rendering constants, PDF writer constants.
+4. **[Flow](docs/flow.md)** — processing pipeline end to end.
+5. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+6. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

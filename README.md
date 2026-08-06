@@ -39,19 +39,25 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 ├── README.md
 ├── sources/                # Key decompiled sources (package structure preserved)
 │   ├── com/notescrafter/service/PDFProcessor.java   # JNI bridge
+│   ├── com/notescrafter/PrintOrderViewModel.java    # Print-order state machine + upload trigger
+│   ├── com/razorpay/t.java                          # Multipart upload worker (Rasp-obfuscated)
+│   ├── com/google/.../measurement/C2117x.java       # PrintApiClient: full REST surface
 │   ├── p083t3/             # Y.java (FlowViewModel), L.java (success screen),
 │   │                       # X/V (download workers), A.java (Preview/PdfCrop), C2306q (Enhance),
-│   │                       # C2315v (back-dispatch), C2311t (analytics), C2323z/C2319x (ads/header)
-│   ├── p087u3/             # All flow data models & enums (a–u)
-│   ├── p092v3/q.java       # Core processing worker
+│   │                       # C2315v (back-dispatch), C2311t (analytics), C2323z/C2319x (ads/header),
+│   │                       # C2275a0/X0/W0/Y0 (upload progress/success workers)
+│   ├── p087u3/             # All flow data models & enums (a–u), m.java (cart item)
+│   ├── p092v3/             # q.java (processing worker), h/d/b (AuthManager), e/f (rates/status)
 │   └── p102x3/             # LandingScreen (AbstractC2574m6), UploadScreen (ef),
 │                           # Ud.java (QuickToolsScreen + registry), Rd.java (QuickTool),
-│                           # Td.java (ToolCard), Q8.java (PdfMergeScreen), GlobalHomeScreen (t5)
+│                           # Td.java (ToolCard), Q8.java (PdfMergeScreen), GlobalHomeScreen (t5),
+│                           # Fd.java (print-order upload screen)
 └── docs/
     ├── 01-architecture.md     # App architecture, state machine, layers
     ├── 02-user-journey.md     # Landing → download: exact strings & screen logic
     ├── 03-values-defaults.md  # Enums, prefs keys, defaults, formatting rules
     ├── 04-tools.md            # Quick Tools: registry, routes, isolation, add-a-tool recipe
+    ├── 05-print-upload.md     # Print upload: multipart→Cloudflare R2, API client, auth
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -86,9 +92,10 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 2. **[02 — User journey](docs/02-user-journey.md)** — every screen with its exact UI strings (landing copy, 12 feature tiles, social-proof stats, success buttons) and the logic behind each transition.
 3. **[03 — Values & defaults](docs/03-values-defaults.md)** — full `enhance_prefs` key table, enum values (Quality 72/150/300 DPI, PageSize, Orientation), data-class defaults, rendering constants, PDF writer constants.
 4. **[04 — Quick Tools](docs/04-tools.md)** — the Tools suite: static registry (`QuickTool` list), string-route navigation, 10 tools & their routes, shared components, isolation model, ad/header rules, recipe for adding a new tool.
-5. **[Flow](docs/flow.md)** — processing pipeline end to end.
-6. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-7. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+5. **[05 — Print upload](docs/05-print-upload.md)** — the server side of PRINTS: multipart upload (init/chunk/complete/abort) into Cloudflare R2, the `PrintApiClient` endpoint surface, JWT/Firebase auth, upload state machine, error taxonomy.
+6. **[Flow](docs/flow.md)** — processing pipeline end to end.
+7. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+8. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

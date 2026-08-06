@@ -2,11 +2,11 @@ package com.juyel.printreadyai.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Folder
+import androidx.compose.material.icons.automirrored.outlined.Assignment
+import androidx.compose.material.icons.outlined.Chat
+import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -26,22 +26,23 @@ import androidx.navigation.compose.rememberNavController
 
 object Routes {
     const val HOME = "home"
-    const val CONVERT = "convert"
-    const val MERGE = "merge"
-    const val CONTACT = "contact"
-    const val LIBRARY = "library"
-    const val PREMIUM = "premium"
+    const val FLOW = "flow"
+    const val PRINTS = "prints"
+    const val TOOLS = "tools"
+    const val CONTACT = "contact-us"
+    const val DASHBOARD = "dashboard"
+    const val MY_ORDERS = "my-orders"
     const val SETTINGS = "settings"
 }
 
 private data class Tab(val route: String, val label: String, val icon: ImageVector)
 
 private val bottomTabs = listOf(
-    Tab(Routes.CONTACT, "Contact", Icons.Outlined.Email),
-    Tab(Routes.LIBRARY, "Library", Icons.Outlined.Folder),
+    Tab(Routes.CONTACT, "Contact", Icons.Outlined.Chat),
+    Tab(Routes.DASHBOARD, "To-Do", Icons.Outlined.Checklist),
     Tab(Routes.HOME, "Home", Icons.Outlined.Home),
-    Tab(Routes.PREMIUM, "Premium", Icons.Outlined.WorkspacePremium),
-    Tab(Routes.SETTINGS, "Settings", Icons.Outlined.Settings)
+    Tab(Routes.MY_ORDERS, "My Orders", Icons.AutoMirrored.Outlined.Assignment),
+    Tab(Routes.SETTINGS, "Setting", Icons.Outlined.Settings)
 )
 
 @Composable
@@ -56,12 +57,13 @@ fun PrintReadyApp() {
             modifier = Modifier.padding(padding)
         ) {
             composable(Routes.HOME) { HomeScreen(nav) }
-            composable(Routes.CONVERT) { ConvertScreen(nav) }
-            composable(Routes.MERGE) { MergeScreen(nav) }
+            composable(Routes.FLOW) { ConvertScreen(nav) }
+            composable(Routes.TOOLS) { MergeScreen(nav) }
             composable(Routes.CONTACT) { ContactScreen(nav) }
-            composable(Routes.LIBRARY) { ComingSoonScreen("Library") }
-            composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }
+            composable(Routes.DASHBOARD) { ComingSoonScreen("To-Do") }
+            composable(Routes.MY_ORDERS) { ComingSoonScreen("My Orders") }
             composable(Routes.SETTINGS) { SettingsScreen(nav) }
+            composable(Routes.PRINTS) { ComingSoonScreen("Prints") }
         }
     }
 }

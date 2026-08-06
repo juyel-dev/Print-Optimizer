@@ -1,7 +1,11 @@
 package com.juyel.printreadyai.ui
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,217 +16,200 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AutoFixHigh
-import androidx.compose.material.icons.outlined.Bolt
-import androidx.compose.material.icons.outlined.Brush
-import androidx.compose.material.icons.outlined.CloudOff
-import androidx.compose.material.icons.outlined.MergeType
-import androidx.compose.material.icons.outlined.PictureAsPdf
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.FlashOn
+import androidx.compose.material.icons.outlined.Note
+import androidx.compose.material.icons.outlined.PlayCircle
+import androidx.compose.material.icons.outlined.Print
+import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.juyel.printreadyai.ui.AppColors
 
 @Composable
 fun HomeScreen(nav: NavHostController) {
-    LazyColumn(
+    val scrollState = rememberScrollState()
+    val brandGradient = Brush.linearGradient(
+        listOf(Color(0xFFA855F7), Color(0xFFEC4899))
+    )
+    
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .background(MaterialTheme.colorScheme.background)
+            .statusBarsPadding()
+            .verticalScroll(scrollState)
+            .padding(top = 80.dp)
     ) {
-        item { HeroCard() }
-        item { ConvertCta(nav) }
-        item {
-            Text("Tools", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+        Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 16.dp)) {
+            Icon(
+                imageVector = Icons.Outlined.Print,
+                contentDescription = "Prints",
+                tint = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.align(Alignment.CenterEnd).size(28.dp).clickable { nav.navigate(Routes.MY_ORDERS) }
+            )
         }
-        item {
-            ToolsGrid(nav)
+
+        Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+            Text(
+                text = "PrintReady AI",
+                fontSize = 40.sp,
+                fontWeight = FontWeight.ExtraBold,
+                brush = brandGradient,
+                lineHeight = 44.sp
+            )
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = "Reimagining the Student\nLearning Experience",
+                style = MaterialTheme.typography.titleMedium,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
         }
-        item {
-            Text("Why PrintReady AI", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+
+        Spacer(Modifier.height(40.dp))
+
+        Column(
+            modifier = Modifier.padding(horizontal = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            ProductContainer(
+                title = "FLOW",
+                subtitle = "AI-Inspired Document Processing",
+                accentBrush = brandGradient,
+                icon = Icons.Outlined.PlayCircle,
+                onClick = { nav.navigate(Routes.FLOW) }
+            )
+            ProductContainer(
+                title = "PRINTS",
+                subtitle = "Notebook Print Orders",
+                accentColor = Color(0xFF5A2A2B),
+                icon = Icons.Outlined.Note,
+                onClick = { nav.navigate(Routes.PRINTS) }
+            )
+            ProductContainer(
+                title = "TOOLS",
+                subtitle = "Quick PDF Utilities",
+                accentColor = Color(0xFF2E4057),
+                icon = Icons.Outlined.Build,
+                onClick = { nav.navigate(Routes.TOOLS) }
+            )
         }
-        item { FeatureRow() }
-        item { Spacer(Modifier.height(8.dp)) }
+
+        Spacer(Modifier.height(40.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            TrustBadge(
+                icon = Icons.Outlined.Security,
+                title = "100% Secure",
+                subtitle = "Processed Locally",
+                modifier = Modifier.weight(1f)
+            )
+            TrustBadge(
+                icon = Icons.Outlined.FlashOn,
+                title = "Lightning Fast",
+                subtitle = "Offline Capabilities",
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        Spacer(Modifier.height(40.dp))
     }
 }
 
 @Composable
-private fun HeroCard() {
-    Card(
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+private fun ProductContainer(
+    title: String,
+    subtitle: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onClick: () -> Unit,
+    accentBrush: Brush? = null,
+    accentColor: Color = Color.Transparent
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(if (isPressed) 0.98f else 1.0f, label = "card_scale")
+
+    val borderBrush = accentBrush ?: Brush.linearGradient(listOf(accentColor.copy(alpha = 0.25f), accentColor.copy(alpha = 0.25f)))
+    
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .scale(scale)
+            .clip(RoundedCornerShape(16.dp))
+            .background(if (accentBrush != null) Color.White.copy(alpha = 0.05f) else accentColor.copy(alpha = 0.1f))
+            .border(1.dp, borderBrush, RoundedCornerShape(16.dp))
+            .clickable(interactionSource = interactionSource, indication = null, onClick = onClick)
+            .padding(20.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = icon,
+                contentDescription = title,
+                tint = if (accentBrush != null) Color.White else accentColor,
+                modifier = Modifier.size(32.dp)
+            )
+            Spacer(Modifier.size(16.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = if (accentBrush != null) Color.White else accentColor
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun TrustBadge(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, subtitle: String, modifier: Modifier = Modifier) {
+    val brandGradient = Brush.linearGradient(listOf(Color(0xFFA855F7), Color(0xFFEC4899)))
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.linearGradient(
-                        listOf(Color(0xFF1E1B2E), Color(0xFF0E0E16))
-                    )
-                )
-                .padding(20.dp)
+                .size(24.dp)
+                .clip(CircleShape)
+                .background(brandGradient),
+            contentAlignment = Alignment.Center
         ) {
-            Column {
-                Text(
-                    "PrintReady AI",
-                    fontSize = 26.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = AppColors.TextPrimary
-                )
-                Spacer(Modifier.height(6.dp))
-                Text(
-                    "Convert dark lecture slides and PDFs into clean, ink-saving printable notes.",
-                    fontSize = 14.sp,
-                    color = AppColors.TextSecondary
-                )
-            }
+            Icon(icon, contentDescription = title, tint = Color.White, modifier = Modifier.size(14.dp))
         }
-    }
-}
-
-@Composable
-private fun ConvertCta(nav: NavHostController) {
-    Surface(
-        shape = RoundedCornerShape(20.dp),
-        color = AppColors.Accent.copy(alpha = 0.12f),
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { nav.navigate(Routes.CONVERT) }
-    ) {
-        Column(Modifier.padding(18.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Outlined.PictureAsPdf, null, tint = AppColors.Accent)
-                Spacer(Modifier.size(10.dp))
-                Text(
-                    "Convert PDF",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = AppColors.TextPrimary
-                )
-            }
-            Spacer(Modifier.height(6.dp))
-            Text(
-                "Turn dark PDFs into clean notes — instantly, on device.",
-                style = MaterialTheme.typography.bodySmall,
-                color = AppColors.TextSecondary
-            )
-            Spacer(Modifier.height(14.dp))
-            Button(
-                onClick = { nav.navigate(Routes.CONVERT) },
-                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Accent),
-                shape = RoundedCornerShape(14.dp)
-            ) {
-                Icon(Icons.Outlined.AutoFixHigh, null, Modifier.size(18.dp))
-                Spacer(Modifier.size(8.dp))
-                Text("Start Converting", fontWeight = FontWeight.SemiBold)
-            }
-        }
-    }
-}
-
-private data class ToolItem(val name: String, val desc: String, val icon: ImageVector, val route: String?, val soon: Boolean = false)
-
-private val tools = listOf(
-    ToolItem("Merge PDF", "Combine multiple PDFs into one", Icons.Outlined.MergeType, Routes.MERGE),
-    ToolItem("Compress PDF", "Reduce PDF file size", Icons.Outlined.Brush, null, soon = true),
-    ToolItem("PDF to Images", "Export pages as images", Icons.Outlined.Bolt, null, soon = true),
-    ToolItem("Page Numberer", "Add numbers to pages", Icons.Outlined.PictureAsPdf, null, soon = true)
-)
-
-@Composable
-private fun ToolsGrid(nav: NavHostController) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.height(320.dp)
-    ) {
-        items(tools) { tool ->
-            ToolCard(tool, nav)
-        }
-    }
-}
-
-@Composable
-private fun ToolCard(tool: ToolItem, nav: NavHostController) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (tool.soon) MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
-            else MaterialTheme.colorScheme.surface
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(enabled = tool.route != null && !tool.soon) { tool.route?.let { nav.navigate(it) } }
-    ) {
-        Column(Modifier.padding(14.dp)) {
-            Icon(
-                tool.icon,
-                null,
-                tint = if (tool.soon) AppColors.TextSecondary.copy(alpha = 0.5f) else AppColors.Accent
-            )
-            Spacer(Modifier.height(10.dp))
-            Text(
-                tool.name,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = if (tool.soon) AppColors.TextSecondary.copy(alpha = 0.7f) else AppColors.TextPrimary
-            )
-            Spacer(Modifier.height(2.dp))
-            Text(
-                if (tool.soon) "Coming soon" else tool.desc,
-                style = MaterialTheme.typography.bodySmall,
-                color = AppColors.TextSecondary
-            )
-        }
-    }
-}
-
-@Composable
-private fun FeatureRow() {
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        FeatureItem(Icons.Outlined.Brush, "Ink-saving output", "Background cleared, text boosted — print less, read more.")
-        FeatureItem(Icons.Outlined.Bolt, "Fast native engine", "C-accelerated page processing keeps conversion instant.")
-        FeatureItem(Icons.Outlined.CloudOff, "100% offline", "Your documents never leave your device.")
-    }
-}
-
-@Composable
-private fun FeatureItem(icon: ImageVector, title: String, desc: String) {
-    Card(
-        shape = RoundedCornerShape(14.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
-    ) {
-        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(icon, null, tint = AppColors.Accent, modifier = Modifier.size(22.dp))
-            Spacer(Modifier.size(12.dp))
-            Column {
-                Text(title, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, color = AppColors.TextPrimary)
-                Text(desc, style = MaterialTheme.typography.bodySmall, color = AppColors.TextSecondary)
-            }
+        Column {
+            Text(title, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
+            Text(subtitle, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f))
         }
     }
 }

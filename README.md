@@ -82,6 +82,8 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
     ├── 16-livechat-community.md  # Live Chat (stub), Community social links, Community Pass tiers
     ├── 17-auth-google-signin-addresses.md  # CredentialManager Google Sign-In, JWT exchange, address book API
     ├── 18-quick-tools-step-screens.md  # 9 tool step screens, empty "Calculators" category, notebook leftovers
+    ├── 19-tech-stack.md        # Languages, Compose/MVVM, OkHttp+org.json, AdMob/Firebase/Razorpay/PairIP, build fingerprint
+    ├── 20-flow-pipeline-tech-stack.md  # Stage→tech map (SAF, PdfRenderer, native .so, Canvas layout, C PDF-1.4 writer) + all processing constants
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -130,9 +132,11 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 16. **[16 — Live Chat & Community](docs/16-livechat-community.md)** — `LiveChatScreen` is a stub (static placeholder, no chat transport), `CommunityScreen` social link cards (Telegram etc.), `CommunityPassScreen` tiers + `ComparisonTable` + sign-in gate.
 17. **[17 — Google Sign-In & addresses](docs/17-auth-google-signin-addresses.md)** — `AuthManager`: CredentialManager Google ID → idToken → `POST /api/auth/mobile` → JWT; full `auth_prefs` map, per-plan page rates, logout; `PrintAddressesScreen` (gate when logged out), address model + `/api/print/shipping-addresses/` CRUD.
 18. **[18 — Quick Tools step screens](docs/18-quick-tools-step-screens.md)** — file map + shared state machine for all 9 tool screens, the empty **"Calculators"** category, and the PRINTS notebook leftovers (`PrintNotebookItem`, `NotebookConfiguratorCard`, `A4CoverPage`, `LiveNotebookCoverShowcase`).
-19. **[Flow](docs/flow.md)** — processing pipeline end to end.
-20. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-21. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+19. **[19 — Tech stack](docs/19-tech-stack.md)** — full dependency fingerprint: Kotlin+Compose (Material3 1.3.1) MVVM, OkHttp3+org.json, no DI/Retrofit/Room-usage, 9 JNI exports, AdMob (2 banner units), Firebase Analytics/Messaging, Play Core update+review, Razorpay checkout+NFC, PairIP licensing, R8 full-mode, build fingerprint (SDK 36 / coroutines 1.9.0 / Baseline Profiles).
+20. **[20 — Flow pipeline tech stack](docs/20-flow-pipeline-tech-stack.md)** — no-i18n verdict; stage→tech map (SAF picker, `PdfRenderer` render, native `libnotescrafter-native.so` enhance, Kotlin/Canvas layout, JPEG-80 + from-scratch C PDF-1.4 writer); merge = same pipeline; full constants table (invert XOR, Rec.601, *1.2 boost, gamma 0.6, ±10 window, -10 bias, DPI ratios 1.38/2.77/4.16, quality fallbacks).
+21. **[Flow](docs/flow.md)** — processing pipeline end to end.
+22. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+23. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

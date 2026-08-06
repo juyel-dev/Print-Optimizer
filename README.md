@@ -75,6 +75,10 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
     ├── 09-permissions-privacy.md  # Permissions & privacy deep-dive (ads/NFC/network/FCM/telephony)
     ├── 10-analytics-scrolling-touch.md  # Analytics events, scroll containers, touch gestures
     ├── 11-todo-pomodoro.md       # To-Do tab: tasks, exams, clock, calendar + Pomodoro timer
+    ├── 12-downloads-upload.md    # Downloads list, file actions, rename/delete, source picker, reprocess
+    ├── 13-logo-removal-ui.md     # LogoSelectionScreen: overlay, fine-tune pads, shape/mode enums
+    ├── 14-promo-help-error-components.md  # Flash-sale dialog, promo banner, Help/FAQ, ErrorScreen, WarningBanner
+    ├── 15-home-about-components.md  # Features/Landing/About/GlobalHome/EditPage sub-components
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -116,9 +120,13 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 9. **[09 — Permissions & privacy](docs/09-permissions-privacy.md)** — every manifest permission/feature mapped to code: AdMob (integrated but disabled, watermark prefix), no NFC/telephony/foreground-service usage, FCM notifications & token registration, OkHttp API surface, Play Review/in-app update, SDK-only telemetry.
 10. **[10 — Analytics, scrolling & touch](docs/10-analytics-scrolling-touch.md)** — `AnalyticsManager` events (screen_view/cta_click/filter_toggle/handled_error), full route→screen map, scroll containers (Column+verticalScroll vs Lazy lists), HorizontalPager sliders, the EditPage drag-to-draw mask gesture, and everything that's absent (haptics/zoom/sticky/reorder).
 11. **[11 — To-Do & Pomodoro](docs/11-todo-pomodoro.md)** — the To-Do tab: `ToDoManager` (Gson in SharedPreferences), task/exam models, AnalogClock + CalendarWidget, urgent-exam pulse, animated task rows, and the Pomodoro setup→timer flow (landscape lock, countdown ring, control buttons, ephemeral setup values).
-12. **[Flow](docs/flow.md)** — processing pipeline end to end.
-13. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-14. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+12. **[12 — Downloads & source picker](docs/12-downloads-upload.md)** — the Downloads list (`NotesCrafterFiles` storage, `H3` model, newest-first loader), view/share/delete/rename actions, and the Upload screen's `PdfSourcePickerDialog` + `Fd` reprocess pipeline (page-count validation, new BW job).
+13. **[13 — Logo removal UI](docs/13-logo-removal-ui.md)** — `LogoSelectionScreen`: normalized `RectF` selection (default top-right), `RECTANGLE/CIRCLE` shapes, `BOTH/WIDTH/HEIGHT` resize modes, overlay canvas, move/resize fine-tune pads, page preview, and its link to the native `removeLogo` region.
+14. **[14 — Promo/help/error components](docs/14-promo-help-error-components.md)** — `WeekendFlashSaleDialog` (live/upcoming title logic), `AnimatedPromoBanner` (rotating `AnimatedContent`), `HelpCenterScreen`/`FAQCard`, `ErrorScreen`, `WarningBanner`.
+15. **[15 — Home/About/Edit components](docs/15-home-about-components.md)** — `FeaturesScreen`/`FeatureCard`, Landing sections (`HowItWorksSection`, `StepItem`, `FeaturesSection`, `AIBadge`), `AboutUsScreen` (`TechItem`/`StatCard`/`ValueItem`), `GlobalHomeScreen` (`BrandFeatureBadge`, `WebStyleCTA`, `ToolGridItem`), `EditPageScreen` (`SelectionOverlay`, `ToolOption`, `HistoryButton`).
+16. **[Flow](docs/flow.md)** — processing pipeline end to end.
+17. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+18. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

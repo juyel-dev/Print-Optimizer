@@ -48,16 +48,22 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 │   │                       # C2275a0/X0/W0/Y0 (upload progress/success workers)
 │   ├── p087u3/             # All flow data models & enums (a–u), m.java (cart item)
 │   ├── p092v3/             # q.java (processing worker), h/d/b (AuthManager), e/f (rates/status)
+│   ├── p083t3/             # Payment/drafts/orders workers (F/F0/E0/G0/d1/Z0/c1/C2282e,
+│   │                       # C2285f0, C2277b0, C2291i0, C2299m0, C2301n0, C2308r0,
+│   │                       # C2320x0, C2312t0, C2316v0, H0/U0/W0, C2275a0, X0, S.java)
 │   └── p102x3/             # LandingScreen (AbstractC2574m6), UploadScreen (ef),
 │                           # Ud.java (QuickToolsScreen + registry), Rd.java (QuickTool),
-│                           # Td.java (ToolCard), Q8.java (PdfMergeScreen), GlobalHomeScreen (t5),
-│                           # Fd.java (print-order upload screen)
+│                           # Td.java (ToolCard), Q8.java (PdfMergeScreen),
+│                           # GlobalHomeScreen (AbstractC2684t5), Ec.java (PlaceOrder),
+│                           # Fc.java (pay bar), C2460f4, com/notescrafter/MainActivity (Razorpay)
 └── docs/
     ├── 01-architecture.md     # App architecture, state machine, layers
     ├── 02-user-journey.md     # Landing → download: exact strings & screen logic
     ├── 03-values-defaults.md  # Enums, prefs keys, defaults, formatting rules
     ├── 04-tools.md            # Quick Tools: registry, routes, isolation, add-a-tool recipe
     ├── 05-print-upload.md     # Print upload: multipart→Cloudflare R2, API client, auth
+    ├── 06-checkout-payment.md # Orders: Razorpay checkout/verify, cloud drafts, dashboard
+    ├── 07-home-screen.md      # Global home: hero, product cards, trust badges
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -93,9 +99,11 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 3. **[03 — Values & defaults](docs/03-values-defaults.md)** — full `enhance_prefs` key table, enum values (Quality 72/150/300 DPI, PageSize, Orientation), data-class defaults, rendering constants, PDF writer constants.
 4. **[04 — Quick Tools](docs/04-tools.md)** — the Tools suite: static registry (`QuickTool` list), string-route navigation, 10 tools & their routes, shared components, isolation model, ad/header rules, recipe for adding a new tool.
 5. **[05 — Print upload](docs/05-print-upload.md)** — the server side of PRINTS: multipart upload (init/chunk/complete/abort) into Cloudflare R2, the `PrintApiClient` endpoint surface, JWT/Firebase auth, upload state machine, error taxonomy.
-6. **[Flow](docs/flow.md)** — processing pipeline end to end.
-7. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-8. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+6. **[06 — Checkout & payment](docs/06-checkout-payment.md)** — the paid half of PRINTS: order creation, server-mediated Razorpay checkout + signature verification, pending-payment UI pattern, cloud drafts (save/re-list/delete/re-order), orders dashboard (my-orders/status/tracking/EDD).
+7. **[07 — Global home](docs/07-home-screen.md)** — the landing screen: gradient hero, FLOW/PRINTS/TOOLS product cards with press-scale animations, trust badges, WebStyleCTA.
+8. **[Flow](docs/flow.md)** — processing pipeline end to end.
+9. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+10. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

@@ -31,6 +31,30 @@ native enhance → native PDF writer. No PDF library (PDFBox/MuPDF/iText) exists
 in the binary; only parameterization differs (page ranges, ordering, grid,
 quality).
 
+## 2b. Merge tool = same engine as Flow (parameterized)
+
+Merge (`p102x3/Q8.java` PdfMergeScreen.kt:61 → worker `P8.java`) and Flow
+(`p083t3/X.java`) both call the **identical `PDFProcessor.n()`** pipeline.
+Only parameters differ:
+
+| Param | Flow (`X.java`) | Merge tool (`P8.java`) |
+|---|---|---|
+| filters `p087u3/b` | user-set (invert/grayscale/clearBg/BW/logo) | **all OFF** `b(false,false,false,false,0,false,null,null)` |
+| quality `p087u3/d` | user-set (memory-aware `PDFProcessor.i`) | **HIGH** (requested; may downgrade on low RAM) |
+| size `p087u3/a` | user-set (ORIGINAL or n-up grid) | **ORIGINAL** → 1×1 per page |
+| rows×cols / sep-lines / page-num | user-set | off (0,0,false,false) |
+| output name | `<basename>_processed.pdf` | `Merged_<System.currentTimeMillis()>.pdf` |
+
+Support worker `O8` (`p102x3/O8.java`, via dispatcher `C2291i0` case 4):
+loops the picked URIs and loads page counts through `PDFProcessor.m()` →
+builds the `PageItem` list that `n()` consumes — same page-count utility as
+Flow's upload (`p092v3/o.java`).
+
+So: **not a separate merge implementation — the same reusable engine**, with
+"merge" = run the shared pipeline with enhancement disabled and ORIGINAL
+size. (Same story for the other Quick Tools: `C2751x8` = Invert tool calls
+`n()` with only `invert=true`.)
+
 ## 3. Processing values & logic (from native_algorithm.md — canonical)
 
 Constants used in `processPage` (`0x1c230`):

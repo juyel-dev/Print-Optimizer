@@ -74,6 +74,7 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
     ├── 08-navbar-settings-contact.md  # Top bar tabs, BottomNavBar, Settings & Contact
     ├── 09-permissions-privacy.md  # Permissions & privacy deep-dive (ads/NFC/network/FCM/telephony)
     ├── 10-analytics-scrolling-touch.md  # Analytics events, scroll containers, touch gestures
+    ├── 11-todo-pomodoro.md       # To-Do tab: tasks, exams, clock, calendar + Pomodoro timer
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -114,9 +115,10 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 8. **[08 — Navigation, Settings & Contact](docs/08-navbar-settings-contact.md)** — adaptive top bar (logo header + FLOW/PRINTS/TOOLS tabs), the 5-destination BottomNavBar (Contact/To-Do/Home/My Orders/Setting), the Settings & Info hub (plan badges, legal pages), and Contact Us (email/WhatsApp/phone deep links).
 9. **[09 — Permissions & privacy](docs/09-permissions-privacy.md)** — every manifest permission/feature mapped to code: AdMob (integrated but disabled, watermark prefix), no NFC/telephony/foreground-service usage, FCM notifications & token registration, OkHttp API surface, Play Review/in-app update, SDK-only telemetry.
 10. **[10 — Analytics, scrolling & touch](docs/10-analytics-scrolling-touch.md)** — `AnalyticsManager` events (screen_view/cta_click/filter_toggle/handled_error), full route→screen map, scroll containers (Column+verticalScroll vs Lazy lists), HorizontalPager sliders, the EditPage drag-to-draw mask gesture, and everything that's absent (haptics/zoom/sticky/reorder).
-11. **[Flow](docs/flow.md)** — processing pipeline end to end.
-12. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-13. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+11. **[11 — To-Do & Pomodoro](docs/11-todo-pomodoro.md)** — the To-Do tab: `ToDoManager` (Gson in SharedPreferences), task/exam models, AnalogClock + CalendarWidget, urgent-exam pulse, animated task rows, and the Pomodoro setup→timer flow (landscape lock, countdown ring, control buttons, ephemeral setup values).
+12. **[Flow](docs/flow.md)** — processing pipeline end to end.
+13. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+14. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

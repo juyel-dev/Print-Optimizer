@@ -39,6 +39,9 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 ├── README.md
 ├── sources/                # Key decompiled sources (package structure preserved)
 │   ├── com/notescrafter/service/PDFProcessor.java   # JNI bridge
+│   ├── com/notescrafter/service/NotesCrafterFCMService.java  # FCM + notification channels
+│   ├── com/notescrafter/utils/NetworkUtils.java     # Connectivity check (NetworkCapabilities)
+│   ├── com/notescrafter/utils/ReviewHelper.java     # Play In-App Review trigger logic
 │   ├── com/notescrafter/PrintOrderViewModel.java    # Print-order state machine + upload trigger
 │   ├── com/razorpay/t.java                          # Multipart upload worker (Rasp-obfuscated)
 │   ├── com/google/.../measurement/C2117x.java       # PrintApiClient: full REST surface
@@ -68,6 +71,7 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
     ├── 06-checkout-payment.md # Orders: Razorpay checkout/verify, cloud drafts, dashboard
     ├── 07-home-screen.md      # Global home: hero, product cards, trust badges
     ├── 08-navbar-settings-contact.md  # Top bar tabs, BottomNavBar, Settings & Contact
+    ├── 09-permissions-privacy.md  # Permissions & privacy deep-dive (ads/NFC/network/FCM/telephony)
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -106,9 +110,10 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 6. **[06 — Checkout & payment](docs/06-checkout-payment.md)** — the paid half of PRINTS: order creation, server-mediated Razorpay checkout + signature verification, pending-payment UI pattern, cloud drafts (save/re-list/delete/re-order), orders dashboard (my-orders/status/tracking/EDD).
 7. **[07 — Global home](docs/07-home-screen.md)** — the landing screen: gradient hero, FLOW/PRINTS/TOOLS product cards with press-scale animations, trust badges, WebStyleCTA.
 8. **[08 — Navigation, Settings & Contact](docs/08-navbar-settings-contact.md)** — adaptive top bar (logo header + FLOW/PRINTS/TOOLS tabs), the 5-destination BottomNavBar (Contact/To-Do/Home/My Orders/Setting), the Settings & Info hub (plan badges, legal pages), and Contact Us (email/WhatsApp/phone deep links).
-9. **[Flow](docs/flow.md)** — processing pipeline end to end.
-10. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-11. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+9. **[09 — Permissions & privacy](docs/09-permissions-privacy.md)** — every manifest permission/feature mapped to code: AdMob (integrated but disabled, watermark prefix), no NFC/telephony/foreground-service usage, FCM notifications & token registration, OkHttp API surface, Play Review/in-app update, SDK-only telemetry.
+10. **[Flow](docs/flow.md)** — processing pipeline end to end.
+11. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+12. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

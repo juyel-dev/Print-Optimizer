@@ -48,6 +48,7 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 │   │                       # C2275a0/X0/W0/Y0 (upload progress/success workers)
 │   ├── p087u3/             # All flow data models & enums (a–u), m.java (cart item)
 │   ├── p092v3/             # q.java (processing worker), h/d/b (AuthManager), e/f (rates/status)
+│   ├── p097w3/             # f/e/d/b/c/r.java — BottomNavBar (5 destinations) + NavItem
 │   ├── p083t3/             # Payment/drafts/orders workers (F/F0/E0/G0/d1/Z0/c1/C2282e,
 │   │                       # C2285f0, C2277b0, C2291i0, C2299m0, C2301n0, C2308r0,
 │   │                       # C2320x0, C2312t0, C2316v0, H0/U0/W0, C2275a0, X0, S.java)
@@ -55,7 +56,9 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 │                           # Ud.java (QuickToolsScreen + registry), Rd.java (QuickTool),
 │                           # Td.java (ToolCard), Q8.java (PdfMergeScreen),
 │                           # GlobalHomeScreen (AbstractC2684t5), Ec.java (PlaceOrder),
-│                           # Fc.java (pay bar), C2460f4, com/notescrafter/MainActivity (Razorpay)
+│                           # Fc.java (pay bar), C2460f4, F3.java (ContactUs),
+│                           # AbstractC2598ne.java (Settings), AbstractC2471g (About),
+│                           # F5.java (InfoPages), com/notescrafter/MainActivity (Razorpay)
 └── docs/
     ├── 01-architecture.md     # App architecture, state machine, layers
     ├── 02-user-journey.md     # Landing → download: exact strings & screen logic
@@ -64,6 +67,7 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
     ├── 05-print-upload.md     # Print upload: multipart→Cloudflare R2, API client, auth
     ├── 06-checkout-payment.md # Orders: Razorpay checkout/verify, cloud drafts, dashboard
     ├── 07-home-screen.md      # Global home: hero, product cards, trust badges
+    ├── 08-navbar-settings-contact.md  # Top bar tabs, BottomNavBar, Settings & Contact
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -101,9 +105,10 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 5. **[05 — Print upload](docs/05-print-upload.md)** — the server side of PRINTS: multipart upload (init/chunk/complete/abort) into Cloudflare R2, the `PrintApiClient` endpoint surface, JWT/Firebase auth, upload state machine, error taxonomy.
 6. **[06 — Checkout & payment](docs/06-checkout-payment.md)** — the paid half of PRINTS: order creation, server-mediated Razorpay checkout + signature verification, pending-payment UI pattern, cloud drafts (save/re-list/delete/re-order), orders dashboard (my-orders/status/tracking/EDD).
 7. **[07 — Global home](docs/07-home-screen.md)** — the landing screen: gradient hero, FLOW/PRINTS/TOOLS product cards with press-scale animations, trust badges, WebStyleCTA.
-8. **[Flow](docs/flow.md)** — processing pipeline end to end.
-9. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-10. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+8. **[08 — Navigation, Settings & Contact](docs/08-navbar-settings-contact.md)** — adaptive top bar (logo header + FLOW/PRINTS/TOOLS tabs), the 5-destination BottomNavBar (Contact/To-Do/Home/My Orders/Setting), the Settings & Info hub (plan badges, legal pages), and Contact Us (email/WhatsApp/phone deep links).
+9. **[Flow](docs/flow.md)** — processing pipeline end to end.
+10. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+11. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

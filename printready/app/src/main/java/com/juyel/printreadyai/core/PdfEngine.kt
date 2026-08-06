@@ -10,6 +10,7 @@ import android.graphics.pdf.PdfRenderer
 import android.graphics.RectF
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
@@ -24,20 +25,24 @@ import kotlin.coroutines.coroutineContext
 /**
  * Document pipeline: render -> enhance (native) -> sheet layout -> JPEG-80 -> PDF-1.4.
  * Same behaviour as the reference implementation: quality DPI ratios 1.38/2.77/4.16,
- * memory gate at 50MB free, System.gc() every 5 sheets, OOM downgrade + retry (max 3),
- * 2px separation lines, 30px page numbers, A4 595x842 fallback, JPEG quality 80.
+ * RAM gate (HIGH kept only when >=100MB free, LOW when <50MB), System.gc() every 5
+ * sheets, OOM downgrade + retry (max 3), per-page filter skip on OOM, 1cm A4 margin
+ * (none for ORIGINAL size), black 2px separation lines (portrait only), 30px page
+ * numbers at sheet bottom, ORIGINAL sheets sized from the first page, JPEG quality 80.
  */
 object PdfEngine {
 
     const val JPEG_QUALITY = 80
     private const val MEMORY_GATE_BYTES = 50L * 1024 * 1024
+    private const val MEMORY_GATE_LOW_MB = 50L
+    private const val MEMORY_GATE_HIGH_MB = 100L
     private const val MAX_OOM_RETRIES = 3
     private const val GC_EVERY_SHEETS = 5
     private const val SEPARATOR_PX = 2
     private const val PAGE_NUMBER_PX = 30
     private const val A4_PT_W = 595.0
     private const val A4_PT_H = 842.0
-    private const val SHEET_MARGIN_FRACTION = 0.03f
+    private const val CM_PT = 28.35f
 
     enum class Mode { CONVERT, MERGE }
 
@@ -77,7 +82,22 @@ object PdfEngine {
             }
         ) ?: throw IOException("Could not create output file")
 
-        retryPipeline(context, items, filter, output, output.quality.ratio, onProgress, outUri)
+        retryPipeline(context, items, filter, output, gatedRatio(output.quality, freeBytes()), onProgress, outUri)
+    }
+
+    /**
+     * RAM-based quality gate (same as the reference): only HIGH requests are
+     * adjusted - plenty of free memory keeps HIGH, scarce memory drops to
+     * LOW, everything in between uses MEDIUM. Explicit LOW/MEDIUM picks win.
+     */
+    private fun gatedRatio(requested: Quality, freeBytes: Long): Float {
+        if (requested != Quality.HIGH) return requested.ratio
+        val freeMb = freeBytes / (1024 * 1024)
+        return when {
+            freeMb >= MEMORY_GATE_HIGH_MB -> Quality.HIGH.ratio
+            freeMb < MEMORY_GATE_LOW_MB -> Quality.LOW.ratio
+            else -> Quality.MEDIUM.ratio
+        }
     }
 
     private suspend fun retryPipeline(
@@ -116,7 +136,7 @@ object PdfEngine {
     ) {
         val resolver = context.contentResolver
         val pagesPerSheet = output.pagesPerSheet
-        val isNup = pagesPerSheet > 1
+        val sheetBase = sheetBaseSize(context, items.first(), output, ratio)
 
         resolver.openOutputStream(outUri).use { outStream ->
             val writerPages = ArrayList<PdfWriter.Page>(items.size)
@@ -125,15 +145,8 @@ object PdfEngine {
             var cellIndex = 0
             var sheetsDone = 0
 
-            fun sheetSize(): Pair<Int, Int> {
-                val landscape = output.orientation == Orientation.LANDSCAPE
-                val w = (if (landscape) A4_PT_H else A4_PT_W) * ratio
-                val h = (if (landscape) A4_PT_W else A4_PT_H) * ratio
-                return w.toInt() to h.toInt()
-            }
-
             fun beginSheet(): Bitmap {
-                val (sw, sh) = sheetSize()
+                val (sw, sh) = sheetBase
                 return Bitmap.createBitmap(sw, sh, Bitmap.Config.ARGB_8888).also {
                     it.eraseColor(Color.WHITE)
                 }
@@ -141,6 +154,19 @@ object PdfEngine {
 
             fun flushSheet() {
                 val sb = sheetBitmap ?: return
+                if (output.addPageNumbers) {
+                    val text = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                        color = Color.BLACK
+                        textSize = PAGE_NUMBER_PX.toFloat()
+                        textAlign = Paint.Align.CENTER
+                    }
+                    sheetCanvas!!.drawText(
+                        (sheetsDone + 1).toString(),
+                        sb.width / 2f,
+                        sb.height - 40f,
+                        text
+                    )
+                }
                 flushBitmap(sb, writerPages)
                 sheetBitmap = null
                 sheetCanvas = null
@@ -155,26 +181,20 @@ object PdfEngine {
 
                 val rendered = renderEnhancedPage(context, item, ratio, filter)
 
-                if (isNup) {
-                    if (cellIndex == 0) {
-                        sheetBitmap = beginSheet()
-                        sheetCanvas = Canvas(sheetBitmap!!)
-                    }
-                    drawOnSheet(sheetCanvas!!, sheetBitmap!!, rendered, cellIndex, output, index + 1)
-                    cellIndex++
-                    if (cellIndex >= pagesPerSheet) flushSheet()
-                } else {
-                    flushBitmap(rendered, writerPages)
-                    sheetsDone++
-                    if (sheetsDone % GC_EVERY_SHEETS == 0) System.gc()
+                if (cellIndex == 0) {
+                    sheetBitmap = beginSheet()
+                    sheetCanvas = Canvas(sheetBitmap!!)
                 }
+                drawOnSheet(sheetCanvas!!, sheetBitmap!!, rendered, cellIndex, output)
+                cellIndex++
+                if (cellIndex >= pagesPerSheet) flushSheet()
                 rendered.recycle()
 
                 if (freeBytes() < MEMORY_GATE_BYTES) {
                     System.gc()
                 }
             }
-            if (isNup && cellIndex > 0) flushSheet()
+            if (cellIndex > 0) flushSheet()
 
             if (writerPages.isEmpty()) throw IOException("No pages were produced")
             PdfWriter.write(outStream!!, writerPages)
@@ -183,6 +203,33 @@ object PdfEngine {
 
     // ------------------------------------------------------------------
     // page pipeline
+
+    /** Sheet dimensions in pixels: ORIGINAL = first selected page x ratio, A4 = 595x842 x ratio. */
+    private fun sheetBaseSize(
+        context: Context,
+        first: PageItem,
+        output: OutputSettings,
+        ratio: Float
+    ): Pair<Int, Int> {
+        if (output.documentSize == DocumentSize.ORIGINAL) {
+            val fd = context.contentResolver.openFileDescriptor(first.sourceUri, "r")
+                ?: throw IOException("Cannot open source file")
+            fd.use { pfd ->
+                val renderer = PdfRenderer(pfd)
+                renderer.use { r ->
+                    val p = r.openPage(first.originalPageIndex)
+                    p.use { pg ->
+                        return (pg.width * ratio).toInt().coerceAtLeast(1) to
+                            (pg.height * ratio).toInt().coerceAtLeast(1)
+                    }
+                }
+            }
+        }
+        val landscape = output.orientation == Orientation.LANDSCAPE
+        val w = if (landscape) A4_PT_H else A4_PT_W
+        val h = if (landscape) A4_PT_W else A4_PT_H
+        return (w * ratio).toInt() to (h * ratio).toInt()
+    }
 
     private fun renderEnhancedPage(
         context: Context,
@@ -204,7 +251,13 @@ object PdfEngine {
                     val h = (p.height * ratio).toInt().coerceAtLeast(1)
                     val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
                     p.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    return enhance(bmp, filter)
+                    return try {
+                        enhance(bmp, filter)
+                    } catch (oom: OutOfMemoryError) {
+                        Log.w("PdfEngine", "OOM during page processing. Skipping filters to save crash.")
+                        System.gc()
+                        bmp
+                    }
                 }
             }
         }
@@ -243,12 +296,12 @@ object PdfEngine {
         sheet: Bitmap,
         page: Bitmap,
         cellIndex: Int,
-        output: OutputSettings,
-        pageNumber: Int
+        output: OutputSettings
     ) {
         val cols = output.nupColumns
         val rows = output.nupRows
-        val margin = (sheet.width * SHEET_MARGIN_FRACTION).toInt()
+        val margin = if (output.documentSize == DocumentSize.ORIGINAL) 0f
+        else sheet.width / 595f * CM_PT
         val contentW = sheet.width - 2 * margin
         val contentH = sheet.height - 2 * margin
         val cellW = contentW / cols
@@ -256,47 +309,32 @@ object PdfEngine {
         val col = cellIndex % cols
         val row = cellIndex / cols
 
-        val scale = minOf(cellW.toFloat() / page.width, cellH.toFloat() / page.height)
-        val drawW = (page.width * scale).toInt()
-        val drawH = (page.height * scale).toInt()
+        val scale = minOf(cellW / page.width, cellH / page.height)
+        val drawW = page.width * scale
+        val drawH = page.height * scale
         val left = margin + col * cellW + (cellW - drawW) / 2
         val top = margin + row * cellH + (cellH - drawH) / 2
 
         val paint = Paint(Paint.FILTER_BITMAP_FLAG or Paint.ANTI_ALIAS_FLAG)
         canvas.drawBitmap(
             page, null,
-            RectF(left.toFloat(), top.toFloat(), (left + drawW).toFloat(), (top + drawH).toFloat()),
+            RectF(left, top, left + drawW, top + drawH),
             paint
         )
 
-        if (output.addSeparationLines) {
+        if (output.addSeparationLines && output.orientation == Orientation.PORTRAIT) {
             val line = Paint().apply {
-                color = 0xFF9E9E9E.toInt()
+                color = 0xFF000000.toInt()
                 strokeWidth = SEPARATOR_PX.toFloat()
             }
-            if (col < cols - 1) {
-                val x = margin + (col + 1) * cellW
-                canvas.drawLine(
-                    x.toFloat(), margin.toFloat(),
-                    x.toFloat(), (margin + contentH).toFloat(), line
-                )
+            for (i in 1 until cols) {
+                val x = margin + i * cellW
+                canvas.drawLine(x, margin, x, margin + contentH, line)
             }
-            if (row < rows - 1) {
-                val y = margin + (row + 1) * cellH
-                canvas.drawLine(
-                    margin.toFloat(), y.toFloat(),
-                    (margin + contentW).toFloat(), y.toFloat(), line
-                )
+            for (j in 1 until rows) {
+                val y = margin + j * cellH
+                canvas.drawLine(margin, y, margin + contentW, y, line)
             }
-        }
-        if (output.addPageNumbers) {
-            val text = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = Color.BLACK
-                textSize = PAGE_NUMBER_PX.toFloat()
-                textAlign = Paint.Align.CENTER
-            }
-            val baseline = top + drawH - PAGE_NUMBER_PX * 0.5f
-            canvas.drawText(pageNumber.toString(), (left + drawW / 2).toFloat(), baseline, text)
         }
     }
 

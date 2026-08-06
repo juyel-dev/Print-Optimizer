@@ -73,14 +73,18 @@ fun MergeScreen(nav: NavHostController) {
 
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
         scope.launch {
-            val loaded = withContext(Dispatchers.IO) {
-                uris.map { u ->
-                    val name = queryName(context, u)
-                    val count = countPages(context, u)
-                    MergeFile(u, name, count)
+            try {
+                val loaded = withContext(Dispatchers.IO) {
+                    uris.map { u ->
+                        val name = queryName(context, u)
+                        val count = countPages(context, u)
+                        MergeFile(u, name, count)
+                    }
                 }
+                files = files + loaded
+            } catch (t: Throwable) {
+                error = "Could not read selected files: ${t.message ?: "unknown error"}"
             }
-            files = files + loaded
         }
     }
 
@@ -233,8 +237,12 @@ private suspend fun queryName(context: android.content.Context, uri: Uri): Strin
 }
 
 private suspend fun countPages(context: android.content.Context, uri: Uri): Int = withContext(Dispatchers.IO) {
-    val fd = context.contentResolver.openFileDescriptor(uri, "r") ?: return@withContext 0
-    fd.use { pfd ->
-        android.graphics.pdf.PdfRenderer(pfd).use { it.pageCount }
+    try {
+        val fd = context.contentResolver.openFileDescriptor(uri, "r") ?: return@withContext 0
+        fd.use { pfd ->
+            android.graphics.pdf.PdfRenderer(pfd).use { it.pageCount }
+        }
+    } catch (t: Throwable) {
+        0
     }
 }

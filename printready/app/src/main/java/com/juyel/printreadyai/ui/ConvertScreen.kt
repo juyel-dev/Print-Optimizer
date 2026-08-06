@@ -119,11 +119,15 @@ fun ConvertScreen(nav: NavHostController) {
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { u ->
         u ?: return@rememberLauncherForActivityResult
         scope.launch {
-            val count = countPages(context, u)
-            uri = u
-            pageCount = count
-            selected = (0 until count).toSet()
-            preview = renderPreview(context, u, 640)
+            try {
+                val count = countPages(context, u)
+                uri = u
+                pageCount = count
+                selected = (0 until count).toSet()
+                preview = renderPreview(context, u, 640)
+            } catch (t: Throwable) {
+                error = "Could not read this PDF: ${t.message ?: "unknown error"}"
+            }
         }
     }
 
@@ -493,27 +497,36 @@ private fun LogoEditor(preview: Bitmap, logo1: androidx.compose.runtime.MutableS
 }
 
 private suspend fun countPages(context: android.content.Context, uri: Uri): Int = withContext(Dispatchers.IO) {
-    val fd = context.contentResolver.openFileDescriptor(uri, "r") ?: return@withContext 0
-    fd.use { pfd ->
-        PdfRenderer(pfd).use { it.pageCount }
+    try {
+        val fd = context.contentResolver.openFileDescriptor(uri, "r") ?: return@withContext 0
+        fd.use { pfd ->
+            PdfRenderer(pfd).use { it.pageCount }
+        }
+    } catch (t: Throwable) {
+        0
     }
 }
 
 private suspend fun renderPreview(context: android.content.Context, uri: Uri, targetWidth: Int): Bitmap? =
     withContext(Dispatchers.IO) {
-        val fd = context.contentResolver.openFileDescriptor(uri, "r") ?: return@withContext null
-        fd.use { pfd ->
-            PdfRenderer(pfd).use { r ->
-                if (r.pageCount == 0) return@withContext null
-                val page = r.openPage(0)
-                page.use { p ->
-                    val scale = targetWidth.toFloat() / p.width
-                    val w = (p.width * scale).toInt()
-                    val h = (p.height * scale).toInt()
-                    val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
-                    p.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    bmp
+        try {
+            val fd = context.contentResolver.openFileDescriptor(uri, "r") ?: return@withContext null
+            fd.use { pfd ->
+                PdfRenderer(pfd).use { r ->
+                    if (r.pageCount == 0) return@withContext null
+                    val page = r.openPage(0)
+                    page.use { p ->
+                        if (p.width <= 0 || p.height <= 0) return@withContext null
+                        val scale = targetWidth.toFloat() / p.width
+                        val w = (p.width * scale).toInt().coerceAtLeast(1)
+                        val h = (p.height * scale).toInt().coerceAtLeast(1)
+                        val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+                        p.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        bmp
+                    }
                 }
             }
+        } catch (t: Throwable) {
+            null
         }
     }

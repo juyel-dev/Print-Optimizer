@@ -96,9 +96,9 @@ landmark, city, state, pincode, address_type, is_verified, is_default`
 
 | Call | Method | Worker |
 |---|---|---|
-| list | GET `shipping-addresses` | `p092v3/w` (parse `data[]` → `List<v>`) |
+| list | GET `shipping-addresses` (parse `data[]` → `List<v>`) | `p083t3/C2295k0` → `p092v3/w` |
 | add/update | POST `shipping-addresses` | (checkout form submit) |
-| delete | DELETE `shipping-addresses/<id>` | `p083t3/C2295k0` |
+| delete | not implemented in this build | — |
 | set default | POST `shipping-addresses/<id>/default` | `p083t3/S0` |
 | pincode lookup | (check-edd/pincode) | `p092v3/w` case 1 → `h(city, state)` or `"Pincode not serviceable"` |
 

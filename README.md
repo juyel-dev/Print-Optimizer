@@ -79,6 +79,9 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
     ├── 13-logo-removal-ui.md     # LogoSelectionScreen: overlay, fine-tune pads, shape/mode enums
     ├── 14-promo-help-error-components.md  # Flash-sale dialog, promo banner, Help/FAQ, ErrorScreen, WarningBanner
     ├── 15-home-about-components.md  # Features/Landing/About/GlobalHome/EditPage sub-components
+    ├── 16-livechat-community.md  # Live Chat (stub), Community social links, Community Pass tiers
+    ├── 17-auth-google-signin-addresses.md  # CredentialManager Google Sign-In, JWT exchange, address book API
+    ├── 18-quick-tools-step-screens.md  # 9 tool step screens, empty "Calculators" category, notebook leftovers
     ├── flow.md                # End-to-end flow: upload → process → download
     ├── native_algorithm.md    # processPage() native pipeline, step by step
     └── disassembly/           # rizin dumps of every JNI export
@@ -124,9 +127,12 @@ The advertised "AI-Powered PDF Enhancement" is **pure pixel math** — no ML, no
 13. **[13 — Logo removal UI](docs/13-logo-removal-ui.md)** — `LogoSelectionScreen`: normalized `RectF` selection (default top-right), `RECTANGLE/CIRCLE` shapes, `BOTH/WIDTH/HEIGHT` resize modes, overlay canvas, move/resize fine-tune pads, page preview, and its link to the native `removeLogo` region.
 14. **[14 — Promo/help/error components](docs/14-promo-help-error-components.md)** — `WeekendFlashSaleDialog` (live/upcoming title logic), `AnimatedPromoBanner` (rotating `AnimatedContent`), `HelpCenterScreen`/`FAQCard`, `ErrorScreen`, `WarningBanner`.
 15. **[15 — Home/About/Edit components](docs/15-home-about-components.md)** — `FeaturesScreen`/`FeatureCard`, Landing sections (`HowItWorksSection`, `StepItem`, `FeaturesSection`, `AIBadge`), `AboutUsScreen` (`TechItem`/`StatCard`/`ValueItem`), `GlobalHomeScreen` (`BrandFeatureBadge`, `WebStyleCTA`, `ToolGridItem`), `EditPageScreen` (`SelectionOverlay`, `ToolOption`, `HistoryButton`).
-16. **[Flow](docs/flow.md)** — processing pipeline end to end.
-17. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
-18. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
+16. **[16 — Live Chat & Community](docs/16-livechat-community.md)** — `LiveChatScreen` is a stub (static placeholder, no chat transport), `CommunityScreen` social link cards (Telegram etc.), `CommunityPassScreen` tiers + `ComparisonTable` + sign-in gate.
+17. **[17 — Google Sign-In & addresses](docs/17-auth-google-signin-addresses.md)** — `AuthManager`: CredentialManager Google ID → idToken → `POST /api/auth/mobile` → JWT; full `auth_prefs` map, per-plan page rates, logout; `PrintAddressesScreen` (gate when logged out), address model + `/api/print/shipping-addresses/` CRUD.
+18. **[18 — Quick Tools step screens](docs/18-quick-tools-step-screens.md)** — file map + shared state machine for all 9 tool screens, the empty **"Calculators"** category, and the PRINTS notebook leftovers (`PrintNotebookItem`, `NotebookConfiguratorCard`, `A4CoverPage`, `LiveNotebookCoverShowcase`).
+19. **[Flow](docs/flow.md)** — processing pipeline end to end.
+20. **[Native algorithm](docs/native_algorithm.md)** — `processPage()` step by step.
+21. **[Disassembly](docs/disassembly/)** — rizin dumps of all 9 JNI exports.
 
 ## Disclaimer
 

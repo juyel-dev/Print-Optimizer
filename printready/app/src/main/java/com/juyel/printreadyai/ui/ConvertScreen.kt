@@ -484,7 +484,7 @@ private fun FlowLanding(onStart: () -> Unit) {
             "Printable",
             fontSize = 44.sp,
             fontWeight = FontWeight.ExtraBold,
-            brush = brandBrush,
+            color = AppColors.Accent,
             textAlign = TextAlign.Center
         )
         Text(
@@ -833,7 +833,7 @@ private fun FlowPreview(pages: MutableList<FlowPage>, onBack: () -> Unit, onCont
                                 null,
                                 contentScale = ContentScale.Fit,
                                 modifier = Modifier.matchParentSize().let { m ->
-                                    if (!page.isSelected) m.alpha(0.35f) else m
+                                    if (!page.isSelected) m.graphicsLayer { alpha = 0.35f } else m
                                 }
                             )
                         } ?: Box(Modifier.matchParentSize(), contentAlignment = Alignment.Center) {

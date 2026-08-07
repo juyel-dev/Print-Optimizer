@@ -16,6 +16,13 @@ object AppColors {
     val TextSecondary = Color(0xFFA1A1AA)
     val Success = Color(0xFF22C55E)
     val Error = Color(0xFFEF4444)
+    
+    // Aliases for compatibility
+    val Bg = Background
+    val Danger = Error
+    
+    // Brand gradient
+    val Gradient = listOf(Color(0xFFA855F7), Color(0xFFEC4899))
 }
 
 private val DarkScheme = darkColorScheme(

@@ -117,8 +117,23 @@ import com.juyel.printreadyai.core.Quality
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.abs
+import kotlin.math.minOf
+import kotlin.math.maxOf
 import kotlin.math.roundToInt
 
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.KeyboardArrowLeft
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import androidx.compose.material.icons.outlined.Remove
 // ---------- Data ----------
 private data class PdfDoc(val uri: Uri, val name: String, val size: Long, val pageCount: Int)
 private data class FlowPage(val docUri: Uri, val pageIndex: Int, val isSelected: Boolean = true, val thumbnail: Bitmap? = null)
@@ -1024,62 +1039,253 @@ private fun StepButton(label: String, onClick: () -> Unit) {
 }
 
 @Composable
-private fun LogoEditor(preview: Bitmap, region: androidx.compose.runtime.MutableState<LogoRegion>, circle: Boolean, onCircle: (Boolean) -> Unit) {
-    val previewW = preview.width
-    val previewH = preview.height
+private fun LogoEditor(
+    preview: Bitmap,
+    region: androidx.compose.runtime.MutableState<LogoRegion>,
+    circle: Boolean,
+    onCircle: (Boolean) -> Unit
+) {
+    val density = LocalDensity.current
+    var containerSize by remember { mutableStateOf(IntSize.Zero) }
+    var tuneMode by remember { mutableIntStateOf(0) } // 0 = Move, 1 = Resize
+    var confirmed by remember { mutableStateOf(false) }
+    val r = region.value
+    LaunchedEffect(r) { confirmed = false }
+
+    // Aspect-fit the page bitmap inside the preview container (pixel units).
+    val fit: IntRect = if (containerSize.width > 0 && containerSize.height > 0 && preview.width > 0 && preview.height > 0) {
+        val scale = minOf(containerSize.width.toFloat() / preview.width, containerSize.height.toFloat() / preview.height)
+        val fw = (preview.width * scale).toInt()
+        val fh = (preview.height * scale).toInt()
+        val x = (containerSize.width - fw) / 2
+        val y = (containerSize.height - fh) / 2
+        IntRect(x, y, x + fw, y + fh)
+    } else IntRect.Zero
+
     Card(shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = AppColors.Surface)) {
-        Box(modifier = Modifier.fillMaxWidth().height(240.dp).padding(4.dp)) {
-            Image(bitmap = preview.asImageBitmap(), contentDescription = "Preview", contentScale = ContentScale.Fit, modifier = Modifier.matchParentSize())
-            val r = region.value
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Select Logo Region", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold, color = AppColors.TextPrimary)
+            Text("PDF Page Preview", style = MaterialTheme.typography.bodySmall, color = AppColors.TextSecondary)
+
             Box(
                 modifier = Modifier
-                    .offset { IntOffset((r.left * previewW).toInt(), (r.top * previewH).toInt()) }
-                    .size(width = (r.w * previewW).toInt().dp, height = (r.h * previewH).toInt().dp)
-                    .border(2.dp, AppColors.Accent, if (circle) CircleShape else RoundedCornerShape(4.dp))
-                    .pointerInput(r) {
-                        detectDragGestures { change, drag ->
-                            change.consume()
-                            region.value = r.copy(
-                                left = (r.left + drag.x / previewW).coerceIn(0f, 1f - r.w),
-                                top = (r.top + drag.y / previewH).coerceIn(0f, 1f - r.h)
-                            )
-                        }
+                    .fillMaxWidth()
+                    .height(300.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color.Black.copy(alpha = 0.35f))
+                    .onSizeChanged { containerSize = it }
+            ) {
+                if (fit.width > 0 && fit.height > 0) {
+                    Box(
+                        modifier = Modifier
+                            .offset { IntOffset(fit.left, fit.top) }
+                            .size(with(density) { DpSize(fit.width.toDp(), fit.height.toDp()) })
+                    ) {
+                        Image(
+                            bitmap = preview.asImageBitmap(),
+                            contentDescription = "PDF Page Preview",
+                            contentScale = ContentScale.FillBounds,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                        LogoSelectionOverlay(region, circle)
                     }
+                }
+            }
+
+            Text(
+                "Drag on the page to draw a box, drag inside it to move, drag the corner dot to resize.",
+                style = MaterialTheme.typography.bodySmall, color = AppColors.TextSecondary
+            )
+            Text(
+                "Logo will be removed from all pages",
+                style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold, color = AppColors.Accent
+            )
+
+            // Shape options (RE: ShapeOption — B6 RECTANGLE | CIRCLE)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Shape", style = MaterialTheme.typography.bodySmall, color = AppColors.TextSecondary, modifier = Modifier.width(56.dp))
+                FilterChip(selected = !circle, onClick = { onCircle(false) }, label = { Text("Rectangle") })
+                Spacer(Modifier.width(8.dp))
+                FilterChip(selected = circle, onClick = { onCircle(true) }, label = { Text("Circle") })
+            }
+
+            // Fine-tune controls (RE: FineTuneControls — TinyControlIcon steppers + sliders)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Fine-tune", style = MaterialTheme.typography.bodySmall, color = AppColors.TextSecondary, modifier = Modifier.width(56.dp))
+                FilterChip(selected = tuneMode == 0, onClick = { tuneMode = 0 }, label = { Text("Move") })
+                Spacer(Modifier.width(8.dp))
+                FilterChip(selected = tuneMode == 1, onClick = { tuneMode = 1 }, label = { Text("Resize") })
+            }
+            if (tuneMode == 0) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                    NudgeIconButton(Icons.Outlined.KeyboardArrowLeft) { nudgeMove(region, -LOGO_NUDGE, 0f) }
+                    NudgeIconButton(Icons.Outlined.KeyboardArrowUp) { nudgeMove(region, 0f, -LOGO_NUDGE) }
+                    NudgeIconButton(Icons.Outlined.KeyboardArrowDown) { nudgeMove(region, 0f, LOGO_NUDGE) }
+                    NudgeIconButton(Icons.Outlined.KeyboardArrowRight) { nudgeMove(region, LOGO_NUDGE, 0f) }
+                }
+                LabeledSlider("Position X", r.left, 0f, (1f - r.w).coerceAtLeast(0f)) { region.value = r.copy(left = it) }
+                LabeledSlider("Position Y", r.top,  0f, (1f - r.h).coerceAtLeast(0f)) { region.value = r.copy(top  = it) }
+            } else {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                    NudgeIconButton(Icons.Outlined.Remove) { nudgeResize(region, -LOGO_NUDGE, 0f) }
+                    Text(" W ", fontWeight = FontWeight.Bold)
+                    NudgeIconButton(Icons.Outlined.Add) { nudgeResize(region, LOGO_NUDGE, 0f) }
+                    Spacer(Modifier.width(12.dp))
+                    NudgeIconButton(Icons.Outlined.Remove) { nudgeResize(region, 0f, -LOGO_NUDGE) }
+                    Text(" H ", fontWeight = FontWeight.Bold)
+                    NudgeIconButton(Icons.Outlined.Add) { nudgeResize(region, 0f, LOGO_NUDGE) }
+                }
+                LabeledSlider("Width",  r.w, LOGO_MIN, 1f - r.left) { region.value = r.copy(w = it) }
+                LabeledSlider("Height", r.h, LOGO_MIN, 1f - r.top)  { region.value = r.copy(h = it) }
+            }
+
+            Text(
+                "x ${(r.left * 100).roundToInt()}%  y ${(r.top * 100).roundToInt()}%  •  ${(r.w * 100).roundToInt()}% × ${(r.h * 100).roundToInt()}%",
+                fontSize = 11.sp, color = AppColors.TextSecondary, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()
+            )
+
+            Button(
+                onClick = { confirmed = true },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Accent)
+            ) {
+                Icon(Icons.Outlined.Check, null, Modifier.size(16.dp))
+                Spacer(Modifier.width(6.dp))
+                Text(if (confirmed) "Selection Applied" else "Apply Selection", fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+
+private const val LOGO_MIN = 0.03f
+private const val LOGO_NUDGE = 0.01f
+private enum class LogoDragMode { NONE, MOVE, RESIZE, DRAW }
+
+@Composable
+private fun LogoSelectionOverlay(region: androidx.compose.runtime.MutableState<LogoRegion>, circle: Boolean) {
+    val density = LocalDensity.current
+    var areaPx by remember { mutableStateOf(IntSize.Zero) }
+    var dragMode by remember { mutableStateOf(LogoDragMode.NONE) }
+    var dragStart by remember { mutableStateOf(Offset.Zero) }
+    var dragR0 by remember { mutableStateOf(LogoRegion()) }
+    val r = region.value
+
+    Box(modifier = Modifier.fillMaxSize().onSizeChanged { areaPx = it }) {
+        if (areaPx.width > 0 && areaPx.height > 0) {
+            val W = areaPx.width
+            val H = areaPx.height
+            val selW = (r.w * W).toInt().coerceAtLeast(1)
+            val selH = (r.h * H).toInt().coerceAtLeast(1)
+            val handleTol = with(density) { 28.dp.toPx() }
+            val shape = if (circle) CircleShape else RoundedCornerShape(2.dp)
+
+            Box(
+                modifier = Modifier
+                    .offset { IntOffset((r.left * W).toInt(), (r.top * H).toInt()) }
+                    .size(with(density) { DpSize(selW.toDp(), selH.toDp()) })
+                    .clip(shape)
+                    .background(AppColors.Accent.copy(alpha = 0.12f))
+                    .border(2.dp, AppColors.Accent, shape)
             ) {
                 Text(
                     "Logo",
-                    fontSize = 10.sp,
-                    color = Color.White,
+                    fontSize = 10.sp, color = Color.White,
                     modifier = Modifier.align(Alignment.TopStart).background(AppColors.Accent).padding(horizontal = 4.dp, vertical = 1.dp)
                 )
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                        .size(14.dp)
-                        .background(Color.White)
-                        .pointerInput(r) {
-                            detectDragGestures { change, drag ->
-                                change.consume()
-                                region.value = r.copy(
-                                    w = (r.w + drag.x / previewW).coerceIn(0.05f, 1f - r.left),
-                                    h = (r.h + drag.y / previewH).coerceIn(0.05f, 1f - r.top)
-                                )
-                            }
-                        }
+                        .size(12.dp)
+                        .clip(CircleShape)
+                        .background(AppColors.Accent)
+                        .border(2.dp, Color.White, CircleShape)
                 )
             }
+
+            Box(
+                modifier = Modifier.fillMaxSize().pointerInput(Unit) {
+                    detectDragGestures(
+                        onDragStart = { start ->
+                            dragStart = start
+                            dragR0 = region.value
+                            val bx = dragR0.left * W
+                            val by = dragR0.top * H
+                            val bw = dragR0.w * W
+                            val bh = dragR0.h * H
+                            val nearHandle = abs(start.x - (bx + bw)) <= handleTol && abs(start.y - (by + bh)) <= handleTol
+                            dragMode = when {
+                                nearHandle -> LogoDragMode.RESIZE
+                                start.x >= bx && start.x <= bx + bw && start.y >= by && start.y <= by + bh -> LogoDragMode.MOVE
+                                else -> LogoDragMode.DRAW
+                            }
+                        },
+                        onDragEnd = { dragMode = LogoDragMode.NONE },
+                        onDragCancel = { dragMode = LogoDragMode.NONE }
+                    ) { change, _ ->
+                        change.consume()
+                        val p = change.position
+                        when (dragMode) {
+                            LogoDragMode.MOVE -> {
+                                region.value = dragR0.copy(
+                                    left = (dragR0.left + (p.x - dragStart.x) / W).coerceIn(0f, 1f - dragR0.w),
+                                    top  = (dragR0.top  + (p.y - dragStart.y) / H).coerceIn(0f, 1f - dragR0.h)
+                                )
+                            }
+                            LogoDragMode.RESIZE -> {
+                                region.value = dragR0.copy(
+                                    w = (p.x / W - dragR0.left).coerceIn(LOGO_MIN, 1f - dragR0.left),
+                                    h = (p.y / H - dragR0.top ).coerceIn(LOGO_MIN, 1f - dragR0.top)
+                                )
+                            }
+                            LogoDragMode.DRAW -> {
+                                val x0 = (minOf(dragStart.x, p.x) / W).coerceIn(0f, 1f)
+                                val y0 = (minOf(dragStart.y, p.y) / H).coerceIn(0f, 1f)
+                                val x1 = (maxOf(dragStart.x, p.x) / W).coerceIn(0f, 1f)
+                                val y1 = (maxOf(dragStart.y, p.y) / H).coerceIn(0f, 1f)
+                                if (x1 - x0 >= LOGO_MIN && y1 - y0 >= LOGO_MIN) {
+                                    region.value = LogoRegion(x0, y0, x1 - x0, y1 - y0)
+                                }
+                            }
+                            LogoDragMode.NONE -> {}
+                        }
+                    }
+                }
+            )
         }
-        Text(
-            "Drag the box over the logo; drag the white corner to resize.",
-            style = MaterialTheme.typography.bodySmall,
-            color = AppColors.TextSecondary,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
-        )
-        Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp)) {
-            TextButton(onClick = { onCircle(!circle) }) {
-                Text("Shape: ${if (circle) "Circle" else "Square"}")
-            }
-        }
+    }
+}
+
+private fun nudgeMove(region: androidx.compose.runtime.MutableState<LogoRegion>, dx: Float, dy: Float) {
+    val r = region.value
+    region.value = r.copy(
+        left = (r.left + dx).coerceIn(0f, 1f - r.w),
+        top  = (r.top  + dy).coerceIn(0f, 1f - r.h)
+    )
+}
+
+private fun nudgeResize(region: androidx.compose.runtime.MutableState<LogoRegion>, dw: Float, dh: Float) {
+    val r = region.value
+    region.value = r.copy(
+        w = (r.w + dw).coerceIn(LOGO_MIN, 1f - r.left),
+        h = (r.h + dh).coerceIn(LOGO_MIN, 1f - r.top)
+    )
+}
+
+@Composable
+private fun NudgeIconButton(icon: ImageVector, onClick: () -> Unit) {
+    IconButton(onClick = onClick, modifier = Modifier.size(36.dp)) {
+        Icon(icon, null, tint = AppColors.Accent)
+    }
+}
+
+@Composable
+private fun LabeledSlider(label: String, value: Float, from: Float, to: Float, onChange: (Float) -> Unit) {
+    if (to <= from) return
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(label, style = MaterialTheme.typography.bodySmall, color = AppColors.TextSecondary, modifier = Modifier.width(84.dp))
+        Slider(value = value.coerceIn(from, to), onValueChange = onChange, valueRange = from..to, modifier = Modifier.weight(1f))
+        Text((value * 100).roundToInt().toString() + "%", color = AppColors.TextPrimary, modifier = Modifier.width(42.dp), textAlign = TextAlign.End)
     }
 }
 

@@ -35,7 +35,7 @@ MainActivity.onCreate ──setContent▶  p107y3.b.a (theme)
 | 4 | `sources/p083t3/L.java` | NotesCrafterContent / central router | String-based router: destination switch (`home` case at L:2751 → GlobalHomeScreen; `flow` at L:517). THE map of every screen + its route name. |
 | 5 | `sources/p083t3/M.java` | Router state / NavHost | Initial route state `"home"` (M:393) — proves Home is the first screen, no onboarding gate. |
 | 6 | `sources/p083t3/S.java` | Scaffold + RouteScope | App scaffold wiring: top bar, bottom bar visibility, route lambdas passed into screens. |
-| 7 | `sources/p083t3/C2313u.java` | flow step navigation helper | FLOW/PRINTS card tap → route `"flow"`, step −1 (opens Downloads screen of the flow). |
+| 7 | `sources/p083t3/C2313u.java` | flow step navigation helper | **Corrected:** Home FLOW card tap (mode 2, L:2757) → route `"flow"` + step **0** = LandingScreen. Modes 0/1 (step −1 → DownloadsScreen) are the **top-bar cart/downloads icons** (via C2319x top bar). See `22-landing-screen-implementation-map.md` §14. |
 | 8 | `sources/p102x3/AbstractC2684t5.java` | **GlobalHomeScreen.kt** (line 52) | THE HOME SCREEN: hero (gradient "NotesCrafter" 40sp ExtraBold, tagline 18sp Bold), `ProductContainer` (card, press-scale 0.98, line 337), `WebStyleCTA` (line 418, fontScale 1.3), `ToolGridItem` (line 512), `BrandFeatureBadge` (line 552). Stateless — only 3 nav lambdas. |
 | 9 | `sources/p102x3/C2557l5.java` | FLOW card content | "Start Processing" + "Upload dark slides and download printable notes" + "Free Access" badge. |
 | 10 | `sources/p102x3/C2621p5.java` | PRINTS card content | "Print & Deliver" + "Get custom printed notebooks at your doorstep" + "₹0.89/page". |

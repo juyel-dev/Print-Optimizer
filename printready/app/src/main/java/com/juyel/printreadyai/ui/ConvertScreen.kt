@@ -118,8 +118,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.abs
-import kotlin.math.minOf
-import kotlin.math.maxOf
+import kotlin.math.min
+import kotlin.math.max
 import kotlin.math.roundToInt
 
 import androidx.compose.ui.geometry.Offset
@@ -1054,7 +1054,7 @@ private fun LogoEditor(
 
     // Aspect-fit the page bitmap inside the preview container (pixel units).
     val fit: IntRect = if (containerSize.width > 0 && containerSize.height > 0 && preview.width > 0 && preview.height > 0) {
-        val scale = minOf(containerSize.width.toFloat() / preview.width, containerSize.height.toFloat() / preview.height)
+        val scale = min(containerSize.width.toFloat() / preview.width, containerSize.height.toFloat() / preview.height)
         val fw = (preview.width * scale).toInt()
         val fh = (preview.height * scale).toInt()
         val x = (containerSize.width - fw) / 2
@@ -1241,8 +1241,8 @@ private fun LogoSelectionOverlay(region: androidx.compose.runtime.MutableState<L
                             LogoDragMode.DRAW -> {
                                 val x0 = (minOf(dragStart.x, p.x) / W).coerceIn(0f, 1f)
                                 val y0 = (minOf(dragStart.y, p.y) / H).coerceIn(0f, 1f)
-                                val x1 = (maxOf(dragStart.x, p.x) / W).coerceIn(0f, 1f)
-                                val y1 = (maxOf(dragStart.y, p.y) / H).coerceIn(0f, 1f)
+                                val x1 = (max(dragStart.x, p.x) / W).coerceIn(0f, 1f)
+                                val y1 = (max(dragStart.y, p.y) / H).coerceIn(0f, 1f)
                                 if (x1 - x0 >= LOGO_MIN && y1 - y0 >= LOGO_MIN) {
                                     region.value = LogoRegion(x0, y0, x1 - x0, y1 - y0)
                                 }

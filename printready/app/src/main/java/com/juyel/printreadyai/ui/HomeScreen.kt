@@ -192,7 +192,7 @@ private fun HomeHeader(nav: NavHostController) {
             "PrintReady AI",
             fontSize = 19.sp,
             fontWeight = FontWeight.Bold,
-            brush = Brush.linearGradient(brandGradient)
+            color = AppColors.Accent
         )
         Spacer(Modifier.weight(1f))
         HeaderIconButton(Icons.Outlined.Notifications) { nav.navigate(Routes.soon("Notifications")) }

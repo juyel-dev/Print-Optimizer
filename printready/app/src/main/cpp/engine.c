@@ -12,10 +12,10 @@
  * Pixel format: ARGB_8888 packed ints (0xAARRGGBB), alpha preserved.
  */
 
-/* ---- Stage 1: invert (RGB only) ---- */
+/* ---- Stage 1: invert RGB, alpha untouched (matches RE) ---- */
 static void invert_pixels(uint32_t *p, size_t n) {
     for (size_t i = 0; i < n; i++) {
-        *p = (*p ^ 0x00FFFFFFu) | 0xFF000000u;
+        *p = (*p ^ 0x00FFFFFFu);
         p++;
     }
 }

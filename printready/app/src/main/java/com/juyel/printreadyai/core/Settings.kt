@@ -85,17 +85,21 @@ data class OutputSettings(
 }
 
 // =============================================================================
-// Per-page edit operation — RE stores per-page edits in PDFPage.edits.
+// Per-page edit ops — matches RE's sealed edit class (p087u3.h) exactly.
+//   InvertRect -> native invertRegion      InvertOval -> native invertRegionOval
+//   MaskRect   -> native fillRegion        MaskOval   -> native fillRegionOval
+// Rect coords are normalized [0..1] page fractions.
 // =============================================================================
+enum class EditOp { INVERT_RECT, INVERT_OVAL, MASK_RECT, MASK_OVAL }
+
 data class PageEdit(
-    val type: EditType,
+    val op: EditOp,
     val left: Float,
     val top: Float,
     val w: Float,
-    val h: Float
+    val h: Float,
+    val color: Int = 0xFFFFFFFF.toInt() // used by MASK_RECT / MASK_OVAL
 ) : Serializable
-
-enum class EditType { FILL_WHITE, INVERT, FILL_BLACK, FILL_COLOR }
 
 // =============================================================================
 // Page item in the pipeline — matches RE's PDFPage (p087u3.g).

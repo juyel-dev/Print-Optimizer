@@ -1,0 +1,268 @@
+package p047l;
+
+import kotlin.jvm.internal.o;
+
+/* JADX INFO: renamed from: l.m, reason: case insensitive filesystem */
+/* JADX INFO: loaded from: classes.dex */
+public abstract class AbstractC2182m {
+
+    /* JADX INFO: renamed from: a, reason: collision with root package name */
+    public long[] f11786a;
+
+    /* JADX INFO: renamed from: b, reason: collision with root package name */
+    public int[] f11787b;
+
+    /* JADX INFO: renamed from: c, reason: collision with root package name */
+    public Object[] f11788c;
+
+    /* JADX INFO: renamed from: d, reason: collision with root package name */
+    public int f11789d;
+    public int e;
+
+    public final boolean a(int i5) {
+        int iNumberOfTrailingZeros;
+        int iHashCode = Integer.hashCode(i5) * (-862048943);
+        int i6 = iHashCode ^ (iHashCode << 16);
+        int i7 = i6 & 127;
+        int i8 = this.f11789d;
+        int i9 = (i6 >>> 7) & i8;
+        int i10 = 0;
+        loop0: while (true) {
+            long[] jArr = this.f11786a;
+            int i11 = i9 >> 3;
+            int i12 = (i9 & 7) << 3;
+            long j5 = ((jArr[i11 + 1] << (64 - i12)) & ((-i12) >> 63)) | (jArr[i11] >>> i12);
+            long j6 = (((long) i7) * 72340172838076673L) ^ j5;
+            for (long j7 = (~j6) & (j6 - 72340172838076673L) & (-9187201950435737472L); j7 != 0; j7 &= j7 - 1) {
+                iNumberOfTrailingZeros = ((Long.numberOfTrailingZeros(j7) >> 3) + i9) & i8;
+                if (this.f11787b[iNumberOfTrailingZeros] == i5) {
+                    break loop0;
+                }
+            }
+            if ((j5 & ((~j5) << 6) & (-9187201950435737472L)) != 0) {
+                iNumberOfTrailingZeros = -1;
+                break;
+            }
+            i10 += 8;
+            i9 = (i9 + i10) & i8;
+        }
+        return iNumberOfTrailingZeros >= 0;
+    }
+
+    public final boolean b(int i5) {
+        int iNumberOfTrailingZeros;
+        int iHashCode = Integer.hashCode(i5) * (-862048943);
+        int i6 = iHashCode ^ (iHashCode << 16);
+        int i7 = i6 & 127;
+        int i8 = this.f11789d;
+        int i9 = (i6 >>> 7) & i8;
+        int i10 = 0;
+        loop0: while (true) {
+            long[] jArr = this.f11786a;
+            int i11 = i9 >> 3;
+            int i12 = (i9 & 7) << 3;
+            long j5 = ((jArr[i11 + 1] << (64 - i12)) & ((-i12) >> 63)) | (jArr[i11] >>> i12);
+            long j6 = (((long) i7) * 72340172838076673L) ^ j5;
+            for (long j7 = (~j6) & (j6 - 72340172838076673L) & (-9187201950435737472L); j7 != 0; j7 &= j7 - 1) {
+                iNumberOfTrailingZeros = ((Long.numberOfTrailingZeros(j7) >> 3) + i9) & i8;
+                if (this.f11787b[iNumberOfTrailingZeros] == i5) {
+                    break loop0;
+                }
+            }
+            if ((j5 & ((~j5) << 6) & (-9187201950435737472L)) != 0) {
+                iNumberOfTrailingZeros = -1;
+                break;
+            }
+            i10 += 8;
+            i9 = (i9 + i10) & i8;
+        }
+        return iNumberOfTrailingZeros >= 0;
+    }
+
+    public final Object c(int i5) {
+        int iNumberOfTrailingZeros;
+        int iHashCode = Integer.hashCode(i5) * (-862048943);
+        int i6 = iHashCode ^ (iHashCode << 16);
+        int i7 = i6 & 127;
+        int i8 = this.f11789d;
+        int i9 = (i6 >>> 7) & i8;
+        int i10 = 0;
+        loop0: while (true) {
+            long[] jArr = this.f11786a;
+            int i11 = i9 >> 3;
+            int i12 = (i9 & 7) << 3;
+            long j5 = ((jArr[i11 + 1] << (64 - i12)) & ((-i12) >> 63)) | (jArr[i11] >>> i12);
+            long j6 = (((long) i7) * 72340172838076673L) ^ j5;
+            for (long j7 = (~j6) & (j6 - 72340172838076673L) & (-9187201950435737472L); j7 != 0; j7 &= j7 - 1) {
+                iNumberOfTrailingZeros = ((Long.numberOfTrailingZeros(j7) >> 3) + i9) & i8;
+                if (this.f11787b[iNumberOfTrailingZeros] == i5) {
+                    break loop0;
+                }
+            }
+            if ((j5 & ((~j5) << 6) & (-9187201950435737472L)) != 0) {
+                iNumberOfTrailingZeros = -1;
+                break;
+            }
+            i10 += 8;
+            i9 = (i9 + i10) & i8;
+        }
+        if (iNumberOfTrailingZeros >= 0) {
+            return this.f11788c[iNumberOfTrailingZeros];
+        }
+        return null;
+    }
+
+    /* JADX WARN: Code duplicated, block: B:32:0x006f A[DONT_INVERT] */
+    /* JADX WARN: Code duplicated, block: B:33:0x0071 A[LOOP:0: B:14:0x0023->B:33:0x0071, LOOP_END] */
+    /* JADX WARN: Code duplicated, block: B:35:0x0074 A[EDGE_INSN: B:35:0x0074->B:34:0x0074 BREAK  A[LOOP:0: B:14:0x0023->B:33:0x0071], SYNTHETIC] */
+    public final boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof AbstractC2182m)) {
+            return false;
+        }
+        AbstractC2182m abstractC2182m = (AbstractC2182m) obj;
+        if (abstractC2182m.e != this.e) {
+            return false;
+        }
+        int[] iArr = this.f11787b;
+        Object[] objArr = this.f11788c;
+        long[] jArr = this.f11786a;
+        int length = jArr.length - 2;
+        if (length >= 0) {
+            int i5 = 0;
+            while (true) {
+                long j5 = jArr[i5];
+                if ((((~j5) << 7) & j5 & (-9187201950435737472L)) == -9187201950435737472L) {
+                    if (i5 != length) {
+                        break;
+                        break;
+                    }
+                    i5++;
+                } else {
+                    int i6 = 8 - ((~(i5 - length)) >>> 31);
+                    for (int i7 = 0; i7 < i6; i7++) {
+                        if ((255 & j5) < 128) {
+                            int i8 = (i5 << 3) + i7;
+                            int i9 = iArr[i8];
+                            Object obj2 = objArr[i8];
+                            if (obj2 == null) {
+                                if (abstractC2182m.c(i9) != null || !abstractC2182m.b(i9)) {
+                                    return false;
+                                }
+                            } else if (!obj2.equals(abstractC2182m.c(i9))) {
+                                return false;
+                            }
+                        }
+                        j5 >>= 8;
+                    }
+                    if (i6 != 8) {
+                        break;
+                    }
+                    if (i5 != length) {
+                        break;
+                    }
+                    i5++;
+                }
+            }
+        }
+        return true;
+    }
+
+    public final int hashCode() {
+        int[] iArr = this.f11787b;
+        Object[] objArr = this.f11788c;
+        long[] jArr = this.f11786a;
+        int length = jArr.length - 2;
+        int i5 = 0;
+        if (length >= 0) {
+            int i6 = 0;
+            int iHashCode = 0;
+            while (true) {
+                long j5 = jArr[i6];
+                if ((((~j5) << 7) & j5 & (-9187201950435737472L)) != -9187201950435737472L) {
+                    int i7 = 8 - ((~(i6 - length)) >>> 31);
+                    for (int i8 = 0; i8 < i7; i8++) {
+                        if ((255 & j5) < 128) {
+                            int i9 = (i6 << 3) + i8;
+                            int i10 = iArr[i9];
+                            Object obj = objArr[i9];
+                            iHashCode += (obj != null ? obj.hashCode() : 0) ^ Integer.hashCode(i10);
+                        }
+                        j5 >>= 8;
+                    }
+                    if (i7 != 8) {
+                        return iHashCode;
+                    }
+                }
+                if (i6 != length) {
+                    i6++;
+                } else {
+                    i5 = iHashCode;
+                }
+            }
+        }
+        return i5;
+    }
+
+    /* JADX WARN: Code duplicated, block: B:23:0x006c A[DONT_INVERT, PHI: r8
+  0x006c: PHI (r8v2 int) = (r8v1 int), (r8v3 int) binds: [B:10:0x002e, B:22:0x006a] A[DONT_GENERATE, DONT_INLINE]] */
+    /* JADX WARN: Code duplicated, block: B:24:0x006e A[LOOP:0: B:9:0x0020->B:24:0x006e, LOOP_END] */
+    /* JADX WARN: Code duplicated, block: B:28:0x0071 A[EDGE_INSN: B:28:0x0071->B:25:0x0071 BREAK  A[LOOP:0: B:9:0x0020->B:24:0x006e], SYNTHETIC] */
+    public final String toString() {
+        if (this.e == 0) {
+            return "{}";
+        }
+        StringBuilder sb = new StringBuilder("{");
+        int[] iArr = this.f11787b;
+        Object[] objArr = this.f11788c;
+        long[] jArr = this.f11786a;
+        int length = jArr.length - 2;
+        if (length >= 0) {
+            int i5 = 0;
+            int i6 = 0;
+            while (true) {
+                long j5 = jArr[i5];
+                if ((((~j5) << 7) & j5 & (-9187201950435737472L)) == -9187201950435737472L) {
+                    if (i5 != length) {
+                        break;
+                        break;
+                    }
+                    i5++;
+                } else {
+                    int i7 = 8 - ((~(i5 - length)) >>> 31);
+                    for (int i8 = 0; i8 < i7; i8++) {
+                        if ((255 & j5) < 128) {
+                            int i9 = (i5 << 3) + i8;
+                            int i10 = iArr[i9];
+                            Object obj = objArr[i9];
+                            sb.append(i10);
+                            sb.append("=");
+                            if (obj == this) {
+                                obj = "(this)";
+                            }
+                            sb.append(obj);
+                            i6++;
+                            if (i6 < this.e) {
+                                sb.append(", ");
+                            }
+                        }
+                        j5 >>= 8;
+                    }
+                    if (i7 != 8) {
+                        break;
+                    }
+                    if (i5 != length) {
+                        break;
+                    }
+                    i5++;
+                }
+            }
+        }
+        sb.append('}');
+        String string = sb.toString();
+        o.e(string, "s.append('}').toString()");
+        return string;
+    }
+}

@@ -1,0 +1,64 @@
+package p102x3;
+
+import B3.o;
+import C3.u;
+import O3.a;
+import W3.j;
+import androidx.compose.runtime.MutableState;
+import com.notescrafter.utils.ToDoItem;
+import com.notescrafter.utils.ToDoManager;
+import java.util.List;
+
+/* JADX INFO: renamed from: x3.la, reason: case insensitive filesystem */
+/* JADX INFO: loaded from: classes2.dex */
+public final /* synthetic */ class C2562la implements a {
+
+    /* JADX INFO: renamed from: o, reason: collision with root package name */
+    public final /* synthetic */ int f15290o;
+    public final /* synthetic */ ToDoManager p;
+    public final /* synthetic */ MutableState q;
+
+    /* JADX INFO: renamed from: r, reason: collision with root package name */
+    public final /* synthetic */ MutableState f15291r;
+
+    public /* synthetic */ C2562la(ToDoManager toDoManager, MutableState mutableState, MutableState mutableState2, int i5) {
+        this.f15290o = i5;
+        this.p = toDoManager;
+        this.q = mutableState;
+        this.f15291r = mutableState2;
+    }
+
+    /* JADX WARN: Multi-variable type inference failed */
+    @Override // O3.a
+    public final Object invoke() {
+        o oVar = o.f154a;
+        ToDoManager toDoManager = this.p;
+        MutableState mutableState = this.f15291r;
+        MutableState mutableState2 = this.q;
+        switch (this.f15290o) {
+            case 0:
+                List list = AbstractC2642qa.f15449c;
+                if (!j.m0((String) mutableState2.getValue())) {
+                    mutableState.setValue(u.A0((List) mutableState.getValue(), new ToDoItem(0L, (String) mutableState2.getValue(), false, 5, null)));
+                    toDoManager.saveTasks((List) mutableState.getValue());
+                    mutableState2.setValue("");
+                }
+                break;
+            case 1:
+                if (!j.m0((String) mutableState2.getValue())) {
+                    mutableState.setValue(u.A0((List) mutableState.getValue(), new ToDoItem(0L, (String) mutableState2.getValue(), false, 5, null)));
+                    toDoManager.saveTasks((List) mutableState.getValue());
+                    mutableState2.setValue("");
+                }
+                break;
+            default:
+                if (!j.m0((String) mutableState2.getValue())) {
+                    mutableState.setValue(u.A0((List) mutableState.getValue(), new ToDoItem(0L, (String) mutableState2.getValue(), false, 5, null)));
+                    toDoManager.saveTasks((List) mutableState.getValue());
+                    mutableState2.setValue("");
+                }
+                break;
+        }
+        return oVar;
+    }
+}

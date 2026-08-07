@@ -10,6 +10,7 @@ import android.graphics.pdf.PdfRenderer
 import android.graphics.RectF
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -40,8 +41,8 @@ object PdfEngine {
     private const val GC_EVERY_SHEETS = 5
     private const val SEPARATOR_PX = 2
     private const val PAGE_NUMBER_PX = 30
-    private const val A4_PT_W = 595.0
-    private const val A4_PT_H = 842.0
+    private const val A4_PT_W = 595.28
+    private const val A4_PT_H = 841.89
     private const val CM_PT = 28.35f
 
     enum class Mode { CONVERT, MERGE }
@@ -66,10 +67,12 @@ object PdfEngine {
     ): String = withContext(Dispatchers.IO) {
         require(items.isNotEmpty()) { "No pages selected" }
 
-        val name = "%s_%s.pdf".format(
-            if (mode == Mode.MERGE) "Merged" else "Converted",
-            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-        )
+        // RE (flow.md §4): CONVERT names output "<basename>_processed.pdf".
+        val name = if (mode == Mode.MERGE) {
+            "Merged_%s.pdf".format(SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date()))
+        } else {
+            "%s_processed.pdf".format(sourceBaseName(context, items.first().sourceUri))
+        }
         val outUri = context.contentResolver.insert(
             MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
             ContentValues().apply {
@@ -252,7 +255,7 @@ object PdfEngine {
                     val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
                     p.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
                     return try {
-                        enhance(bmp, filter)
+                        enhance(bmp, filter, item.edits)
                     } catch (oom: OutOfMemoryError) {
                         Log.w("PdfEngine", "OOM during page processing. Skipping filters to save crash.")
                         System.gc()
@@ -263,21 +266,33 @@ object PdfEngine {
         }
     }
 
-    private fun enhance(bmp: Bitmap, filter: FilterSettings): Bitmap {
-        if (!filter.anyFilter && !filter.removeLogo) return bmp
+    private fun enhance(bmp: Bitmap, filter: FilterSettings, edits: List<PageEdit>): Bitmap {
+        val colorFilter = filter.invertColors || filter.grayscale || filter.clearBackground || filter.blackAndWhite
+        if (!colorFilter && !filter.removeLogo && edits.isEmpty()) return bmp
         val w = bmp.width
         val h = bmp.height
         val pixels = IntArray(w * h)
         bmp.getPixels(pixels, 0, w, 0, 0, w, h)
 
-        Engine.processPage(
-            pixels, w, h,
-            filter.invertColors,
-            filter.grayscale,
-            filter.clearBackground,
-            filter.blackAndWhite,
-            filter.backgroundThreshold
-        )
+        // RE pipeline order (flow.md §4): per-page edits -> processPage -> removeLogo
+        for (edit in edits) {
+            when (edit.op) {
+                EditOp.INVERT_RECT -> Engine.invertRegion(pixels, w, h, edit.left, edit.top, edit.w, edit.h)
+                EditOp.INVERT_OVAL -> Engine.invertRegionOval(pixels, w, h, edit.left, edit.top, edit.w, edit.h)
+                EditOp.MASK_RECT -> Engine.fillRegion(pixels, w, h, edit.left, edit.top, edit.w, edit.h, edit.color)
+                EditOp.MASK_OVAL -> Engine.fillRegionOval(pixels, w, h, edit.left, edit.top, edit.w, edit.h, edit.color)
+            }
+        }
+        if (colorFilter) {
+            Engine.processPage(
+                pixels, w, h,
+                filter.invertColors,
+                filter.grayscale,
+                filter.clearBackground,
+                filter.blackAndWhite,
+                filter.backgroundThreshold
+            )
+        }
         // RE: single logo box; shape "circle" or "rectangle" (p087u3.b)
         if (filter.removeLogo && filter.logoBox != null) {
             val box = filter.logoBox
@@ -354,6 +369,21 @@ object PdfEngine {
     private fun freeBytes(): Long {
         val rt = Runtime.getRuntime()
         return rt.freeMemory() + (rt.maxMemory() - rt.totalMemory())
+    }
+
+
+    private fun sourceBaseName(context: Context, uri: android.net.Uri): String {
+        var display: String? = null
+        try {
+            context.contentResolver.query(uri, null, null, null, null)?.use { c ->
+                val idx = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (idx >= 0 && c.moveToFirst()) display = c.getString(idx)
+            }
+        } catch (_: Exception) {
+        }
+        val n = display ?: return "Document"
+        val dot = n.lastIndexOf('.')
+        return if (dot > 0) n.substring(0, dot) else n
     }
 
     private fun nextLowerRatio(current: Float): Float {

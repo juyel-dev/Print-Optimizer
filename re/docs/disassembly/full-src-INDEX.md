@@ -1,4 +1,4 @@
-﻿# NotesCrafter FULL app-source index (1,937 obfuscated + 11 original files)
+# NotesCrafter FULL app-source index (1,937 obfuscated + 11 original files)
 
 > All app-owned decompiled sources (jadx) of com.notescrafter v4.0.8.
 > Layout: `full-src/pNNNx/...` = obfuscated app packages (jadx names preserved), `full-src/com/notescrafter/...` = unobfuscated original.
@@ -216,7 +216,7 @@
 | `p028g2\C.java` | C |  renamed: o |
 | `p028g2\C2134b.java` | C2134b |  renamed: g2 |
 | `p028g2\C2136d.java` | C2136d |  renamed: g2 |
-| `p028g2\C2138f.java` | C2138f |  renamed: g2, o |
+| `p028g2\C2138f.java` | C2138f |  renamed: g2, o | ; ui: PaymentScreen |
 | `p028g2\C2139g.java` | C2139g |  renamed: g2, o |
 | `p028g2\C2140h.java` | C2140h |  renamed: g2, o |
 | `p028g2\C2141i.java` | C2141i |  renamed: g2, o |
@@ -229,7 +229,7 @@
 | `p028g2\C2150s.java` | C2150s |  renamed: g2, o |
 | `p028g2\C2151t.java` | C2151t |  renamed: g2, o |
 | `p028g2\C2152u.java` | C2152u |  renamed: g2, o |
-| `p028g2\C2153v.java` | C2153v |  renamed: g2, A |
+| `p028g2\C2153v.java` | C2153v |  renamed: g2, A | ; ui: PaymentScreen |
 | `p028g2\C2154w.java` | C2154w |  renamed: g2, o |
 | `p028g2\C2155x.java` | C2155x |  renamed: g2, o |
 | `p028g2\C2156y.java` | C2156y |  renamed: g2, o |
@@ -277,10 +277,10 @@
 | `p033h3\C2161c.java` | C2161c |  renamed: h3, a |
 | `p033h3\d.java` | d |  renamed: a |
 | `p033h3\e.java` | e |  renamed: a |
-| `p033h3\f.java` |  |  renamed: o |
+| `p033h3\f.java` |  |  renamed: o | ; related: ReviewHelper ; ui: ReviewScreen |
 | `p033h3\g.java` | g |  renamed: o, r |
 | `p033h3\j.java` | j |  renamed: c, d |
-| `p033h3\k.java` | k |  renamed: o |
+| `p033h3\k.java` | k |  renamed: o | ; ui: SettingsScreen |
 | `p033h3\m.java` |  |  renamed: o, r |
 | `p033h3\n.java` | n |  renamed: o |
 | `p033h3\o.java` | o |  renamed: a |
@@ -302,7 +302,7 @@
 | `p036i2\b.java` | b |  |
 | `p036i2\c.java` | c |  renamed: o |
 | `p036i2\d.java` | d |  |
-| `p036i2\e.java` | e |  renamed: s, o |
+| `p036i2\e.java` | e |  renamed: s, o | ; related: MainActivity.kt |
 | `p036i2\f.java` | f |  renamed: A, y |
 | `p037i3\a.java` | a |  renamed: o |
 | `p037i3\b.java` | b |  renamed: o |
@@ -335,7 +335,7 @@
 | `p041j2\l.java` | l |  |
 | `p042j3\a.java` | a |  renamed: a, b |
 | `p042j3\b.java` | b |  renamed: a, b |
-| `p042j3\c.java` | c |  renamed: o |
+| `p042j3\c.java` | c |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p043k\a.java` | a |  renamed: o |
 | `p043k\b.java` | b |  renamed: o |
 | `p043k\c.java` | c |  renamed: o |
@@ -693,7 +693,7 @@
 | `p082t2\C2263u0.java` | C2263u0 |  renamed: t2, a |
 | `p082t2\C2264v.java` | C2264v |  renamed: t2, o |
 | `p082t2\C2265v0.java` |  |  renamed: t2, a |
-| `p082t2\C2267w0.java` | C2267w0 |  renamed: t2, c |
+| `p082t2\C2267w0.java` | C2267w0 |  renamed: t2, c | ; ui: SettingsScreen |
 | `p082t2\C2271y0.java` |  |  renamed: t2, o |
 | `p082t2\C2272z.java` |  |  renamed: t2, a |
 | `p082t2\CallableC2246l0.java` | CallableC2246l0 |  renamed: t2, a |
@@ -722,7 +722,7 @@
 | `p082t2\InterfaceC2254p0.java` | InterfaceC2254p0 |  renamed: t2 |
 | `p082t2\J.java` | J |  renamed: c, d |
 | `p082t2\J0.java` |  |  renamed: o, r |
-| `p082t2\j1.java` | j1 |  renamed: H, B |
+| `p082t2\j1.java` | j1 |  renamed: H, B | ; ui: SettingsScreen |
 | `p082t2\K.java` | K |  renamed: b, c |
 | `p082t2\K0.java` | K0 |  renamed: c, d |
 | `p082t2\k1.java` | k1 |  renamed: o, r |
@@ -749,7 +749,7 @@
 | `p082t2\r1.java` | r1 |  renamed: a, b |
 | `p082t2\RunnableC2225b.java` | RunnableC2225b |  renamed: t2, o |
 | `p082t2\RunnableC2234f0.java` |  |  renamed: t2, o |
-| `p082t2\RunnableC2240i0.java` | RunnableC2240i0 |  renamed: t2, o |
+| `p082t2\RunnableC2240i0.java` | RunnableC2240i0 |  renamed: t2, o | ; ui: SettingsScreen |
 | `p082t2\RunnableC2242j0.java` | RunnableC2242j0 |  renamed: t2, o |
 | `p082t2\RunnableC2244k0.java` | RunnableC2244k0 |  renamed: t2, o |
 | `p082t2\RunnableC2248m0.java` | RunnableC2248m0 |  renamed: t2, o |
@@ -774,106 +774,106 @@
 | `p082t2\Z.java` |  |  renamed: a, b |
 | `p082t2\Z0.java` | Z0 |  renamed: c, d |
 | `p083t3\A.java` | A |  trace: com.notescrafter.NotesCrafterContent.<anonymous>.<anonymous> (MainActivity.kt:451); com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:997); com.notescrafter.ui.screens.PreviewScreen.<anonymous>.<anonymous>.<anonymous> (PreviewScreen.kt:308) renamed: o |
-| `p083t3\A0.java` | A0 |  renamed: o |
-| `p083t3\a1.java` | a1 |  renamed: o, r |
-| `p083t3\AbstractC2278c.java` | AbstractC2278c |  renamed: t3, a |
-| `p083t3\B0.java` | B0 |  renamed: o |
-| `p083t3\b1.java` | b1 |  renamed: o, r |
+| `p083t3\A0.java` | A0 |  renamed: o | ; related: PrintOrderViewModel ; ui: AddressScreen; PrintFlow |
+| `p083t3\a1.java` | a1 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\AbstractC2278c.java` | AbstractC2278c |  renamed: t3, a | ; related: MainActivity.lambda-1 (MainActivity.kt:1107); MainActivity.lambda-2 (MainActivity.kt:1144) |
+| `p083t3\B0.java` | B0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\b1.java` | b1 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C0.java` | C0 |  renamed: o |
-| `p083t3\c1.java` | c1 |  renamed: o |
+| `p083t3\c1.java` | c1 |  renamed: o | ; related: PrintOrderViewModel ; ui: AddressScreen; PrintFlow |
 | `p083t3\C2274a.java` | C2274a | **[KNOWN]** MainActivity composable lambda 1 (MainActivity.kt:1107) trace: com.notescrafter.ComposableSingletons$MainActivityKt.lambda-1.<anonymous> (MainActivity.kt:1107) renamed: t3, o |
-| `p083t3\C2275a0.java` |  |  renamed: t3, o |
+| `p083t3\C2275a0.java` |  |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2276b.java` | C2276b | **[KNOWN]** MainActivity composable lambda 2 (MainActivity.kt:1144) trace: com.notescrafter.ComposableSingletons$MainActivityKt.lambda-2.<anonymous> (MainActivity.kt:1144) renamed: t3, o |
-| `p083t3\C2277b0.java` |  |  renamed: t3, o |
-| `p083t3\C2279c0.java` |  |  renamed: t3, o |
-| `p083t3\C2280d.java` | C2280d |  renamed: t3, o |
-| `p083t3\C2281d0.java` |  |  renamed: t3, o |
-| `p083t3\C2282e.java` | C2282e |  renamed: t3, o |
+| `p083t3\C2277b0.java` |  |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: AddressScreen; PrintFlow |
+| `p083t3\C2279c0.java` |  |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2280d.java` | C2280d |  renamed: t3, o | ; related: MainActivity.kt |
+| `p083t3\C2281d0.java` |  |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2282e.java` | C2282e |  renamed: t3, o | ; related: MainActivity.kt; PrintOrderViewModel ; ui: PaymentScreen; PaymentScreen(UPI); PrintFlow |
 | `p083t3\C2283e0.java` | C2283e0 |  renamed: t3, a |
 | `p083t3\C2284f.java` | C2284f |  trace: com.notescrafter.MainActivity.onCreate.<anonymous>.<anonymous> (MainActivity.kt:192); com.notescrafter.MainActivity.onCreate.<anonymous> (MainActivity.kt:191) renamed: t3, o |
-| `p083t3\C2285f0.java` | C2285f0 |  renamed: t3, a |
-| `p083t3\C2286g.java` | C2286g |  renamed: t3, o |
-| `p083t3\C2287g0.java` | C2287g0 |  renamed: t3, o |
-| `p083t3\C2288h.java` |  |  renamed: t3, o |
-| `p083t3\C2289h0.java` | C2289h0 |  renamed: t3, o |
-| `p083t3\C2290i.java` |  |  renamed: t3, o |
-| `p083t3\C2291i0.java` |  |  renamed: t3, o |
+| `p083t3\C2285f0.java` | C2285f0 |  renamed: t3, a | ; ui: PaymentScreen; PrintFlow |
+| `p083t3\C2286g.java` | C2286g |  renamed: t3, o | ; related: MainActivity.kt |
+| `p083t3\C2287g0.java` | C2287g0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2288h.java` |  |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2289h0.java` | C2289h0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2290i.java` |  |  renamed: t3, o | ; related: AnalyticsManager; PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2291i0.java` |  |  renamed: t3, o | ; related: PDFProcessor; PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2292j.java` |  | **[KNOWN]** FeatureCard updateScope lambda (LandingScreen.kt) renamed: t3, o |
-| `p083t3\C2293j0.java` | C2293j0 |  renamed: t3, o |
-| `p083t3\C2294k.java` |  |  renamed: t3, o |
-| `p083t3\C2295k0.java` | C2295k0 |  renamed: t3, o |
-| `p083t3\C2297l0.java` | C2297l0 |  renamed: t3, o |
-| `p083t3\C2298m.java` | C2298m |  renamed: t3, o |
-| `p083t3\C2299m0.java` | C2299m0 |  renamed: t3, o |
+| `p083t3\C2293j0.java` | C2293j0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2294k.java` |  |  renamed: t3, o | ; related: GlobalHomeScreen.kt; GlobalHomeScreen-adjacent (x3); PDFProcessor; PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2295k0.java` | C2295k0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2297l0.java` | C2297l0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2298m.java` | C2298m |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2299m0.java` | C2299m0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2300n.java` | C2300n |  renamed: t3, o |
-| `p083t3\C2301n0.java` | C2301n0 |  renamed: t3, o |
+| `p083t3\C2301n0.java` | C2301n0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2302o.java` | C2302o |  renamed: t3, o |
-| `p083t3\C2303o0.java` | C2303o0 |  renamed: t3, o |
-| `p083t3\C2304p.java` | C2304p |  renamed: t3, o |
-| `p083t3\C2305p0.java` | C2305p0 |  renamed: t3, o |
+| `p083t3\C2303o0.java` | C2303o0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: AddressScreen; PrintFlow |
+| `p083t3\C2304p.java` | C2304p |  renamed: t3, o | ; related: NetworkUtils |
+| `p083t3\C2305p0.java` | C2305p0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2306q.java` |  | **[KNOWN]** LogoSelectionScreen confirm lambda (LogoSelectionScreen.kt) renamed: t3, o |
-| `p083t3\C2307q0.java` | C2307q0 |  renamed: t3, o |
-| `p083t3\C2308r0.java` | C2308r0 |  renamed: t3, o |
-| `p083t3\C2309s.java` | C2309s |  renamed: t3, o |
-| `p083t3\C2310s0.java` | C2310s0 |  renamed: t3, o |
-| `p083t3\C2311t.java` | C2311t |  renamed: t3, o |
-| `p083t3\C2312t0.java` | C2312t0 |  renamed: t3, o |
+| `p083t3\C2307q0.java` | C2307q0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2308r0.java` | C2308r0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2309s.java` | C2309s |  renamed: t3, o | ; related: LogoSelectionScreen confirm lambda |
+| `p083t3\C2310s0.java` | C2310s0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2311t.java` | C2311t |  renamed: t3, o | ; related: AnalyticsManager ; ui: ContactScreen; PrintFlow; SettingsScreen |
+| `p083t3\C2312t0.java` | C2312t0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2313u.java` |  | **[KNOWN]** flow-step nav helper (FLOW card tap -> "flow" + step 0) renamed: t3, o |
-| `p083t3\C2314u0.java` | C2314u0 |  renamed: t3, o |
+| `p083t3\C2314u0.java` | C2314u0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2315v.java` |  | **[KNOWN]** route lambdas table ("flow","how-to-print","tools","contact-us",...) renamed: t3, o |
-| `p083t3\C2316v0.java` | C2316v0 |  renamed: t3, o |
+| `p083t3\C2316v0.java` | C2316v0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2317w.java` |  |  renamed: t3, o |
-| `p083t3\C2318w0.java` | C2318w0 |  renamed: t3, o |
+| `p083t3\C2318w0.java` | C2318w0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\C2319x.java` | C2319x | **[KNOWN]** TopBar (cart/downloads icons -> step -1 DownloadsScreen) trace: com.notescrafter.NotesCrafterContent.<anonymous>.<anonymous> (MainActivity.kt:453) renamed: t3, o |
-| `p083t3\C2320x0.java` | C2320x0 |  renamed: t3, o |
-| `p083t3\C2321y.java` |  |  renamed: t3, o |
+| `p083t3\C2320x0.java` | C2320x0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\C2321y.java` |  |  renamed: t3, o | ; related: ToDo list state (x3) |
 | `p083t3\C2322y0.java` | C2322y0 |  renamed: t3, o |
 | `p083t3\C2323z.java` | C2323z |  trace: com.notescrafter.NotesCrafterContent.<anonymous>.<anonymous> (MainActivity.kt:514) renamed: t3, o |
-| `p083t3\C2324z0.java` | C2324z0 |  renamed: t3, o |
+| `p083t3\C2324z0.java` | C2324z0 |  renamed: t3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\D.java` |  | **[KNOWN]** DownloadedFileItem (download file card) renamed: o |
-| `p083t3\D0.java` | D0 |  renamed: o |
-| `p083t3\d1.java` | d1 |  renamed: o, r |
-| `p083t3\E0.java` | E0 |  renamed: o |
-| `p083t3\F.java` |  |  renamed: o, r |
-| `p083t3\F0.java` | F0 |  renamed: o, r |
-| `p083t3\G0.java` | G0 |  renamed: o |
-| `p083t3\H0.java` | H0 |  renamed: o |
+| `p083t3\D0.java` | D0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\d1.java` | d1 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\E0.java` | E0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\F.java` |  |  renamed: o, r | ; related: LogoSelectionScreen confirm lambda; PrintOrderViewModel; ToDo list state (x3); ToDoItem; ToDoManager ; ui: PrintFlow |
+| `p083t3\F0.java` | F0 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\G0.java` | G0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\H0.java` | H0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\I.java` |  |  renamed: o |
-| `p083t3\I0.java` | I0 |  renamed: o, r |
-| `p083t3\J.java` |  |  renamed: o |
-| `p083t3\J0.java` | J0 |  renamed: o, r |
+| `p083t3\I0.java` | I0 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\J.java` |  |  renamed: o | ; related: AnalyticsManager; NotesCrafterApp ; ui: LoginScreen(WhatsApp) |
+| `p083t3\J0.java` | J0 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\K.java` | K |  renamed: o, r |
-| `p083t3\K0.java` | K0 |  renamed: o, r |
+| `p083t3\K0.java` | K0 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\L.java` | L | **[KNOWN]** NotesCrafterContent (central router, case "flow"/"home"/...) trace: com.notescrafter.NotesCrafterContent.<anonymous>.<anonymous> (MainActivity.kt:542) renamed: A, B |
-| `p083t3\L0.java` | L0 |  renamed: o |
+| `p083t3\L0.java` | L0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\M.java` | M | **[KNOWN]** RouterState (initial route "home", M:393) trace: com.notescrafter.NotesCrafterContent.<anonymous> (MainActivity.kt:449) renamed: A, B |
 | `p083t3\M0.java` | M0 |  renamed: o |
 | `p083t3\N.java` |  |  renamed: o, r |
-| `p083t3\N0.java` | N0 |  renamed: o |
-| `p083t3\O.java` |  |  renamed: o |
-| `p083t3\O0.java` | O0 |  renamed: o |
+| `p083t3\N0.java` | N0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\O.java` |  |  renamed: o | ; related: AnalyticsManager ; ui: PrintFlow |
+| `p083t3\O0.java` | O0 |  renamed: o | ; related: LogoSelectionScreen confirm lambda |
 | `p083t3\P.java` | P |  renamed: o |
-| `p083t3\P0.java` | P0 |  renamed: o, r |
+| `p083t3\P0.java` | P0 |  renamed: o, r | ; related: LogoSelectionScreen confirm lambda; PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\Q.java` | Q |  trace: com.notescrafter.SignInRequiredScreen.<anonymous>.<anonymous> (MainActivity.kt:1251) renamed: o, r strings: [Sign In with Google | Go Back] |
-| `p083t3\Q0.java` | Q0 |  renamed: o |
+| `p083t3\Q0.java` | Q0 |  renamed: o | ; related: PrintOrderViewModel ; ui: LoginScreen(WhatsApp); PrintFlow |
 | `p083t3\r.java` | r |  renamed: o |
-| `p083t3\R0.java` | R0 |  renamed: o, r |
+| `p083t3\R0.java` | R0 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\S.java` | S | **[KNOWN]** Scaffold + RouteScope trace: com.notescrafter.AppHeader (MainActivity.kt:1068); com.notescrafter.NotesCrafterContent (MainActivity.kt:329); com.notescrafter.SignInRequiredScreen (MainActivity.kt:1235) strings: [NotesCrafter] |
-| `p083t3\S0.java` | S0 |  renamed: o, r |
+| `p083t3\S0.java` | S0 |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\T.java` | T |  renamed: o, r |
-| `p083t3\T0.java` | T0 |  renamed: o |
-| `p083t3\U.java` | U |  renamed: o, r |
-| `p083t3\U0.java` | U0 |  renamed: o |
+| `p083t3\T0.java` | T0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\U.java` | U |  renamed: o, r | ; related: PDFProcessor |
+| `p083t3\U0.java` | U0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\V.java` | V |  renamed: o, r |
-| `p083t3\V0.java` | V0 |  renamed: o |
+| `p083t3\V0.java` | V0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\W.java` | W |  renamed: o |
-| `p083t3\W0.java` | W0 |  renamed: o |
-| `p083t3\X.java` | X |  renamed: o |
-| `p083t3\X0.java` | X0 |  renamed: o |
+| `p083t3\W0.java` | W0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p083t3\X.java` | X |  renamed: o | ; related: PDFProcessor |
+| `p083t3\X0.java` | X0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\Y.java` | Y | **[KNOWN]** PrintOrderViewModel (flow step machine: g()=setStep, h()=reset) renamed: w, b |
-| `p083t3\Y0.java` | Y0 |  renamed: o |
+| `p083t3\Y0.java` | Y0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p083t3\Z.java` | Z |  renamed: a, b |
-| `p083t3\Z0.java` | Z0 |  renamed: o |
+| `p083t3\Z0.java` | Z0 |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p084u0\a.java` | a |  renamed: d, c |
 | `p084u0\b.java` | b |  |
 | `p085u1\a.java` | a |  renamed: a, b |
@@ -885,7 +885,7 @@
 | `p085u1\g.java` | g |  renamed: a |
 | `p085u1\h.java` | h |  renamed: o |
 | `p085u1\i.java` | i |  renamed: a |
-| `p085u1\j.java` | j |  renamed: o, r |
+| `p085u1\j.java` | j |  renamed: o, r | ; ui: SettingsScreen |
 | `p085u1\k.java` | k |  renamed: A, b |
 | `p086u2\a.java` | a |  renamed: o |
 | `p086u2\b.java` | b |  renamed: a |
@@ -893,21 +893,21 @@
 | `p087u3\b.java` | b | **[KNOWN]** FilterSettings data class (invertColors, clearBackground, grayscale, blackAndWhite, backgroundThreshold, removeLogo, logoBox, logoShape) |
 | `p087u3\c.java` | c |  |
 | `p087u3\d.java` | d |  |
-| `p087u3\e.java` | e |  |
+| `p087u3\e.java` | e |  | ; ui: SettingsScreen |
 | `p087u3\f.java` | f |  |
 | `p087u3\g.java` | g |  |
 | `p087u3\h.java` | h |  |
 | `p087u3\i.java` | i |  |
 | `p087u3\j.java` | j |  |
 | `p087u3\k.java` | k |  |
-| `p087u3\l.java` | l |  |
-| `p087u3\m.java` | m |  |
-| `p087u3\n.java` | n |  |
-| `p087u3\o.java` | o |  |
-| `p087u3\p.java` | p |  |
-| `p087u3\q.java` | q |  |
-| `p087u3\r.java` | r |  |
-| `p087u3\s.java` | s |  |
+| `p087u3\l.java` | l |  | ; ui: PrintFlow |
+| `p087u3\m.java` | m |  | ; ui: PrintFlow |
+| `p087u3\n.java` | n |  | ; ui: HistoryScreen; PrintFlow |
+| `p087u3\o.java` | o |  | ; ui: PrintFlow |
+| `p087u3\p.java` | p |  | ; ui: PrintFlow |
+| `p087u3\q.java` | q |  | ; ui: AddressScreen; PrintFlow |
+| `p087u3\r.java` | r |  | ; ui: PrintFlow |
+| `p087u3\s.java` | s |  | ; ui: PrintFlow |
 | `p087u3\t.java` | t |  |
 | `p087u3\u.java` | u |  |
 | `p087u3\v.java` | v |  |
@@ -952,7 +952,7 @@
 | `p090v1\C2354k.java` | C2354k |  renamed: v1, b |
 | `p090v1\C2355k0.java` | C2355k0 |  renamed: v1 |
 | `p090v1\C2356l.java` | C2356l |  renamed: v1, b |
-| `p090v1\C2358m.java` | C2358m |  renamed: v1, o |
+| `p090v1\C2358m.java` | C2358m |  renamed: v1, o | ; related: MainActivity.kt; PrintOrderViewModel ; ui: PrintFlow |
 | `p090v1\C2359m0.java` | C2359m0 |  renamed: v1 |
 | `p090v1\C2362o.java` | C2362o |  renamed: v1, f |
 | `p090v1\C2365p0.java` | C2365p0 |  renamed: v1 |
@@ -1026,19 +1026,19 @@
 | `p092v3\b.java` | b |  renamed: o |
 | `p092v3\c.java` | c |  renamed: o |
 | `p092v3\d.java` | d |  renamed: o |
-| `p092v3\e.java` | e |  renamed: o |
+| `p092v3\e.java` | e |  renamed: o | ; ui: PrintFlow |
 | `p092v3\f.java` | f |  renamed: o |
 | `p092v3\g.java` | g |  renamed: o, r |
-| `p092v3\h.java` | h |  renamed: y, z |
+| `p092v3\h.java` | h |  renamed: y, z | ; related: NotesCrafterFCMService |
 | `p092v3\i.java` |  |  |
 | `p092v3\j.java` | j |  renamed: o |
 | `p092v3\k.java` | k |  renamed: o |
-| `p092v3\l.java` | l |  renamed: o, r |
-| `p092v3\m.java` | m |  renamed: o, r |
-| `p092v3\n.java` | n |  renamed: o, r |
-| `p092v3\o.java` | o |  renamed: o |
+| `p092v3\l.java` | l |  renamed: o, r | ; related: MainActivity.kt; NotesCrafterFCMService |
+| `p092v3\m.java` | m |  renamed: o, r | ; related: NotesCrafterFCMService |
+| `p092v3\n.java` | n |  renamed: o, r | ; related: PDFProcessor |
+| `p092v3\o.java` | o |  renamed: o | ; related: PDFProcessor |
 | `p092v3\p.java` |  |  renamed: a |
-| `p092v3\q.java` | q |  renamed: A, B |
+| `p092v3\q.java` | q |  renamed: A, B | ; related: PDFProcessor |
 | `p092v3\s.java` |  |  renamed: o, r |
 | `p092v3\t.java` | t |  |
 | `p092v3\u.java` | u |  renamed: c, d |
@@ -1046,12 +1046,12 @@
 | `p092v3\w.java` | w |  renamed: o |
 | `p092v3\x.java` | x |  renamed: o |
 | `p092v3\y.java` |  |  renamed: a |
-| `p093w\a.java` | a |  renamed: a, b |
+| `p093w\a.java` | a |  renamed: a, b | ; ui: SettingsScreen |
 | `p094w0\a.java` | a |  |
 | `p095w1\a.java` | a |  renamed: o |
 | `p096w2\a.java` | a |  renamed: n, o |
 | `p096w2\b.java` | b |  renamed: a |
-| `p097w3\a.java` |  |  renamed: o, r |
+| `p097w3\a.java` |  |  renamed: o, r | ; related: GlobalHomeScreen.kt; PrintOrderViewModel ; ui: PrintFlow |
 | `p097w3\b.java` | b |  trace: com.notescrafter.ui.components.BottomNavBar.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (BottomNavBar.kt:109) renamed: o |
 | `p097w3\c.java` | c |  trace: com.notescrafter.ui.components.BottomNavBar.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (BottomNavBar.kt:118) renamed: o |
 | `p097w3\d.java` | d |  trace: com.notescrafter.ui.components.BottomNavBar.<anonymous>.<anonymous>.<anonymous> (BottomNavBar.kt:93) renamed: o |
@@ -1077,7 +1077,7 @@
 | `p098x\h.java` | h |  renamed: f |
 | `p098x\i.java` | i |  |
 | `p098x\j.java` | j |  |
-| `p098x\k.java` | k |  renamed: a, f |
+| `p098x\k.java` | k |  renamed: a, f | ; ui: HistoryScreen |
 | `p098x\l.java` | l |  renamed: a, b |
 | `p098x\m.java` | m |  |
 | `p098x\n.java` | n |  renamed: a |
@@ -1123,7 +1123,7 @@
 | `p102x3\A5.java` | A5 |  trace: com.notescrafter.ui.screens.HelpCenterScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (HelpCenterScreen.kt:228) renamed: o |
 | `p102x3\A6.java` | A6 | **[KNOWN]** LogoSelectionScreen.kt (LogoSelectionScreen:80, LogoSelectionOverlay:422, ShapeOption:371, FineTuneControls:479, TinyControlIcon:541) trace: com.notescrafter.ui.screens.FineTuneControls (LogoSelectionScreen.kt:479); com.notescrafter.ui.screens.LogoSelectionOverlay (LogoSelectionScreen.kt:422); com.notescrafter.ui.screens.LogoSelectionScreen (LogoSelectionScreen.kt:80) strings: [Select Logo Region | Logo will be removed from all pages] |
 | `p102x3\A7.java` |  |  renamed: A, B |
-| `p102x3\A9.java` | A9 |  renamed: A, B |
+| `p102x3\A9.java` | A9 |  renamed: A, B | ; related: PDFProcessor |
 | `p102x3\Ab.java` | Ab |  trace: com.notescrafter.ui.screens.NcfGallerySlider.<anonymous>.<anonymous> (PrintLandingScreen.kt:1502) renamed: o, r |
 | `p102x3\AbstractC2376a0.java` | AbstractC2376a0 |  renamed: x3, a |
 | `p102x3\AbstractC2378a2.java` | AbstractC2378a2 |  renamed: x3, a |
@@ -1173,9 +1173,9 @@
 | `p102x3\B0.java` | B0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfAddPageNumbersScreenKt.lambda-7.<anonymous> (PdfAddPageNumbersScreen.kt:774) renamed: o strings: [On-Device Processing] |
 | `p102x3\B1.java` | B1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfOrganizeScreenKt.lambda-9.<anonymous> (PdfOrganizeScreen.kt:1038) renamed: o |
 | `p102x3\B2.java` | B2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintOrderScreensKt.lambda-10.<anonymous> (PrintOrderScreens.kt:1729) renamed: o strings: [INCLUDED PRINT SPECS] |
-| `p102x3\B5.java` |  |  renamed: o |
+| `p102x3\B5.java` |  |  renamed: o | ; related: AnalyticsManager ; ui: ContactScreen; PrintFlow; SettingsScreen |
 | `p102x3\B6.java` | B6 | **[KNOWN]** Shape enum (RECTANGLE, CIRCLE) renamed: o |
-| `p102x3\B7.java` |  |  renamed: A, B |
+| `p102x3\B7.java` |  |  renamed: A, B | ; related: PDFProcessor |
 | `p102x3\B8.java` | B8 |  trace: com.notescrafter.ui.screens.MergeStepItem.<anonymous> (PdfMergeScreen.kt:1061) renamed: o, r |
 | `p102x3\B9.java` | B9 |  trace: com.notescrafter.ui.screens.SplitStepItem.<anonymous> (PdfSplitScreen.kt:1082) renamed: o, r |
 | `p102x3\Ba.java` | Ba |  trace: com.notescrafter.ui.screens.PomodoroTimerScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PomodoroTimerScreen.kt:430); com.notescrafter.ui.screens.ToDoScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (ToDoScreen.kt:144); com.notescrafter.ui.screens.ToDoScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (ToDoScreen.kt:108) renamed: o strings: [Clear All] |
@@ -1192,9 +1192,9 @@
 | `p102x3\C2377a1.java` | C2377a1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfInvertScreenKt.lambda-3.<anonymous> (PdfInvertScreen.kt:530) renamed: x3, o strings: [Share PDF] |
 | `p102x3\C2379a3.java` | C2379a3 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintPriceCalculatorScreenKt.lambda-3.<anonymous> (PrintPriceCalculatorScreen.kt:862) renamed: x3, o strings: [Order Print] |
 | `p102x3\C2381a5.java` | C2381a5 |  trace: com.notescrafter.ui.screens.ErrorScreen.<anonymous>.<anonymous> (ErrorScreen.kt:34) renamed: x3, o strings: [Processing Failed] |
-| `p102x3\C2382a6.java` |  |  renamed: x3, o |
+| `p102x3\C2382a6.java` |  |  renamed: x3, o | ; related: PDFProcessor |
 | `p102x3\C2383a7.java` | C2383a7 |  renamed: x3, o |
-| `p102x3\C2384a8.java` | C2384a8 |  renamed: x3, A |
+| `p102x3\C2384a8.java` | C2384a8 |  renamed: x3, A | ; related: ReviewHelper ; ui: ReviewScreen |
 | `p102x3\C2385a9.java` | C2385a9 |  trace: com.notescrafter.ui.screens.PdfOrganizeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfOrganizeScreen.kt:1076) renamed: x3, o |
 | `p102x3\C2388ac.java` | C2388ac |  trace: com.notescrafter.ui.screens.PrintMyOrdersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintMyOrdersScreen.kt:326) renamed: x3, o |
 | `p102x3\C2389ad.java` | C2389ad |  trace: com.notescrafter.ui.screens.PrintOrderShippingScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:2727) renamed: x3, o strings: [Verify] |
@@ -1218,9 +1218,9 @@
 | `p102x3\C2412c4.java` |  |  renamed: x3, o |
 | `p102x3\C2413c5.java` | C2413c5 |  renamed: x3, a |
 | `p102x3\C2414c6.java` | C2414c6 |  trace: com.notescrafter.ui.screens.JpgToPdfScreen.<anonymous>.<anonymous> (JpgToPdfScreen.kt:1028) renamed: x3, o |
-| `p102x3\C2415c7.java` | C2415c7 |  renamed: x3, A |
-| `p102x3\C2417c9.java` | C2417c9 |  renamed: x3, o |
-| `p102x3\C2419cb.java` | C2419cb |  renamed: x3, o |
+| `p102x3\C2415c7.java` | C2415c7 |  renamed: x3, A | ; related: ReviewHelper ; ui: ReviewScreen |
+| `p102x3\C2417c9.java` | C2417c9 |  renamed: x3, o | ; related: PrintOrderViewModel ; ui: PrintFlow; SettingsScreen |
+| `p102x3\C2419cb.java` | C2419cb |  renamed: x3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\C2420cc.java` | C2420cc |  trace: com.notescrafter.ui.screens.PrintMyOrdersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintMyOrdersScreen.kt:445) renamed: x3, o strings: [Place a New Order] |
 | `p102x3\C2421cd.java` | C2421cd |  trace: com.notescrafter.ui.screens.PrintOrderShippingScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:2588) renamed: x3, o strings: [Contact Information | To change contact number, please contact support] |
 | `p102x3\C2423d.java` | C2423d |  trace: com.notescrafter.ui.screens.StatCard.<anonymous> (AboutUsScreen.kt:273) renamed: x3, o |
@@ -1232,7 +1232,7 @@
 | `p102x3\C2430d6.java` | C2430d6 |  renamed: x3, o |
 | `p102x3\C2431d7.java` | C2431d7 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersStepItem.<anonymous> (PdfAddPageNumbersScreen.kt:1297) renamed: x3, o |
 | `p102x3\C2433d9.java` | C2433d9 |  renamed: x3, o |
-| `p102x3\C2434da.java` | C2434da |  renamed: x3, o |
+| `p102x3\C2434da.java` | C2434da |  renamed: x3, o | ; related: ToDo list state (x3) |
 | `p102x3\C2435db.java` |  |  renamed: x3, o |
 | `p102x3\C2436dc.java` | C2436dc |  trace: com.notescrafter.ui.screens.PrintMyOrdersScreen.<anonymous> (PrintMyOrdersScreen.kt:164) renamed: x3, o |
 | `p102x3\C2437dd.java` | C2437dd |  trace: com.notescrafter.ui.screens.PrintOrderShippingScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:2585) renamed: x3, o |
@@ -1242,7 +1242,7 @@
 | `p102x3\C2441e1.java` | C2441e1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfInvertScreenKt.lambda-7.<anonymous> (PdfInvertScreen.kt:675) renamed: x3, o strings: [On-Device Inversion] |
 | `p102x3\C2442e2.java` | C2442e2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PreviewScreenKt.lambda-16.<anonymous> (PreviewScreen.kt:511) renamed: x3, o strings: [Add Blank Slide] |
 | `p102x3\C2444e4.java` |  |  renamed: x3, o |
-| `p102x3\C2445e5.java` |  |  renamed: x3, o |
+| `p102x3\C2445e5.java` |  |  renamed: x3, o | ; related: ExamItem; LandingScreen.kt; StepItem data class (LandingScreen.kt) ; ui: ExamScreen |
 | `p102x3\C2446e6.java` | C2446e6 |  renamed: x3, o |
 | `p102x3\C2448e8.java` | C2448e8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:306) renamed: x3, o strings: [Invert PDF Colors] |
 | `p102x3\C2449e9.java` | C2449e9 |  renamed: x3, o |
@@ -1254,18 +1254,18 @@
 | `p102x3\C2457f1.java` | C2457f1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfInvertScreenKt.lambda-8.<anonymous> (PdfInvertScreen.kt:669) renamed: x3, o |
 | `p102x3\C2458f2.java` | C2458f2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PreviewScreenKt.lambda-17.<anonymous> (PreviewScreen.kt:584) renamed: x3, o strings: [Back] |
 | `p102x3\C2459f3.java` | C2459f3 |  trace: com.notescrafter.ui.screens.ComposableSingletons$QuickToolsScreenKt.lambda-2.<anonymous> (QuickToolsScreen.kt:102) renamed: x3, o |
-| `p102x3\C2460f4.java` |  |  renamed: x3, o |
+| `p102x3\C2460f4.java` |  |  renamed: x3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\C2461f5.java` | C2461f5 |  trace: com.notescrafter.ui.screens.FeatureCard.<anonymous> (FeaturesScreen.kt:87) renamed: x3, o |
-| `p102x3\C2462f6.java` | C2462f6 |  renamed: x3, o |
-| `p102x3\C2463f7.java` |  |  renamed: x3, o |
+| `p102x3\C2462f6.java` | C2462f6 |  renamed: x3, o | ; related: ReviewHelper ; ui: ReviewScreen |
+| `p102x3\C2463f7.java` |  |  renamed: x3, o | ; related: PDFProcessor; ToDoManager |
 | `p102x3\C2464f8.java` | C2464f8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:393) renamed: x3, o strings: [DOCUMENT RECEIPT | SUCCESS | Filename | Page Count | File Size] |
 | `p102x3\C2465f9.java` | C2465f9 |  renamed: x3, A |
 | `p102x3\C2466fa.java` | C2466fa |  trace: com.notescrafter.ui.screens.PomodoroSetupScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PomodoroSetupScreen.kt:185) renamed: x3, o |
 | `p102x3\C2467fb.java` | C2467fb |  trace: com.notescrafter.ui.screens.AddressFormDialog.<anonymous>.<anonymous>.<anonymous> (PrintAddressesScreen.kt:924) renamed: x3, A strings: [PRIMARY CONTACT NUMBER | +91  | VERIFIED | Looking up pincode details... | City and state will auto-fill from pincode.] |
 | `p102x3\C2472g0.java` | C2472g0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$JpgToPdfScreenKt.lambda-5.<anonymous> (JpgToPdfScreen.kt:625) renamed: x3, o strings: [How it works] |
 | `p102x3\C2473g1.java` | C2473g1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfInvertScreenKt.lambda-9.<anonymous> (PdfInvertScreen.kt:768) renamed: x3, o |
-| `p102x3\C2476g4.java` |  |  renamed: x3, o |
-| `p102x3\C2477g5.java` | C2477g5 |  renamed: x3, o |
+| `p102x3\C2476g4.java` |  |  renamed: x3, o | ; related: PDFProcessor; PrintOrderViewModel ; ui: PrintFlow |
+| `p102x3\C2477g5.java` | C2477g5 |  renamed: x3, o | ; ui: SettingsScreen |
 | `p102x3\C2478g6.java` | C2478g6 |  trace: com.notescrafter.ui.screens.JpgToPdfStepItem.<anonymous> (JpgToPdfScreen.kt:1132) renamed: x3, o |
 | `p102x3\C2480g8.java` | C2480g8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:342) renamed: x3, o strings: [Colors Inverted!] |
 | `p102x3\C2481g9.java` | C2481g9 |  renamed: x3, o |
@@ -1281,7 +1281,7 @@
 | `p102x3\C2495h7.java` | C2495h7 |  trace: com.notescrafter.ui.screens.CompressStepItem.<anonymous> (PdfCompressScreen.kt:1158) renamed: x3, o |
 | `p102x3\C2496h8.java` | C2496h8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:561) renamed: x3, o strings: [Select PDF to Invert | Choose a single PDF document to invert color space | Choose File] |
 | `p102x3\C2497h9.java` | C2497h9 |  renamed: x3, A |
-| `p102x3\C2499hb.java` | C2499hb |  renamed: x3, o |
+| `p102x3\C2499hb.java` | C2499hb |  renamed: x3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\C2501hd.java` | C2501hd |  trace: com.notescrafter.ui.screens.PrintOrderShippingScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:2805) renamed: x3, o |
 | `p102x3\C2502he.java` | C2502he |  renamed: x3, o |
 | `p102x3\C2503i.java` | C2503i |  renamed: x3, a |
@@ -1290,24 +1290,24 @@
 | `p102x3\C2506i2.java` | C2506i2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintAddressesScreenKt.lambda-10.<anonymous> (PrintAddressesScreen.kt:1117) renamed: x3, o strings: [Cancel] |
 | `p102x3\C2507i3.java` | C2507i3 |  trace: com.notescrafter.ui.screens.ComposableSingletons$ReorderScreenKt.lambda-3.<anonymous> (ReorderScreen.kt:151) renamed: x3, o strings: [Add More PDFs] |
 | `p102x3\C2508i4.java` | C2508i4 |  renamed: x3, o |
-| `p102x3\C2509i5.java` |  |  renamed: x3, o |
+| `p102x3\C2509i5.java` |  |  renamed: x3, o | ; related: GlobalHomeScreen.kt |
 | `p102x3\C2510i6.java` |  |  renamed: x3, o |
 | `p102x3\C2511i7.java` | C2511i7 |  trace: com.notescrafter.ui.screens.PdfCompressScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCompressScreen.kt:320) renamed: x3, o strings: [Compress PDF] |
 | `p102x3\C2512i8.java` | C2512i8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:554) renamed: x3, o |
-| `p102x3\C2513i9.java` | C2513i9 |  renamed: x3, o |
+| `p102x3\C2513i9.java` | C2513i9 |  renamed: x3, o | ; related: ReviewHelper ; ui: ReviewScreen |
 | `p102x3\C2514ia.java` | C2514ia |  trace: com.notescrafter.ui.screens.PomodoroSetupScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PomodoroSetupScreen.kt:255) renamed: x3, o |
 | `p102x3\C2515ib.java` | C2515ib |  trace: com.notescrafter.ui.screens.PrintAddressesScreen.<anonymous>.<anonymous> (PrintAddressesScreen.kt:207) renamed: x3, o strings: [Add New Address] |
-| `p102x3\C2516ic.java` |  |  renamed: x3, o |
+| `p102x3\C2516ic.java` |  |  renamed: x3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\C2517id.java` | C2517id |  trace: com.notescrafter.ui.screens.PrintOrderShippingScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:3041) renamed: x3, o strings: [ORDER SUMMARY | Shipping | FREE | Enter pincode | Tax] |
 | `p102x3\C2518ie.java` | C2518ie |  trace: com.notescrafter.ui.screens.SettingsScreen.<anonymous>.<anonymous> (SettingsScreen.kt:259) renamed: x3, o strings: [Sync Your Account | Sign In with Google] |
-| `p102x3\C2519j.java` |  |  renamed: x3, o |
+| `p102x3\C2519j.java` |  |  renamed: x3, o | ; related: ToDo list state (x3) |
 | `p102x3\C2520j0.java` | C2520j0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$JpgToPdfScreenKt.lambda-8.<anonymous> (JpgToPdfScreen.kt:663) renamed: x3, o |
 | `p102x3\C2521j1.java` | C2521j1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfMergeScreenKt.lambda-2.<anonymous> (PdfMergeScreen.kt:456) renamed: x3, o strings: [Share PDF] |
 | `p102x3\C2522j2.java` | C2522j2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintAddressesScreenKt.lambda-2.<anonymous> (PrintAddressesScreen.kt:327) renamed: x3, o strings: [00000 00000] |
 | `p102x3\C2523j3.java` | C2523j3 |  trace: com.notescrafter.ui.screens.ComposableSingletons$ReorderScreenKt.lambda-4.<anonymous> (ReorderScreen.kt:223) renamed: x3, o strings: [Back] |
 | `p102x3\C2524j4.java` | C2524j4 |  trace: com.notescrafter.ui.screens.EditPageScreen.<anonymous>.<anonymous> (EditPageScreen.kt:207) renamed: x3, o strings: [No Preview] |
-| `p102x3\C2525j5.java` |  |  renamed: x3, o |
-| `p102x3\C2526j6.java` |  |  renamed: x3, o |
+| `p102x3\C2525j5.java` |  |  renamed: x3, o | ; related: GlobalHomeScreen.kt; ToDoItem |
+| `p102x3\C2526j6.java` |  |  renamed: x3, o | ; related: LandingScreen.kt |
 | `p102x3\C2527j7.java` |  |  renamed: x3, o |
 | `p102x3\C2528j8.java` | C2528j8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:714) renamed: x3, o |
 | `p102x3\C2529j9.java` | C2529j9 |  trace: com.notescrafter.ui.screens.PdfOrganizeStepItem.<anonymous> (PdfOrganizeScreen.kt:1240) renamed: x3, o |
@@ -1323,7 +1323,7 @@
 | `p102x3\C2542k6.java` | C2542k6 |  trace: com.notescrafter.ui.screens.FeatureCard.<anonymous> (LandingScreen.kt:410) renamed: x3, o |
 | `p102x3\C2543k7.java` | C2543k7 |  trace: com.notescrafter.ui.screens.PdfCompressScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCompressScreen.kt:419) renamed: x3, o |
 | `p102x3\C2544k8.java` | C2544k8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:713) renamed: x3, o |
-| `p102x3\C2546ka.java` |  |  renamed: x3, o |
+| `p102x3\C2546ka.java` |  |  renamed: x3, o | ; related: ToDo list state (x3); ToDoItem; ToDoManager |
 | `p102x3\C2547kb.java` | C2547kb |  trace: com.notescrafter.ui.screens.PrintAddressesScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintAddressesScreen.kt:379) renamed: x3, o |
 | `p102x3\C2548kc.java` | C2548kc |  renamed: x3, o |
 | `p102x3\C2549kd.java` | C2549kd |  trace: com.notescrafter.ui.screens.PrintOrderShippingScreen.<anonymous>.<anonymous> (PrintOrderScreens.kt:2523) renamed: x3, A |
@@ -1337,10 +1337,10 @@
 | `p102x3\C2559l7.java` | C2559l7 |  trace: com.notescrafter.ui.screens.PdfCompressScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCompressScreen.kt:439) renamed: x3, o strings: [ORIGINAL SIZE | COMPRESSED SIZE] |
 | `p102x3\C2560l8.java` | C2560l8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:779) renamed: x3, o strings: [Page Inversion Preview] |
 | `p102x3\C2561l9.java` | C2561l9 |  trace: com.notescrafter.ui.screens.PdfSplitScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfSplitScreen.kt:353) renamed: x3, o strings: [Split PDF] |
-| `p102x3\C2562la.java` |  |  renamed: x3, o |
+| `p102x3\C2562la.java` |  |  renamed: x3, o | ; related: ToDo list state (x3); ToDoItem; ToDoManager |
 | `p102x3\C2563lb.java` | C2563lb |  trace: com.notescrafter.ui.screens.PrintAddressesScreen.<anonymous>.<anonymous> (PrintAddressesScreen.kt:228) renamed: x3, o strings: [Contact Information | Primary delivery contact] |
 | `p102x3\C2566le.java` | C2566le |  trace: com.notescrafter.ui.screens.SettingsScreen.<anonymous>.<anonymous> (SettingsScreen.kt:450) renamed: x3, o |
-| `p102x3\C2567m.java` |  |  renamed: x3, o |
+| `p102x3\C2567m.java` |  |  renamed: x3, o | ; related: GlobalHomeScreen.kt; GlobalHomeScreen-adjacent (x3); PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\C2568m0.java` | C2568m0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$LiveChatScreenKt.lambda-1.<anonymous> (LiveChatScreen.kt:28) renamed: x3, o strings: [Live Chat Support] |
 | `p102x3\C2569m1.java` | C2569m1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfMergeScreenKt.lambda-5.<anonymous> (PdfMergeScreen.kt:563) renamed: x3, o |
 | `p102x3\C2570m2.java` | C2570m2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintAddressesScreenKt.lambda-5.<anonymous> (PrintAddressesScreen.kt:555) renamed: x3, o strings: [Delete] |
@@ -1365,8 +1365,8 @@
 | `p102x3\C2593n9.java` | C2593n9 |  renamed: x3, o |
 | `p102x3\C2594na.java` | C2594na |  trace: com.notescrafter.ui.screens.PomodoroSetupScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PomodoroSetupScreen.kt:359) renamed: x3, o strings: [No tasks listed. Add some to stay focused!] |
 | `p102x3\C2596nc.java` | C2596nc |  trace: com.notescrafter.ui.screens.AddressBottomSheet.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:4567) renamed: x3, o strings: [Shipping Address | PRIMARY CONTACT NUMBER | +91 | VERIFIED | City and state will auto-fill from pincode.] |
-| `p102x3\C2597nd.java` | C2597nd |  renamed: x3, o |
-| `p102x3\C2599o.java` |  |  renamed: x3, o |
+| `p102x3\C2597nd.java` | C2597nd |  renamed: x3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
+| `p102x3\C2599o.java` |  |  renamed: x3, o | ; related: LandingScreen.kt |
 | `p102x3\C2600o0.java` | C2600o0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$LiveChatScreenKt.lambda-3.<anonymous> (LiveChatScreen.kt:49) renamed: x3, o |
 | `p102x3\C2601o1.java` | C2601o1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfMergeScreenKt.lambda-7.<anonymous> (PdfMergeScreen.kt:589) renamed: x3, o |
 | `p102x3\C2602o2.java` | C2602o2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintAddressesScreenKt.lambda-7.<anonymous> (PrintAddressesScreen.kt:534) renamed: x3, o strings: [Delete Address] |
@@ -1377,18 +1377,18 @@
 | `p102x3\C2608o8.java` | C2608o8 |  trace: com.notescrafter.ui.screens.PdfInvertScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfInvertScreen.kt:821) renamed: x3, o |
 | `p102x3\C2609o9.java` | C2609o9 |  trace: com.notescrafter.ui.screens.PdfSplitScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfSplitScreen.kt:466) renamed: x3, o |
 | `p102x3\C2610oa.java` | C2610oa |  trace: com.notescrafter.ui.screens.PomodoroSetupScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PomodoroSetupScreen.kt:345) renamed: x3, o strings: [Focus Task Checklist] |
-| `p102x3\C2611ob.java` | C2611ob |  renamed: x3, a |
+| `p102x3\C2611ob.java` | C2611ob |  renamed: x3, a | ; ui: PrintFlow |
 | `p102x3\C2612oc.java` | C2612oc |  trace: com.notescrafter.ui.screens.AddressBottomSheet.<anonymous> (PrintOrderScreens.kt:4464) renamed: x3, o strings: [Select Destination] |
 | `p102x3\C2613od.java` | C2613od |  trace: com.notescrafter.ui.screens.PrintOrderUploadScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:182) renamed: x3, o |
 | `p102x3\C2617p1.java` | C2617p1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfMergeScreenKt.lambda-8.<anonymous> (PdfMergeScreen.kt:633) renamed: x3, o strings: [Arrange Files to Merge] |
 | `p102x3\C2618p2.java` | C2618p2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintAddressesScreenKt.lambda-8.<anonymous> (PrintAddressesScreen.kt:535) renamed: x3, o strings: [Are you sure you want to delete this address?] |
 | `p102x3\C2619p3.java` | C2619p3 |  trace: com.notescrafter.ui.screens.ComposableSingletons$ToDoScreenKt.lambda-2.<anonymous> (ToDoScreen.kt:164) renamed: x3, o |
 | `p102x3\C2621p5.java` | C2621p5 | **[KNOWN]** PRINTS card content lambda (GlobalHomeScreen) trace: com.notescrafter.ui.screens.GlobalHomeScreen.<anonymous>.<anonymous>.<anonymous> (GlobalHomeScreen.kt:151) renamed: x3, o |
-| `p102x3\C2622p6.java` |  |  renamed: x3, o |
+| `p102x3\C2622p6.java` |  |  renamed: x3, o | ; ui: AddressScreen |
 | `p102x3\C2623p7.java` | C2623p7 |  trace: com.notescrafter.ui.screens.PdfCompressScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCompressScreen.kt:755) renamed: x3, o |
 | `p102x3\C2625p9.java` | C2625p9 |  trace: com.notescrafter.ui.screens.PdfSplitScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfSplitScreen.kt:565) renamed: x3, o |
 | `p102x3\C2626pa.java` | C2626pa |  trace: com.notescrafter.ui.screens.PomodoroStepItem.<anonymous> (PomodoroSetupScreen.kt:674) renamed: x3, o |
-| `p102x3\C2627pb.java` | C2627pb |  renamed: x3, a |
+| `p102x3\C2627pb.java` | C2627pb |  renamed: x3, a | ; ui: PrintFlow |
 | `p102x3\C2628pc.java` | C2628pc |  renamed: x3, o |
 | `p102x3\C2629pd.java` | C2629pd |  trace: com.notescrafter.ui.screens.PrintOrderUploadScreen.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:168) renamed: x3, o strings: [ðŸŽ‰ | FREE SHIPPING UNLOCKED! | Your order ships free â€” 5+ notebooks in cart | SUBTOTAL | Continue] |
 | `p102x3\C2630pe.java` | C2630pe |  renamed: x3, a |
@@ -1440,7 +1440,7 @@
 | `p102x3\C2696u1.java` | C2696u1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfOrganizeScreenKt.lambda-2.<anonymous> (PdfOrganizeScreen.kt:626) renamed: x3, o strings: [View PDF] |
 | `p102x3\C2697u2.java` | C2697u2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintLandingScreenKt.lambda-3.<anonymous> (PrintLandingScreen.kt:1772) renamed: x3, o |
 | `p102x3\C2698u3.java` | C2698u3 |  trace: com.notescrafter.ui.screens.ComposableSingletons$ToDoScreenKt.lambda-8.<anonymous> (ToDoScreen.kt:482) renamed: x3, o strings: [Done] |
-| `p102x3\C2699u4.java` |  |  renamed: x3, o |
+| `p102x3\C2699u4.java` |  |  renamed: x3, o | ; related: PDFProcessor |
 | `p102x3\C2701u6.java` | C2701u6 |  trace: com.notescrafter.ui.screens.FineTuneControls.<anonymous>.<anonymous>.<anonymous>.<anonymous> (LogoSelectionScreen.kt:531) renamed: x3, o |
 | `p102x3\C2702u7.java` | C2702u7 |  trace: com.notescrafter.ui.screens.PdfCompressScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCompressScreen.kt:1014) renamed: x3, A |
 | `p102x3\C2703u8.java` | C2703u8 |  renamed: x3, o |
@@ -1459,7 +1459,7 @@
 | `p102x3\C2721va.java` |  |  renamed: x3, o |
 | `p102x3\C2722vb.java` | C2722vb |  renamed: x3, o |
 | `p102x3\C2724vd.java` | C2724vd |  trace: com.notescrafter.ui.screens.PrintOrderUploadScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:553) renamed: x3, o |
-| `p102x3\C2725ve.java` | C2725ve |  renamed: x3, o |
+| `p102x3\C2725ve.java` | C2725ve |  renamed: x3, o | ; related: ReviewHelper ; ui: ReviewScreen |
 | `p102x3\C2726w.java` | C2726w |  trace: com.notescrafter.ui.screens.ComposableSingletons$CommunityPassScreenKt.lambda-1.<anonymous> (CommunityPassScreen.kt:415) renamed: x3, o strings: [Why Your Support Matters | Every pass directly funds the mission.] |
 | `p102x3\C2727w0.java` | C2727w0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfAddPageNumbersScreenKt.lambda-2.<anonymous> (PdfAddPageNumbersScreen.kt:607) renamed: x3, o strings: [View PDF] |
 | `p102x3\C2728w1.java` | C2728w1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfOrganizeScreenKt.lambda-4.<anonymous> (PdfOrganizeScreen.kt:665) renamed: x3, o strings: [Process Another File] |
@@ -1467,9 +1467,9 @@
 | `p102x3\C2731w4.java` |  |  renamed: x3, o |
 | `p102x3\C2732w5.java` |  |  renamed: x3, o |
 | `p102x3\C2733w6.java` | C2733w6 |  trace: com.notescrafter.ui.screens.LogoSelectionScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (LogoSelectionScreen.kt:189) renamed: x3, o |
-| `p102x3\C2734w7.java` | C2734w7 |  renamed: x3, o |
+| `p102x3\C2734w7.java` | C2734w7 |  renamed: x3, o | ; related: PDFProcessor |
 | `p102x3\C2735w8.java` | C2735w8 |  renamed: x3, o |
-| `p102x3\C2737wa.java` |  |  renamed: x3, o |
+| `p102x3\C2737wa.java` |  |  renamed: x3, o | ; related: ToDoItem |
 | `p102x3\C2738wb.java` | C2738wb |  renamed: x3, o |
 | `p102x3\C2739wc.java` | C2739wc |  trace: com.notescrafter.ui.screens.NotebookConfiguratorCard.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:1920) renamed: x3, o strings: [COMMUNITY PASS BENEFIT] |
 | `p102x3\C2740wd.java` | C2740wd |  trace: com.notescrafter.ui.screens.PrintOrderUploadScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:578) renamed: x3, o |
@@ -1482,18 +1482,18 @@
 | `p102x3\C2748x5.java` | C2748x5 |  trace: com.notescrafter.ui.screens.FAQCard.<anonymous>.<anonymous>.<anonymous> (HelpCenterScreen.kt:363) renamed: x3, o |
 | `p102x3\C2749x6.java` | C2749x6 |  trace: com.notescrafter.ui.screens.LogoSelectionScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (LogoSelectionScreen.kt:203) renamed: x3, o |
 | `p102x3\C2750x7.java` | C2750x7 |  renamed: x3, o |
-| `p102x3\C2751x8.java` | C2751x8 |  renamed: x3, o |
+| `p102x3\C2751x8.java` | C2751x8 |  renamed: x3, o | ; related: PDFProcessor; ReviewHelper ; ui: ReviewScreen |
 | `p102x3\C2752x9.java` | C2752x9 |  trace: com.notescrafter.ui.screens.PdfSplitScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfSplitScreen.kt:940) renamed: x3, A |
 | `p102x3\C2754xb.java` |  |  renamed: x3, o |
 | `p102x3\C2755xc.java` | C2755xc |  trace: com.notescrafter.ui.screens.NotebookConfiguratorCard.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:1430) renamed: x3, o strings: [SYNCING PDF DOCUMENT...] |
-| `p102x3\C2756xd.java` | C2756xd |  renamed: x3, o |
+| `p102x3\C2756xd.java` | C2756xd |  renamed: x3, o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\C2759y0.java` | C2759y0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfAddPageNumbersScreenKt.lambda-4.<anonymous> (PdfAddPageNumbersScreen.kt:645) renamed: x3, o strings: [Process Another File] |
 | `p102x3\C2760y1.java` | C2760y1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfOrganizeScreenKt.lambda-6.<anonymous> (PdfOrganizeScreen.kt:869) renamed: x3, o strings: [Delete] |
 | `p102x3\C2761y2.java` | C2761y2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintMyOrdersScreenKt.lambda-1.<anonymous> (PrintMyOrdersScreen.kt:233) renamed: x3, o |
 | `p102x3\C2763y4.java` | C2763y4 |  trace: com.notescrafter.ui.screens.DropdownSelector.<anonymous>.<anonymous>.<anonymous> (EnhanceScreen.kt:656) renamed: x3, o |
 | `p102x3\C2764y5.java` | C2764y5 |  trace: com.notescrafter.ui.screens.FAQCard.<anonymous> (HelpCenterScreen.kt:340) renamed: x3, o |
 | `p102x3\C2765y6.java` | C2765y6 |  trace: com.notescrafter.ui.screens.LogoSelectionScreen.<anonymous>.<anonymous>.<anonymous> (LogoSelectionScreen.kt:135) renamed: x3, o strings: [Shape: | Page:] |
-| `p102x3\C2766y7.java` | C2766y7 |  renamed: x3, A |
+| `p102x3\C2766y7.java` | C2766y7 |  renamed: x3, A | ; related: PDFProcessor |
 | `p102x3\C2767y8.java` | C2767y8 |  trace: com.notescrafter.ui.screens.PdfInvertStepItem.<anonymous> (PdfInvertScreen.kt:996) renamed: x3, o |
 | `p102x3\C2768y9.java` | C2768y9 |  trace: com.notescrafter.ui.screens.PdfSplitScreen.<anonymous>.<anonymous> (PdfSplitScreen.kt:970) renamed: x3, o |
 | `p102x3\C2769ya.java` | C2769ya |  renamed: x3, o |
@@ -1504,11 +1504,11 @@
 | `p102x3\C2774z.java` | C2774z |  trace: com.notescrafter.ui.screens.ComposableSingletons$CommunityScreenKt.lambda-1.<anonymous> (CommunityScreen.kt:224) renamed: x3, o strings: [Join Our Growing Community | You're Not Alone in Your Journey] |
 | `p102x3\C2775z0.java` | C2775z0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfAddPageNumbersScreenKt.lambda-5.<anonymous> (PdfAddPageNumbersScreen.kt:730) renamed: x3, o strings: [How it works] |
 | `p102x3\C2776z1.java` | C2776z1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfOrganizeScreenKt.lambda-7.<anonymous> (PdfOrganizeScreen.kt:880) renamed: x3, o strings: [Duplicate] |
-| `p102x3\C2779z4.java` |  |  renamed: x3, o |
+| `p102x3\C2779z4.java` |  |  renamed: x3, o | ; related: NetworkUtils |
 | `p102x3\C2780z5.java` | C2780z5 |  trace: com.notescrafter.ui.screens.HelpCenterScreen.<anonymous>.<anonymous>.<anonymous> (HelpCenterScreen.kt:149); com.notescrafter.ui.screens.PrintAddressesScreen.<anonymous> (PrintAddressesScreen.kt:559) renamed: x3, o |
 | `p102x3\C2781z6.java` | C2781z6 |  trace: com.notescrafter.ui.screens.TinyControlIcon.<anonymous> (LogoSelectionScreen.kt:546) renamed: x3, o |
-| `p102x3\C2784z9.java` | C2784z9 |  renamed: x3, o |
-| `p102x3\C2785za.java` |  |  renamed: x3, o |
+| `p102x3\C2784z9.java` | C2784z9 |  renamed: x3, o | ; related: PDFProcessor |
+| `p102x3\C2785za.java` |  |  renamed: x3, o | ; related: ToDoManager |
 | `p102x3\C2786zb.java` | C2786zb |  trace: com.notescrafter.ui.screens.NcfGallerySlider.<anonymous>.<anonymous>.<anonymous> (PrintLandingScreen.kt:1534) renamed: x3, o strings: [Tap to Watch] |
 | `p102x3\C2787zc.java` | C2787zc |  trace: com.notescrafter.ui.screens.NotebookConfiguratorCard.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:1538) renamed: x3, o strings: [FILE SYNC ERROR | Retry] |
 | `p102x3\C2788zd.java` | C2788zd |  trace: com.notescrafter.ui.screens.PrintOrderUploadScreen.<anonymous> (PrintOrderScreens.kt:156) renamed: x3, A |
@@ -1536,7 +1536,7 @@
 | `p102x3\D6.java` | D6 |  renamed: a, b |
 | `p102x3\D7.java` | D7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:455) renamed: o, r strings: [DOCUMENT RECEIPT | SUCCESS | Filename | Page Count | File Size] |
 | `p102x3\D8.java` | D8 |  trace: com.notescrafter.ui.screens.PdfMergeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfMergeScreen.kt:335) renamed: o strings: [FILE SIZE | TOTAL PAGES] |
-| `p102x3\Da.java` | Da |  renamed: o, r |
+| `p102x3\Da.java` | Da |  renamed: o, r | ; related: ToDoItem; ToDoManager |
 | `p102x3\Db.java` | Db |  trace: com.notescrafter.ui.screens.NcfGallerySlider.<anonymous> (PrintLandingScreen.kt:1741) renamed: o |
 | `p102x3\Dc.java` | Dc |  trace: com.notescrafter.ui.screens.PrintOrderCheckoutScreen.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:3423) renamed: o strings: [ORDER ID | DELIVERY BY | 3-7 business days | AMOUNT PAID] |
 | `p102x3\Dd.java` | Dd |  renamed: o |
@@ -1552,9 +1552,9 @@
 | `p102x3\E6.java` | E6 |  renamed: o |
 | `p102x3\E7.java` | E7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:404) renamed: o, r strings: [PDF Cropped!] |
 | `p102x3\E8.java` | E8 |  trace: com.notescrafter.ui.screens.PdfMergeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfMergeScreen.kt:275) renamed: o, r strings: [Merged Successfully! | Your combined document is ready to use] |
-| `p102x3\Ea.java` | Ea |  renamed: o, r |
+| `p102x3\Ea.java` | Ea |  renamed: o, r | ; related: ToDoItem; ToDoManager |
 | `p102x3\Eb.java` | Eb |  trace: com.notescrafter.ui.screens.PrintFaqAccordionItem.<anonymous> (PrintLandingScreen.kt:1405) renamed: o |
-| `p102x3\Ec.java` | Ec |  renamed: o, r |
+| `p102x3\Ec.java` | Ec |  renamed: o, r | ; related: PrintOrderViewModel ; ui: AddressScreen; PrintFlow |
 | `p102x3\Ed.java` | Ed |  renamed: o |
 | `p102x3\Ee.java` | Ee |  trace: com.notescrafter.ui.screens.SizeInfo (SuccessScreen.kt:663); com.notescrafter.ui.screens.SuccessScreen (SuccessScreen.kt:99) renamed: a strings: [Custom Printed Notebook | ðŸŽ‰ | Flat 10% OFF | on your first print order | FIRST10] |
 | `p102x3\ef.java` | ef |  trace: com.notescrafter.ui.screens.FeatureTile (UploadScreen.kt:344); com.notescrafter.ui.screens.StatItemCompact (UploadScreen.kt:364); com.notescrafter.ui.screens.UploadScreen (UploadScreen.kt:56) strings: [Upload Files | Select PDF files from your device to begin processing.] |
@@ -1577,10 +1577,10 @@
 | `p102x3\F7.java` | F7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:623) renamed: o strings: [Select PDF to Crop | Choose a single PDF document to crop margins | Choose File] |
 | `p102x3\F8.java` | F8 |  trace: com.notescrafter.ui.screens.PdfMergeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfMergeScreen.kt:481) renamed: o strings: [Select PDFs to Merge | Choose 2 or more PDF documents from your device | Choose Files] |
 | `p102x3\F9.java` | F9 |  trace: com.notescrafter.ui.screens.PdfToJpgScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfToJpgScreen.kt:309) renamed: o strings: [PDF to JPG] |
-| `p102x3\Fa.java` | Fa |  renamed: o, r |
+| `p102x3\Fa.java` | Fa |  renamed: o, r | ; related: ToDoItem; ToDoManager |
 | `p102x3\Fb.java` | Fb |  trace: com.notescrafter.ui.screens.PrintFeatureCard.<anonymous> (PrintLandingScreen.kt:972) renamed: o |
 | `p102x3\Fc.java` | Fc |  trace: com.notescrafter.ui.screens.PrintOrderCheckoutScreen.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:3483) renamed: o, r |
-| `p102x3\Fd.java` | Fd |  renamed: o, r |
+| `p102x3\Fd.java` | Fd |  renamed: o, r | ; related: PDFProcessor; PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\G.java` | G |  trace: com.notescrafter.ui.screens.ComposableSingletons$DownloadsScreenKt.lambda-10.<anonymous> (DownloadsScreen.kt:427) renamed: o strings: [Delete] |
 | `p102x3\G0.java` | G0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfCompressScreenKt.lambda-2.<anonymous> (PdfCompressScreen.kt:576) renamed: o strings: [Share PDF] |
 | `p102x3\G1.java` | G1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfSplitScreenKt.lambda-4.<anonymous> (PdfSplitScreen.kt:668) renamed: o |
@@ -1593,7 +1593,7 @@
 | `p102x3\G8.java` | G8 |  trace: com.notescrafter.ui.screens.PdfMergeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfMergeScreen.kt:474) renamed: o |
 | `p102x3\G9.java` | G9 |  trace: com.notescrafter.ui.screens.PdfToJpgScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfToJpgScreen.kt:345) renamed: o strings: [Conversion Successful!] |
 | `p102x3\Ga.java` | Ga |  trace: com.notescrafter.ui.screens.PomodoroTimerScreen.<anonymous>.<anonymous>.<anonymous> (PomodoroTimerScreen.kt:408) renamed: o, r strings: [Focus Checklist] |
-| `p102x3\Gb.java` | Gb |  renamed: o |
+| `p102x3\Gb.java` | Gb |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\Gc.java` | Gc |  trace: com.notescrafter.ui.screens.PrintOrderCheckoutScreen.<anonymous>.<anonymous> (PrintOrderScreens.kt:3477) renamed: o, r |
 | `p102x3\Gd.java` | Gd |  trace: com.notescrafter.ui.screens.A4CoverPage (PrintOrderScreens.kt:2164); com.notescrafter.ui.screens.AddressBottomSheet (PrintOrderScreens.kt:4445); com.notescrafter.ui.screens.EmptyUploadDropZone (PrintOrderScreens.kt:963) strings: [NO COVER TITLE | Loading dynamic preview... | Preview is syncing... | Order Placed! ðŸŽ‰ | Back to Home] |
 | `p102x3\H.java` | H |  trace: com.notescrafter.ui.screens.ComposableSingletons$DownloadsScreenKt.lambda-11.<anonymous> (DownloadsScreen.kt:436) renamed: o |
@@ -1612,7 +1612,7 @@
 | `p102x3\I0.java` | I0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfCompressScreenKt.lambda-4.<anonymous> (PdfCompressScreen.kt:672) renamed: o strings: [How it works] |
 | `p102x3\I1.java` | I1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfSplitScreenKt.lambda-6.<anonymous> (PdfSplitScreen.kt:694) renamed: o |
 | `p102x3\I2.java` | I2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintOrderScreensKt.lambda-19.<anonymous> (PrintOrderScreens.kt:4265) renamed: o strings: [e.g. FIRST10] |
-| `p102x3\I3.java` |  |  renamed: o, r |
+| `p102x3\I3.java` |  |  renamed: o, r | ; related: PDFProcessor; PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\I4.java` | I4 |  trace: com.notescrafter.ui.screens.EnhanceScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (EnhanceScreen.kt:323) renamed: o |
 | `p102x3\I7.java` | I7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:775) renamed: o, r |
 | `p102x3\I8.java` | I8 |  trace: com.notescrafter.ui.screens.PdfMergeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfMergeScreen.kt:646) renamed: o |
@@ -1642,7 +1642,7 @@
 | `p102x3\K2.java` | K2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintOrderScreensKt.lambda-20.<anonymous> (PrintOrderScreens.kt:4363) renamed: o |
 | `p102x3\K3.java` | K3 |  trace: com.notescrafter.ui.screens.DownloadedFileItem.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (DownloadsScreen.kt:401) renamed: o |
 | `p102x3\K4.java` |  |  renamed: o, r |
-| `p102x3\K5.java` |  |  renamed: o, r |
+| `p102x3\K5.java` |  |  renamed: o, r | ; related: ToDo list state (x3) |
 | `p102x3\K6.java` | K6 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfAddPageNumbersScreen.kt:458) renamed: o, r strings: [DOCUMENT RECEIPT | SUCCESS | Filename | Page Count | File Size] |
 | `p102x3\K7.java` | K7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:841) renamed: o, r strings: [Page Preview & Margins] |
 | `p102x3\K8.java` | K8 |  trace: com.notescrafter.ui.screens.PdfMergeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfMergeScreen.kt:746) renamed: o |
@@ -1666,14 +1666,14 @@
 | `p102x3\La.java` | La |  trace: com.notescrafter.ui.screens.PageThumbnail.<anonymous>.<anonymous> (PreviewScreen.kt:723) renamed: o |
 | `p102x3\Lb.java` | Lb |  trace: com.notescrafter.ui.screens.PrintSupportSection.<anonymous>.<anonymous> (PrintLandingScreen.kt:2584) renamed: o strings: [Still have questions?] |
 | `p102x3\Lc.java` | Lc |  trace: com.notescrafter.ui.screens.PrintOrderCheckoutScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:3680) renamed: o |
-| `p102x3\Ld.java` | Ld |  renamed: a, b |
+| `p102x3\Ld.java` | Ld |  renamed: a, b | ; ui: PrintFlow |
 | `p102x3\Le.java` | Le |  trace: com.notescrafter.ui.screens.ExamCardItem.<anonymous> (ToDoScreen.kt:529) renamed: o, r |
 | `p102x3\M.java` | M |  trace: com.notescrafter.ui.screens.ComposableSingletons$DownloadsScreenKt.lambda-8.<anonymous> (DownloadsScreen.kt:406) renamed: o strings: [Rename] |
 | `p102x3\M0.java` | M0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfCompressScreenKt.lambda-8.<anonymous> (PdfCompressScreen.kt:809) renamed: o |
 | `p102x3\M1.java` | M1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfToJpgScreenKt.lambda-1.<anonymous> (PdfToJpgScreen.kt:323) renamed: o |
 | `p102x3\M2.java` | M2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintOrderScreensKt.lambda-22.<anonymous> (PrintOrderScreens.kt:4454) renamed: o |
 | `p102x3\M3.java` | M3 |  trace: com.notescrafter.ui.screens.DownloadedFileItem.<anonymous> (DownloadsScreen.kt:316) renamed: o, r |
-| `p102x3\M4.java` |  |  renamed: o, r |
+| `p102x3\M4.java` |  |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\M5.java` |  |  renamed: o |
 | `p102x3\M6.java` | M6 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfAddPageNumbersScreen.kt:660) renamed: o strings: [Select PDF File | Choose a single PDF document to add numbering | Choose File] |
 | `p102x3\M7.java` | M7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:939) renamed: o |
@@ -1687,14 +1687,14 @@
 | `p102x3\N0.java` | N0 |  renamed: a, b |
 | `p102x3\N1.java` | N1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfToJpgScreenKt.lambda-10.<anonymous> (PdfToJpgScreen.kt:820) renamed: o |
 | `p102x3\N2.java` | N2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintOrderScreensKt.lambda-23.<anonymous> (PrintOrderScreens.kt:4538) renamed: o strings: [Add New Address] |
-| `p102x3\N3.java` | N3 |  renamed: o |
+| `p102x3\N3.java` | N3 |  renamed: o | ; related: ToDoItem |
 | `p102x3\N4.java` | N4 |  trace: com.notescrafter.ui.screens.EnhanceScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (EnhanceScreen.kt:388) renamed: o |
 | `p102x3\N5.java` | N5 |  trace: com.notescrafter.ui.screens.JpgToPdfScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (JpgToPdfScreen.kt:388) renamed: o, r strings: [DOCUMENT RECEIPT | SUCCESS | Filename | Page Count | File Size] |
 | `p102x3\N6.java` | N6 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfAddPageNumbersScreen.kt:653) renamed: o |
 | `p102x3\N7.java` | N7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:956) renamed: o |
 | `p102x3\N8.java` | N8 |  renamed: o |
 | `p102x3\N9.java` | N9 |  trace: com.notescrafter.ui.screens.PdfToJpgScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfToJpgScreen.kt:766) renamed: o, r |
-| `p102x3\Na.java` |  |  renamed: o, r |
+| `p102x3\Na.java` |  |  renamed: o, r | ; related: ExamItem ; ui: ExamScreen |
 | `p102x3\Nb.java` | Nb |  renamed: o |
 | `p102x3\Ne.java` | Ne |  trace: com.notescrafter.ui.screens.TaskItemMinimal.<anonymous> (ToDoScreen.kt:659) renamed: o, r |
 | `p102x3\O.java` | O |  renamed: a, b |
@@ -1705,11 +1705,11 @@
 | `p102x3\O5.java` | O5 |  trace: com.notescrafter.ui.screens.JpgToPdfScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (JpgToPdfScreen.kt:337) renamed: o, r strings: [PDF Created!] |
 | `p102x3\O6.java` |  |  renamed: o |
 | `p102x3\O7.java` | O7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:924) renamed: o, r |
-| `p102x3\O8.java` | O8 |  renamed: o, r |
+| `p102x3\O8.java` | O8 |  renamed: o, r | ; related: PDFProcessor |
 | `p102x3\O9.java` | O9 |  trace: com.notescrafter.ui.screens.PdfToJpgScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfToJpgScreen.kt:765) renamed: o, r |
 | `p102x3\Oa.java` | Oa |  trace: com.notescrafter.ui.screens.PreviewScreen.<anonymous> (PreviewScreen.kt:109) renamed: o, r strings: [Confirm Reorder] |
 | `p102x3\Ob.java` | Ob |  trace: com.notescrafter.ui.screens.WeekendFlashSaleDialog.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintLandingScreen.kt:670) renamed: o |
-| `p102x3\Oc.java` |  |  renamed: o |
+| `p102x3\Oc.java` |  |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\Oe.java` | Oe |  trace: com.notescrafter.ui.screens.ToDoScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (ToDoScreen.kt:96) renamed: o strings: [Prepare Today . Win Tomorrow] |
 | `p102x3\P.java` | P |  trace: com.notescrafter.ui.screens.ComposableSingletons$EditPageScreenKt.lambda-1.<anonymous> (EditPageScreen.kt:117) renamed: o |
 | `p102x3\P0.java` | P0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfCropScreenKt.lambda-2.<anonymous> (PdfCropScreen.kt:569) renamed: o strings: [View PDF] |
@@ -1720,9 +1720,9 @@
 | `p102x3\P5.java` |  |  renamed: o |
 | `p102x3\P6.java` | P6 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfAddPageNumbersScreen.kt:813) renamed: o, r |
 | `p102x3\P7.java` | P7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfCropScreen.kt:996) renamed: o |
-| `p102x3\P8.java` | P8 |  renamed: o, r |
+| `p102x3\P8.java` | P8 |  renamed: o, r | ; related: PDFProcessor; ReviewHelper ; ui: ReviewScreen |
 | `p102x3\P9.java` | P9 |  trace: com.notescrafter.ui.screens.PdfToJpgScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfToJpgScreen.kt:830) renamed: o strings: [Image Quality / Resolution] |
-| `p102x3\Pa.java` |  |  renamed: o, r |
+| `p102x3\Pa.java` |  |  renamed: o, r | ; related: GlobalHomeScreen-adjacent (x3) |
 | `p102x3\Pb.java` | Pb |  trace: com.notescrafter.ui.screens.WeekendFlashSaleDialog.<anonymous>.<anonymous>.<anonymous> (PrintLandingScreen.kt:467) renamed: o, r strings: [Lowest Prices of All Time | Every Saturday Â· 11 AM â€“ 11 PM IST | B&W / page | â‚¹1.25 | â‚¹0.79] |
 | `p102x3\Pc.java` | Pc |  trace: com.notescrafter.ui.screens.PrintOrderCheckoutScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:4288) renamed: o strings: [Apply] |
 | `p102x3\Pd.java` | Pd |  renamed: o |
@@ -1739,7 +1739,7 @@
 | `p102x3\Q8.java` | Q8 |  trace: com.notescrafter.ui.screens.MergeStepItem (PdfMergeScreen.kt:1057); com.notescrafter.ui.screens.PdfMergeScreen (PdfMergeScreen.kt:61) |
 | `p102x3\Qa.java` | Qa |  trace: com.notescrafter.ui.screens.PreviewScreen.<anonymous> (PreviewScreen.kt:169) renamed: o, r strings: [Reorder Slide | Move a slide to a new position.] |
 | `p102x3\Qb.java` | Qb |  trace: com.notescrafter.ui.screens.WeekendFlashSaleDialog.<anonymous> (PrintLandingScreen.kt:447) renamed: o, r |
-| `p102x3\Qc.java` | Qc |  renamed: o, r |
+| `p102x3\Qc.java` | Qc |  renamed: o, r | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\Qd.java` | Qd |  trace: com.notescrafter.ui.screens.Particle (ProcessingScreen.kt:347); com.notescrafter.ui.screens.ProcessingIcon (ProcessingScreen.kt:182); com.notescrafter.ui.screens.ProcessingScreen (ProcessingScreen.kt:45) strings: [Processing Document | Please wait while we enhance your PDF. | Transforming pages into enhanced notes...] |
 | `p102x3\Qe.java` | Qe |  trace: com.notescrafter.ui.screens.ToDoScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (ToDoScreen.kt:152) renamed: o strings: [Track Your Exam] |
 | `p102x3\r.java` | r |  trace: com.notescrafter.ui.screens.CommunityScreen (CommunityScreen.kt:88); com.notescrafter.ui.screens.CommunityStat (CommunityScreen.kt:369); com.notescrafter.ui.screens.SocialCard (CommunityScreen.kt:308) strings: [Have questions or want to get in touch directly?] |
@@ -1775,12 +1775,12 @@
 | `p102x3\T1.java` | T1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfToJpgScreenKt.lambda-7.<anonymous> (PdfToJpgScreen.kt:695) renamed: o |
 | `p102x3\T2.java` | T2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintOrderScreensKt.lambda-6.<anonymous> (PrintOrderScreens.kt:1025) renamed: o strings: [Select PDF files to print | Tap to browse your device for a PDF file] |
 | `p102x3\T3.java` | T3 |  renamed: o |
-| `p102x3\T4.java` | T4 |  renamed: o, r |
+| `p102x3\T4.java` | T4 |  renamed: o, r | ; related: PDFProcessor |
 | `p102x3\T5.java` |  |  renamed: o, r |
 | `p102x3\T6.java` | T6 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfAddPageNumbersScreen.kt:1025) renamed: o strings: [Number Format Style] |
 | `p102x3\T7.java` | T7 |  trace: com.notescrafter.ui.screens.PdfCropScreen.<anonymous>.<anonymous> (PdfCropScreen.kt:1049) renamed: o, r |
 | `p102x3\T8.java` | T8 |  trace: com.notescrafter.ui.screens.PdfOrganizeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfOrganizeScreen.kt:684) renamed: o strings: [Select PDF File | Choose a single PDF document to manage pages | Choose File] |
-| `p102x3\T9.java` | T9 |  renamed: o, r |
+| `p102x3\T9.java` | T9 |  renamed: o, r | ; ui: AddressScreen; SettingsScreen |
 | `p102x3\Ta.java` | Ta |  renamed: o, r |
 | `p102x3\Tb.java` | Tb |  renamed: o, r |
 | `p102x3\Tc.java` | Tc |  trace: com.notescrafter.ui.screens.PrintOrderCheckoutScreen.<anonymous> (PrintOrderScreens.kt:3471) renamed: A, B |
@@ -1791,7 +1791,7 @@
 | `p102x3\U1.java` | U1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfToJpgScreenKt.lambda-8.<anonymous> (PdfToJpgScreen.kt:727) renamed: o strings: [On-Device Image Extraction] |
 | `p102x3\U2.java` | U2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintOrderScreensKt.lambda-7.<anonymous> (PrintOrderScreens.kt:1356) renamed: o |
 | `p102x3\U3.java` | U3 |  renamed: o, r |
-| `p102x3\U4.java` | U4 |  renamed: o, r |
+| `p102x3\U4.java` | U4 |  renamed: o, r | ; related: PDFProcessor |
 | `p102x3\U5.java` | U5 |  trace: com.notescrafter.ui.screens.JpgToPdfScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (JpgToPdfScreen.kt:786) renamed: o |
 | `p102x3\U6.java` | U6 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfAddPageNumbersScreen.kt:1086) renamed: o strings: [Advanced Styling] |
 | `p102x3\U7.java` | U7 |  renamed: o, r |
@@ -1811,8 +1811,8 @@
 | `p102x3\V7.java` | V7 |  renamed: o, r |
 | `p102x3\V8.java` | V8 |  trace: com.notescrafter.ui.screens.PdfOrganizeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfOrganizeScreen.kt:841) renamed: o, r |
 | `p102x3\V9.java` | V9 |  renamed: o, r |
-| `p102x3\Va.java` |  |  renamed: o |
-| `p102x3\Vb.java` | Vb |  renamed: o |
+| `p102x3\Va.java` |  |  renamed: o | ; related: GlobalHomeScreen-adjacent (x3) |
+| `p102x3\Vb.java` | Vb |  renamed: o | ; related: PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\Vc.java` | Vc |  trace: com.notescrafter.ui.screens.PrintOrderShippingScreen.<anonymous>.<anonymous>.<anonymous> (PrintOrderScreens.kt:2465) renamed: o, r strings: [Continue to Checkout] |
 | `p102x3\Vd.java` | Vd |  renamed: a, b |
 | `p102x3\Ve.java` | Ve |  trace: com.notescrafter.ui.screens.ToDoScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (ToDoScreen.kt:243) renamed: o, r |
@@ -1835,21 +1835,21 @@
 | `p102x3\X1.java` | X1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PomodoroSetupScreenKt.lambda-1.<anonymous> (PomodoroSetupScreen.kt:144) renamed: o |
 | `p102x3\X2.java` | X2 |  renamed: a, b |
 | `p102x3\X3.java` | X3 | **[KNOWN]** DownloadsScreen.kt ("My Downloads", empty state, file list) trace: com.notescrafter.ui.screens.DownloadedFileItem (DownloadsScreen.kt:309); com.notescrafter.ui.screens.DownloadsScreen (DownloadsScreen.kt:58) strings: [My Downloads | All your processed PDFs are stored here | No downloads yet | Process your first PDF to see it here] |
-| `p102x3\X4.java` | X4 |  renamed: o, r |
+| `p102x3\X4.java` | X4 |  renamed: o, r | ; related: PDFProcessor |
 | `p102x3\X5.java` | X5 |  trace: com.notescrafter.ui.screens.JpgToPdfScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (JpgToPdfScreen.kt:828) renamed: o strings: [Add More Images] |
 | `p102x3\X6.java` | X6 |  trace: com.notescrafter.ui.screens.PdfAddPageNumbersScreen.<anonymous>.<anonymous> (PdfAddPageNumbersScreen.kt:1193) renamed: o, r |
 | `p102x3\X7.java` | X7 |  renamed: A, B |
 | `p102x3\X8.java` | X8 |  trace: com.notescrafter.ui.screens.PdfOrganizeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfOrganizeScreen.kt:894) renamed: o, r |
-| `p102x3\X9.java` | X9 |  renamed: A, o |
-| `p102x3\Xa.java` |  |  renamed: o, r |
+| `p102x3\X9.java` | X9 |  renamed: A, o | ; related: ReviewHelper ; ui: ReviewScreen |
+| `p102x3\Xa.java` |  |  renamed: o, r | ; related: GlobalHomeScreen-adjacent (x3); PrintOrderViewModel ; ui: PrintFlow |
 | `p102x3\Xb.java` | Xb |  trace: com.notescrafter.ui.screens.PrintMyOrdersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintMyOrdersScreen.kt:218) renamed: o |
-| `p102x3\Xe.java` | Xe |  renamed: o, r |
+| `p102x3\Xe.java` | Xe |  renamed: o, r | ; related: ToDoItem; ToDoManager |
 | `p102x3\Y.java` | Y |  trace: com.notescrafter.ui.screens.ComposableSingletons$HelpCenterScreenKt.lambda-3.<anonymous> (HelpCenterScreen.kt:151) renamed: o |
 | `p102x3\Y0.java` | Y0 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PdfInvertScreenKt.lambda-1.<anonymous> (PdfInvertScreen.kt:320) renamed: o |
 | `p102x3\Y1.java` | Y1 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PomodoroSetupScreenKt.lambda-2.<anonymous> (PomodoroSetupScreen.kt:308) renamed: o strings: [The Pomodoro Technique] |
 | `p102x3\Y2.java` | Y2 |  trace: com.notescrafter.ui.screens.ComposableSingletons$PrintPriceCalculatorScreenKt.lambda-1.<anonymous> (PrintPriceCalculatorScreen.kt:264) renamed: o |
 | `p102x3\Y3.java` | Y3 |  renamed: o |
-| `p102x3\Y4.java` | Y4 |  renamed: o, r |
+| `p102x3\Y4.java` | Y4 |  renamed: o, r | ; related: PDFProcessor |
 | `p102x3\Y5.java` | Y5 |  trace: com.notescrafter.ui.screens.JpgToPdfScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (JpgToPdfScreen.kt:850) renamed: o strings: [Page Settings] |
 | `p102x3\Y6.java` | Y6 |  renamed: o |
 | `p102x3\Y7.java` | Y7 |  renamed: o, r |
@@ -1870,7 +1870,7 @@
 | `p102x3\Z7.java` | Z7 |  renamed: A, B |
 | `p102x3\Z8.java` | Z8 |  trace: com.notescrafter.ui.screens.PdfOrganizeScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PdfOrganizeScreen.kt:1061) renamed: o |
 | `p102x3\Z9.java` | Z9 |  trace: com.notescrafter.ui.screens.PdfToJpgScreen (PdfToJpgScreen.kt:73); com.notescrafter.ui.screens.PdfToJpgStepItem (PdfToJpgScreen.kt:1029) |
-| `p102x3\Za.java` |  |  renamed: o, r |
+| `p102x3\Za.java` |  |  renamed: o, r | ; related: GlobalHomeScreen-adjacent (x3); LogoSelectionScreen confirm lambda; PrintOrderViewModel ; ui: AddressScreen; PrintFlow |
 | `p102x3\Zb.java` | Zb |  trace: com.notescrafter.ui.screens.PrintMyOrdersScreen.<anonymous>.<anonymous>.<anonymous>.<anonymous> (PrintMyOrdersScreen.kt:245) renamed: o strings: [No orders yet | Start Your First Order] |
 | `p102x3\Zd.java` | Zd |  renamed: o, r |
 | `p102x3\Ze.java` | Ze |  renamed: a, b |
@@ -1902,13 +1902,13 @@
 | `p105y1\BinderC2797h.java` | BinderC2797h |  renamed: y1, o |
 | `p105y1\C.java` | C |  |
 | `p105y1\C2790a.java` | C2790a |  renamed: y1, a |
-| `p105y1\C2796g.java` | C2796g |  renamed: y1, a |
+| `p105y1\C2796g.java` | C2796g |  renamed: y1, a | ; ui: HistoryScreen |
 | `p105y1\C2799j.java` | C2799j |  renamed: y1, a |
 | `p105y1\C2800k.java` | C2800k |  renamed: y1, r |
 | `p105y1\D.java` | D |  renamed: b, d |
 | `p105y1\DialogInterfaceOnClickListenerC2792c.java` |  |  renamed: y1, a |
 | `p105y1\DialogInterfaceOnClickListenerC2794e.java` |  |  renamed: y1, a |
-| `p105y1\F.java` | F |  renamed: l, h |
+| `p105y1\F.java` | F |  renamed: l, h | ; ui: SettingsScreen |
 | `p105y1\G.java` | G |  |
 | `p105y1\H.java` | H |  |
 | `p105y1\J.java` | J |  |
@@ -1957,7 +1957,7 @@
 | `p109z0\i.java` | i |  renamed: a, b |
 | `p109z0\j.java` | j |  renamed: a, b |
 | `p109z0\k.java` | k |  renamed: j, k |
-| `p109z0\l.java` | l |  renamed: H, A |
+| `p109z0\l.java` | l |  renamed: H, A | ; ui: SettingsScreen |
 | `p110z1\a.java` | a |  |
 | `p110z1\b.java` | b |  |
 | `p111z2\a.java` | a |  renamed: a, b |

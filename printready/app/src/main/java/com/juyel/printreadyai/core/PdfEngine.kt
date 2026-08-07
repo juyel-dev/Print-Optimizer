@@ -211,7 +211,7 @@ object PdfEngine {
         output: OutputSettings,
         ratio: Float
     ): Pair<Int, Int> {
-        if (output.documentSize == DocumentSize.ORIGINAL) {
+        if (output.documentSize == PageSize.ORIGINAL) {
             val fd = context.contentResolver.openFileDescriptor(first.sourceUri, "r")
                 ?: throw IOException("Cannot open source file")
             fd.use { pfd ->
@@ -278,14 +278,14 @@ object PdfEngine {
             filter.blackAndWhite,
             filter.backgroundThreshold
         )
-        if (filter.removeLogo) {
-            for ((box, shape) in filter.logoBoxes) {
-                Engine.removeLogo(
-                    pixels, w, h,
-                    box.left, box.top, box.width(), box.height(),
-                    shape == "circle"
-                )
-            }
+        // RE: single logo box; shape "circle" or "rectangle" (p087u3.b)
+        if (filter.removeLogo && filter.logoBox != null) {
+            val box = filter.logoBox
+            Engine.removeLogo(
+                pixels, w, h,
+                box.left, box.top, box.width(), box.height(),
+                filter.logoShape == "circle"
+            )
         }
         bmp.setPixels(pixels, 0, w, 0, 0, w, h)
         return bmp
@@ -300,7 +300,7 @@ object PdfEngine {
     ) {
         val cols = output.nupColumns
         val rows = output.nupRows
-        val margin = if (output.documentSize == DocumentSize.ORIGINAL) 0f
+        val margin = if (output.documentSize == PageSize.ORIGINAL) 0f
         else sheet.width / 595f * CM_PT
         val contentW = sheet.width - 2 * margin
         val contentH = sheet.height - 2 * margin
@@ -322,7 +322,9 @@ object PdfEngine {
             paint
         )
 
-        if (output.addSeparationLines && output.orientation == Orientation.PORTRAIT) {
+        // RE: 2px black STROKE between cells (only if addSeparationLines and not ORIGINAL)
+            // (orientation is irrelevant in RE — see flow.md §Separation lines)
+            if (output.addSeparationLines && output.documentSize != PageSize.ORIGINAL) {
             val line = Paint().apply {
                 color = 0xFF000000.toInt()
                 strokeWidth = SEPARATOR_PX.toFloat()

@@ -93,12 +93,6 @@ object PdfWriter {
         write(payload.toByteArray(Charsets.ISO_8859_1))
     }
 
-    fun byteCount(pages: List<Page>): Long {
-        var total = HEADER.length.toLong()
-        total += 100 // catalog + pages tree approximations
-        for (page in pages) {
-            total += 300L + page.jpegBytes.size
-        }
         return total + 64
     }
 }

@@ -107,7 +107,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.juyel.printreadyai.core.DocumentSize
+import com.juyel.printreadyai.core.PageSize
 import com.juyel.printreadyai.core.FilterSettings
 import com.juyel.printreadyai.core.Orientation
 import com.juyel.printreadyai.core.OutputSettings
@@ -187,7 +187,7 @@ fun ConvertScreen(nav: NavHostController) {
         mutableStateOf(runCatching { Quality.valueOf(prefs.getString("quality", "HIGH") ?: "HIGH") }.getOrDefault(Quality.HIGH))
     }
     var sizeMode by remember {
-        mutableStateOf(if ((prefs.getString("document_size", "A4") ?: "A4") == "ORIGINAL") DocumentSize.ORIGINAL else DocumentSize.N_UP)
+        mutableStateOf(if ((prefs.getString("document_size", "A4") ?: "A4") == "ORIGINAL") PageSize.ORIGINAL else PageSize.A4)
     }
     var orientation by remember {
         mutableStateOf(runCatching { Orientation.valueOf(prefs.getString("orientation", "PORTRAIT") ?: "PORTRAIT") }.getOrDefault(Orientation.PORTRAIT))
@@ -208,7 +208,7 @@ fun ConvertScreen(nav: NavHostController) {
             .putBoolean("black_and_white", bw)
             .putInt("background_threshold", threshold)
             .putString("quality", quality.name)
-            .putString("document_size", if (sizeMode == DocumentSize.ORIGINAL) "ORIGINAL" else "A4")
+            .putString("document_size", if (sizeMode == PageSize.ORIGINAL) "ORIGINAL" else "A4")
             .putString("orientation", orientation.name)
             .putInt("nup_rows", rows)
             .putInt("nup_cols", cols)
@@ -273,10 +273,11 @@ fun ConvertScreen(nav: NavHostController) {
                 onProcess = {
                     val items = pages.filter { it.isSelected }.map { PageItem(it.docUri, it.pageIndex) }
                     if (items.isEmpty()) { errorMsg = "Please select at least one page."; return@FlowEnhance }
-                    val boxes = if (removeLogo) {
+                    // RE: single logoBox + logoShape ("circle" | "rectangle")
+                    val (logoBox, logoShape) = if (removeLogo) {
                         val r = logoRegion.value
-                        listOf(RectF(r.left, r.top, r.left + r.w, r.top + r.h) to if (logoCircle) "circle" else "square")
-                    } else emptyList()
+                        RectF(r.left, r.top, r.left + r.w, r.top + r.h) to (if (logoCircle) "circle" else "rectangle")
+                    } else null to "rectangle"
                     val filter = FilterSettings(
                         invertColors = invert,
                         grayscale = grayscale,
@@ -284,11 +285,12 @@ fun ConvertScreen(nav: NavHostController) {
                         blackAndWhite = bw,
                         backgroundThreshold = threshold,
                         removeLogo = removeLogo,
-                        logoBoxes = boxes
+                        logoBox = logoBox,
+                        logoShape = logoShape
                     )
                     val output = OutputSettings(
                         quality = quality,
-                        documentSize = if (sizeMode == DocumentSize.ORIGINAL) DocumentSize.ORIGINAL else DocumentSize.N_UP,
+                        documentSize = if (sizeMode == PageSize.ORIGINAL) PageSize.ORIGINAL else PageSize.A4,
                         orientation = orientation,
                         nupRows = rows,
                         nupColumns = cols,
@@ -881,7 +883,7 @@ private fun FlowEnhance(
     bw: Boolean, onBw: (Boolean) -> Unit,
     threshold: Int, onThreshold: (Int) -> Unit,
     quality: Quality, onQuality: (Quality) -> Unit,
-    sizeMode: DocumentSize, onSizeMode: (DocumentSize) -> Unit,
+    sizeMode: PageSize, onSizeMode: (PageSize) -> Unit,
     orientation: Orientation, onOrientation: (Orientation) -> Unit,
     rows: Int, onRows: (Int) -> Unit,
     cols: Int, onCols: (Int) -> Unit,
@@ -958,10 +960,10 @@ private fun FlowEnhance(
                         Spacer(Modifier.height(4.dp))
                         Text("Paper size", style = MaterialTheme.typography.bodySmall, color = AppColors.TextSecondary)
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            FilterChip(selected = sizeMode == DocumentSize.N_UP, onClick = { onSizeMode(DocumentSize.N_UP) }, label = { Text("A4") })
-                            FilterChip(selected = sizeMode == DocumentSize.ORIGINAL, onClick = { onSizeMode(DocumentSize.ORIGINAL) }, label = { Text("Original") })
+                            FilterChip(selected = sizeMode == PageSize.A4, onClick = { onSizeMode(PageSize.A4) }, label = { Text("A4") })
+                            FilterChip(selected = sizeMode == PageSize.ORIGINAL, onClick = { onSizeMode(PageSize.ORIGINAL) }, label = { Text("Original") })
                         }
-                        if (sizeMode == DocumentSize.N_UP) {
+                        if (sizeMode == PageSize.A4) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text("Columns", color = AppColors.TextSecondary)
                                 Spacer(Modifier.weight(1f))

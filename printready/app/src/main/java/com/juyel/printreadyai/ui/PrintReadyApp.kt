@@ -28,6 +28,7 @@ import androidx.navigation.compose.rememberNavController
 object Routes {
     const val HOME = "home"
     const val FLOW = "flow"
+    const val FLOW_UPLOAD = "flow-upload"
     const val CONTACT = "contact"
     const val LIBRARY = "library"
     const val PREMIUM = "premium"
@@ -48,16 +49,15 @@ private val bottomTabs = listOf(
 @Composable
 fun PrintReadyApp() {
     val nav = rememberNavController()
-    Scaffold(
-        bottomBar = { BottomBar(nav) }
-    ) { padding ->
+    Scaffold(bottomBar = { BottomBar(nav) }) { padding ->
         NavHost(
             navController = nav,
             startDestination = Routes.HOME,
             modifier = Modifier.padding(padding)
         ) {
             composable(Routes.HOME) { HomeScreen(nav) }
-            composable(Routes.FLOW) { ConvertScreen(nav) }
+            composable(Routes.FLOW) { LandingScreen(nav) }
+            composable(Routes.FLOW_UPLOAD) { ConvertScreen(nav) }
             composable(Routes.CONTACT) { ComingSoonScreen("Contact") }
             composable(Routes.LIBRARY) { ComingSoonScreen("Library") }
             composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }

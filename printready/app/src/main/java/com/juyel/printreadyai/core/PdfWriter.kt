@@ -92,7 +92,4 @@ object PdfWriter {
         val payload = "$number 0 obj\n$body\nendobj\n"
         write(payload.toByteArray(Charsets.ISO_8859_1))
     }
-
-        return total + 64
-    }
 }

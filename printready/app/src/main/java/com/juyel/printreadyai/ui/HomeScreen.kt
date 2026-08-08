@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.juyel.printreadyai.ui.sponsor.SponsorCarousel
 
 private val brandGradient = listOf(Color(0xFFA855F7), Color(0xFFEC4899))
 
@@ -92,7 +93,10 @@ private fun ProductContainers(nav: NavHostController) {
             subtitle = "AI-Powered Document Enhancement",
             icon = Icons.Outlined.AutoFixHigh,
             gradient = brandGradient,
-            onClick = { nav.navigate(Routes.FLOW) }
+            onClick = { nav.navigate(Routes.FLOW) },
+            showCarousel = true,
+            carouselPrefix = "flow",
+            fallbackDrawable = com.juyel.printreadyai.R.drawable.sponsor_flow
         )
         
         ProductContainer(
@@ -100,7 +104,10 @@ private fun ProductContainers(nav: NavHostController) {
             subtitle = "Smart Document Processing",
             icon = Icons.Outlined.SmartToy,
             color = Color(0xFF5A2A2B),
-            onClick = { nav.navigate("ai") }
+            onClick = { nav.navigate("ai") },
+            showCarousel = true,
+            carouselPrefix = "ai",
+            fallbackDrawable = com.juyel.printreadyai.R.drawable.sponsor_ai
         )
         
         ProductContainer(
@@ -108,7 +115,10 @@ private fun ProductContainers(nav: NavHostController) {
             subtitle = "PDF & Document Utilities",
             icon = Icons.Outlined.Build,
             color = Color(0xFF75A2B),
-            onClick = { nav.navigate(Routes.TOOLS) }
+            onClick = { nav.navigate(Routes.TOOLS) },
+            showCarousel = true,
+            carouselPrefix = "tools",
+            fallbackDrawable = com.juyel.printreadyai.R.drawable.sponsor_tools
         )
     }
 }
@@ -120,7 +130,10 @@ private fun ProductContainer(
     icon: ImageVector,
     gradient: List<Color>? = null,
     color: Color? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    showCarousel: Boolean = false,
+    carouselPrefix: String? = null,
+    @androidx.annotation.DrawableRes fallbackDrawable: Int = 0
 ) {
     var isPressed by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
@@ -129,10 +142,9 @@ private fun ProductContainer(
         label = "card_scale"
     )
     
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(140.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(
                 if (gradient != null) Brush.linearGradient(gradient)
@@ -144,53 +156,71 @@ private fun ProductContainer(
                 shape = RoundedCornerShape(16.dp)
             )
             .scale(scale)
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onPress = {
-                        isPressed = true
-                        tryAwaitRelease()
-                        isPressed = false
-                    },
-                    onTap = { onClick() }
-                )
-            }
-            .padding(20.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically
+        // Header row (clickable to navigate)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(120.dp)
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onPress = {
+                            isPressed = true
+                            tryAwaitRelease()
+                            isPressed = false
+                        },
+                        onTap = { onClick() }
+                    )
+                }
+                .padding(20.dp)
         ) {
-            Icon(
-                icon,
-                contentDescription = title,
-                tint = Color.White,
-                modifier = Modifier.size(48.dp)
-            )
-            
-            Spacer(Modifier.width(16.dp))
-            
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = Color.White
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    icon,
+                    contentDescription = title,
+                    tint = Color.White,
+                    modifier = Modifier.size(48.dp)
                 )
                 
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.width(16.dp))
                 
-                Text(
-                    text = subtitle,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = 0.9f)
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.White
+                    )
+                    
+                    Spacer(Modifier.height(4.dp))
+                    
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.White.copy(alpha = 0.9f)
+                    )
+                }
+                
+                Icon(
+                    Icons.Outlined.ChevronRight,
+                    contentDescription = "Navigate",
+                    tint = Color.White.copy(alpha = 0.7f),
+                    modifier = Modifier.size(32.dp)
                 )
             }
-            
-            Icon(
-                Icons.Outlined.ChevronRight,
-                contentDescription = "Navigate",
-                tint = Color.White.copy(alpha = 0.7f),
-                modifier = Modifier.size(32.dp)
+        }
+        
+        // Sponsor carousel (below header, inside the card)
+        if (showCarousel && carouselPrefix != null && fallbackDrawable != 0) {
+            SponsorCarousel(
+                prefix = carouselPrefix,
+                fallbackDrawable = fallbackDrawable,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp)
             )
         }
     }

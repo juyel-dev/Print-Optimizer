@@ -102,7 +102,7 @@ private data class NewsItem(val icon: ImageVector, val title: String, val desc: 
 private val whatsNew = listOf(
     NewsItem(Icons.Outlined.AutoFixHigh, "Print-Ready Output", "Optimized PDFs for clean, readable prints"),
     NewsItem(Icons.Outlined.Bolt, "Native Engine", "Lightning-fast C-powered processing"),
-    NewsItem(Icons.Outlined.LogoDev, "Logo Removal", "Erase logos and watermarks from PDFs"),
+    NewsItem(Icons.Outlined.AutoAwesome, "Logo Removal", "Erase logos and watermarks from PDFs"),
     NewsItem(Icons.Outlined.Build, "Bug Fixes", "Smoother, more stable app")
 )
 

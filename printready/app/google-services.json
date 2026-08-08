@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1036392109825",
+    "project_id": "printready-ai",
+    "storage_bucket": "printready-ai.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036392109825:android:cf9082d827a2d12228ed00",
+        "android_client_info": {
+          "package_name": "com.juyel.printreadyai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3666sK63hUmtjAvHY0UZPKrez03sWDvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

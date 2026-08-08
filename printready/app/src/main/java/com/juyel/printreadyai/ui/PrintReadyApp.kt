@@ -32,6 +32,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.juyel.printreadyai.ui.tools.*
 
 object Routes {
     const val HOME = "home"
@@ -89,6 +90,7 @@ fun PrintReadyApp() {
             startDestination = Routes.HOME,
             modifier = Modifier.padding(padding)
         ) {
+            // Main screens
             composable(Routes.HOME) { HomeScreen(nav) }
             composable(Routes.FLOW) { ConvertScreen(nav) }
             composable(Routes.TOOLS) { ToolsScreen(nav) }
@@ -96,6 +98,20 @@ fun PrintReadyApp() {
             composable(Routes.LIBRARY) { ComingSoonScreen("Library") }
             composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }
             composable(Routes.SETTINGS) { ComingSoonScreen("Settings") }
+            
+            // Tool screens
+            composable("pdf-merge") { MergePdfScreen(nav) }
+            composable("pdf-split") { SplitPdfScreen(nav) }
+            composable("pdf-compress") { CompressPdfScreen(nav) }
+            composable("pdf-add-page-numbers") { AddPageNumbersScreen(nav) }
+            composable("pdf-organize") { OrganizePdfScreen(nav) }
+            composable("pdf-crop") { CropPdfScreen(nav) }
+            composable("pdf-invert") { InvertPdfScreen(nav) }
+            composable("pdf-to-jpg") { PdfToJpgScreen(nav) }
+            composable("jpg-to-pdf") { JpgToPdfScreen(nav) }
+            composable("pomodoro-setup") { PomodoroScreen(nav) }
+            
+            // Coming soon
             composable("soon/{title}") { entry ->
                 ComingSoonScreen(entry.arguments?.getString("title") ?: "Coming Soon")
             }
@@ -104,7 +120,9 @@ fun PrintReadyApp() {
 }
 
 private fun isToolScreen(route: String?): Boolean {
-    return route?.startsWith("pdf-") == true || route?.startsWith("pomodoro-") == true
+    return route?.startsWith("pdf-") == true || 
+           route?.startsWith("jpg-") == true || 
+           route?.startsWith("pomodoro-") == true
 }
 
 private fun isHiddenOnFlow(route: String?): Boolean {

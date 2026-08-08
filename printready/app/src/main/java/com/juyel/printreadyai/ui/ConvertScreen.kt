@@ -325,7 +325,7 @@ fun ConvertScreen(nav: NavHostController) {
                     processing = true
                     progress = 0f
                     progressInfo = "Optimizing..."
-                    progressCounts = 0 to items.size
+                    progressCounts = 0 to 0  // "Preparing…" (not "Page 0 of X")
                     scope.launch {
                         // Option A UX trick: "Process File" shows ~1s FAKE progress.
                         // The real pipeline runs on Download (state 6) — same as RE.
@@ -349,16 +349,22 @@ fun ConvertScreen(nav: NavHostController) {
                     onShare = { openShare(context, it.outputUri) },
                     onDownload = {
                         downloading = true
+                        state = 5  // Show FlowProcessing during download
+                        progress = 0f
+                        progressInfo = "Preparing download..."
+                        progressCounts = 0 to 0
                         scope.launch {
                             try {
-                                val outUri = PdfEngine.process(context, PdfEngine.Mode.CONVERT, lastItems, lastFilter, lastOutput) { p ->
+                                val outUri = PdfEngine.process(context, lastItems, lastFilter, lastOutput) { p ->
                                     progress = if (p.total > 0) p.done.toFloat() / p.total else 0f
                                     progressInfo = p.stage
                                     progressCounts = p.done to p.total
                                 }
                                 val ps = querySize(context, Uri.parse(outUri))
                                 result = it.copy(outputUri = outUri, processedSize = ps)
+                                state = 6  // Back to success
                             } catch (e: Exception) {
+                                state = 6  // Back to success so user sees error
                                 errorMsg = e.message ?: "Download failed. Please try again."
                             } finally { downloading = false }
                         }
@@ -1380,10 +1386,12 @@ private fun FlowSuccess(
                 Card(shape = RoundedCornerShape(18.dp), colors = CardDefaults.cardColors(containerColor = AppColors.Surface), modifier = Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(18.dp)) {
                         SummaryRow("Original size", formatSize(result.originalSize))
-                        Spacer(Modifier.height(6.dp))
-                        SummaryRow("Processed size", formatSize(result.processedSize))
-                        Spacer(Modifier.height(6.dp))
-                        SummaryRow("Pages processed", "${result.pageCount}")
+                        if (hasFile) {
+                            Spacer(Modifier.height(6.dp))
+                            SummaryRow("Processed size", formatSize(result.processedSize))
+                            Spacer(Modifier.height(6.dp))
+                            SummaryRow("Pages processed", "${result.pageCount}")
+                        }
                         if (result.originalSize > 0 && result.processedSize > 0) {
                             val savedPct = (1f - result.processedSize.toFloat() / result.originalSize.toFloat()).coerceAtLeast(0f)
                             Spacer(Modifier.height(6.dp))
@@ -1439,7 +1447,7 @@ private fun FlowSuccess(
                 } else {
                     Icon(Icons.Outlined.Download, null, Modifier.size(16.dp))
                     Spacer(Modifier.width(6.dp))
-                    Text("Download Another Copy")
+                    Text(if (hasFile) "Download Another Copy" else "Download")
                 }
             }
             OutlinedButton(

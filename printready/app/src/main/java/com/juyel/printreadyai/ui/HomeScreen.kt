@@ -94,15 +94,15 @@ private val popularTools = listOf(
     ToolItem("Rotate Pages", Icons.Outlined.RotateRight),
     ToolItem("Extract Pages", Icons.Outlined.FilterNone),
     ToolItem("Image ↔ PDF", Icons.Outlined.SwapHoriz),
-    ToolItem("Watermark", Icons.Outlined.Brush)
+    ToolItem("Logo Remover", Icons.Outlined.Brush)
 )
 
 private data class NewsItem(val icon: ImageVector, val title: String, val desc: String)
 
 private val whatsNew = listOf(
-    NewsItem(Icons.Outlined.NewReleases, "New Tool Added", "Watermark support is here"),
-    NewsItem(Icons.Outlined.Bolt, "Faster Processing", "Up to 2x faster engine"),
-    NewsItem(Icons.Outlined.AutoAwesome, "Better AI Suggestions", "Smarter print optimization"),
+    NewsItem(Icons.Outlined.AutoFixHigh, "Print-Ready Output", "Optimized PDFs for clean, readable prints"),
+    NewsItem(Icons.Outlined.Bolt, "Native Engine", "Lightning-fast C-powered processing"),
+    NewsItem(Icons.Outlined.LogoDev, "Logo Removal", "Erase logos and watermarks from PDFs"),
     NewsItem(Icons.Outlined.Build, "Bug Fixes", "Smoother, more stable app")
 )
 

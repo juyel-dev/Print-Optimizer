@@ -1,11 +1,20 @@
-#include <jni.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <android/log.h>
 
+#ifdef PRINTREADY_HOST_TEST
+/* Host test mode: no JNI/Android headers, provide minimal stubs */
+#include <stdio.h>
 #define TAG "PrintReadyNative"
+#define LOGE(...) do { fprintf(stderr, "[ERROR] "); fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n"); } while(0)
+#else
+/* Android build mode */
+#include <jni.h>
+#include <android/log.h>
+#define TAG "PrintReadyNative"
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
+#endif
 
 /*
  * Own implementation of the documented page-enhancement algorithms.
@@ -167,6 +176,7 @@ static void invert_oval(uint32_t *pixels, int w, int x0, int y0, int x1, int y1)
     }
 }
 
+#ifndef PRINTREADY_HOST_TEST
 /* ============================ JNI ============================ */
 
 JNIEXPORT jint JNICALL
@@ -175,7 +185,7 @@ Java_com_juyel_printreadyai_core_Engine_processPage(JNIEnv *env, jclass clazz,
     jboolean invert, jboolean grayscale, jboolean clearBg, jboolean bw, jint threshold) {
     jsize len = (*env)->GetArrayLength(env, pixels);
     if (len != (jsize)((int64_t)width * height)) {
-        __android_log_print(ANDROID_LOG_ERROR, TAG, "bad dimensions %d vs %d", len, width * height);
+        LOGE("bad dimensions %d vs %d", len, width * height);
         return 0;
     }
     uint32_t *p = (uint32_t *)(*env)->GetIntArrayElements(env, pixels, NULL);
@@ -250,3 +260,26 @@ Java_com_juyel_printreadyai_core_Engine_invertRegionOval(JNIEnv *env, jclass cla
     invert_oval(p, width, x0, y0, x1, y1);
     (*env)->ReleaseIntArrayElements(env, pixels, (jint *)p, 0);
 }
+
+
+#endif /* JNI (Android only) */
+
+/* ============================ HOST TEST API ============================
+ * When compiled with -DPRINTREADY_HOST_TEST, these wrappers expose the
+ * internal filter functions for gcc-based testing on the host machine.
+ * Compile: gcc -DPRINTREADY_HOST_TEST -o test_engine test_engine.c -lm
+ */
+#ifdef PRINTREADY_HOST_TEST
+
+#include <stdio.h>
+
+void test_invert(uint32_t *p, size_t n) { invert_pixels(p, n); }
+void test_grayscale(uint32_t *p, size_t n) { grayscale_pixels(p, n); }
+void test_clear_bg(uint32_t *p, size_t n, int threshold) { clear_bg_pixels(p, n, threshold); }
+void test_bw(uint32_t *p, int w, int h) { bw_pixels(p, w, h); }
+void test_fill_rect(uint32_t *p, int w, int x0, int y0, int x1, int y1, uint32_t c) { fill_rect(p, w, x0, y0, x1, y1, c); }
+void test_fill_oval(uint32_t *p, int w, int x0, int y0, int x1, int y1, uint32_t c) { fill_oval(p, w, x0, y0, x1, y1, c); }
+void test_invert_rect(uint32_t *p, int w, int x0, int y0, int x1, int y1) { invert_rect(p, w, x0, y0, x1, y1); }
+void test_invert_oval(uint32_t *p, int w, int x0, int y0, int x1, int y1) { invert_oval(p, w, x0, y0, x1, y1); }
+
+#endif /* PRINTREADY_HOST_TEST */

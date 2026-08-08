@@ -46,8 +46,6 @@ object PdfEngine {
     private const val A4_PT_H = 841.89
     private const val CM_PT = 28.35f
 
-    enum class Mode { CONVERT, MERGE }
-
     data class Progress(val done: Int, val total: Int, val stage: String)
 
     private data class NativePage(val width: Int, val height: Int, val jpeg: ByteArray) {
@@ -66,7 +64,6 @@ object PdfEngine {
     /** Runs the pipeline; returns the MediaStore uri of the written PDF as a String. */
     suspend fun process(
         context: Context,
-        mode: Mode,
         items: List<PageItem>,
         filter: FilterSettings,
         output: OutputSettings,
@@ -74,12 +71,8 @@ object PdfEngine {
     ): String = withContext(Dispatchers.IO) {
         require(items.isNotEmpty()) { "No pages selected" }
 
-        // RE (flow.md §4): CONVERT names output "<basename>_processed.pdf".
-        val name = if (mode == Mode.MERGE) {
-            "Merged_%s.pdf".format(SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date()))
-        } else {
-            "%s_processed.pdf".format(sourceBaseName(context, items.first().sourceUri))
-        }
+        // RE (flow.md §4): output named "<basename>_processed.pdf"
+        val name = "%s_processed.pdf".format(sourceBaseName(context, items.first().sourceUri))
         val outUri = context.contentResolver.insert(
             MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
             ContentValues().apply {

@@ -37,9 +37,9 @@ object Routes {
     const val HOME = "home"
     const val FLOW = "flow"
     const val TOOLS = "tools"
-    const val CONTACT = "contact-us"
-    const val LIBRARY = "dashboard"
-    const val PREMIUM = "my-orders"
+    const val CONTACT = "contact"
+    const val LIBRARY = "library"
+    const val PREMIUM = "premium"
     const val SETTINGS = "settings"
     
     fun soon(title: String) = "soon/" + Uri.encode(title)
@@ -92,7 +92,7 @@ fun PrintReadyApp() {
             composable(Routes.HOME) { HomeScreen(nav) }
             composable(Routes.FLOW) { ConvertScreen(nav) }
             composable(Routes.TOOLS) { ToolsScreen(nav) }
-            composable(Routes.CONTACT) { ComingSoonScreen("Contact") }
+            composable(Routes.CONTACT) { ContactScreen(nav) }
             composable(Routes.LIBRARY) { ComingSoonScreen("Library") }
             composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }
             composable(Routes.SETTINGS) { ComingSoonScreen("Settings") }
@@ -229,7 +229,7 @@ private fun BottomBar(nav: NavHostController, currentRoute: String?, onRouteChan
                 val isActive = when (tab.route) {
                     Routes.HOME -> currentRoute in listOf("home", "flow", "how-to-print", "tools", "print-price-calculator")
                     Routes.SETTINGS -> currentRoute in listOf("settings", "my-addresses", "community-pass")
-                    Routes.CONTACT -> currentRoute in listOf("contact-us", "live-chat")
+                    Routes.CONTACT -> currentRoute == Routes.CONTACT
                     else -> currentDestination?.hierarchy?.any { it.route == tab.route } == true
                 }
                 

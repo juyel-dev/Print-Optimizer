@@ -14,16 +14,16 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
+      - name: Create debug keystore
+        run: |
+          mkdir -p ~/.android
+          keytool -genkey -v -keystore ~/.android/debug.keystore             -alias androiddebugkey -storepass android -keypass android             -keyalg RSA -keysize 2048 -validity 10000             -dname "CN=Android Debug,O=Android,C=US"
+
       - name: Generate SHA1 fingerprint
         working-directory: ./printready
         run: |
           chmod +x gradlew
           ./gradlew signingReport 2>&1 | tee signing-report.txt
-          echo ""
-          echo "=========================================="
-          echo "DEBUG SHA1:"
-          grep -A 4 "Variant: debug" signing-report.txt | grep "SHA1:" | head -1
-          echo "=========================================="
 
       - name: Upload signing report
         uses: actions/upload-artifact@v4

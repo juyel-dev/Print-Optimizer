@@ -96,7 +96,7 @@ fun PrintReadyApp() {
             composable(Routes.TOOLS) { ToolsScreen(nav) }
             composable(Routes.CONTACT) { ContactScreen(nav) }
             composable(Routes.LIBRARY) { LibraryScreen(nav) }
-            composable(Routes.PREMIUM) { PremiumScreen(nav) }
+            composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }
             composable(Routes.SETTINGS) { SettingsScreen(nav) }
             
             // Tool screens

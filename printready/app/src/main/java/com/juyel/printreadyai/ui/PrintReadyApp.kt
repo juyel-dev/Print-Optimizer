@@ -98,6 +98,7 @@ fun PrintReadyApp() {
             composable(Routes.LIBRARY) { LibraryScreen(nav) }
             composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }
             composable(Routes.SETTINGS) { SettingsScreen(nav) }
+            composable("ai") { ComingSoonScreen("AI") }
             
             // Tool screens
             composable("pdf-merge") { MergePdfScreen(nav) }

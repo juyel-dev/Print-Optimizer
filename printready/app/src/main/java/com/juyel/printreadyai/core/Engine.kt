@@ -72,4 +72,15 @@ object Engine {
         w: Float,
         h: Float
     )
+
+    external fun initPdfWriter(path: String): Long
+
+    external fun writePageNative(
+        handle: Long,
+        jpegBytes: ByteArray,
+        width: Int,
+        height: Int
+    ): Boolean
+
+    external fun finishPdfWriter(handle: Long): Boolean
 }

@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.text.SimpleDateFormat
@@ -48,6 +49,12 @@ object PdfEngine {
     enum class Mode { CONVERT, MERGE }
 
     data class Progress(val done: Int, val total: Int, val stage: String)
+
+    private data class NativePage(val width: Int, val height: Int, val jpeg: ByteArray) {
+        override fun equals(other: Any?) = other is NativePage &&
+            width == other.width && height == other.height && jpeg.contentEquals(other.jpeg)
+        override fun hashCode(): Int = 31 * (31 * width + height) + jpeg.contentHashCode()
+    }
 
     private val ratios = listOf(Quality.HIGH.ratio, Quality.MEDIUM.ratio, Quality.LOW.ratio)
 
@@ -141,8 +148,13 @@ object PdfEngine {
         val pagesPerSheet = output.pagesPerSheet
         val sheetBase = sheetBaseSize(context, items.first(), output, ratio)
 
-        resolver.openOutputStream(outUri).use { outStream ->
-            val writerPages = ArrayList<PdfWriter.Page>(items.size)
+        // Write PDF via native writer into app-private temp file, then copy to MediaStore.
+        val tempFile = File(context.filesDir, "printready_tmp_${System.currentTimeMillis()}.pdf")
+        try {
+            val handle = Engine.initPdfWriter(tempFile.absolutePath)
+            if (handle == 0L) throw IOException("Failed to initialize native PDF writer at ${tempFile.absolutePath}")
+
+            val writerPages = ArrayList<NativePage>(items.size)
             var sheetBitmap: Bitmap? = null
             var sheetCanvas: Canvas? = null
             var cellIndex = 0
@@ -200,7 +212,24 @@ object PdfEngine {
             if (cellIndex > 0) flushSheet()
 
             if (writerPages.isEmpty()) throw IOException("No pages were produced")
-            PdfWriter.write(outStream!!, writerPages)
+            var finalized = false
+            try {
+                for (page in writerPages) {
+                    val ok = Engine.writePageNative(handle, page.jpeg, page.width, page.height)
+                    if (!ok) throw IOException("Failed to write page (${page.width}x${page.height})")
+                }
+            } finally {
+                finalized = Engine.finishPdfWriter(handle)
+            }
+            if (!finalized) throw IOException("Failed to finalize native PDF writer")
+
+            // Copy temp file bytes to MediaStore OutputStream
+            resolver.openOutputStream(outUri).use { outStream ->
+                if (outStream == null) throw IOException("Cannot open MediaStore output stream")
+                tempFile.inputStream().use { it.copyTo(outStream) }
+            }
+        } finally {
+            if (tempFile.exists()) tempFile.delete()
         }
     }
 
@@ -355,8 +384,8 @@ object PdfEngine {
         }
     }
 
-    private fun flushBitmap(bmp: Bitmap, out: MutableList<PdfWriter.Page>) {
-        out.add(PdfWriter.Page(bmp.width, bmp.height, jpeg(bmp)))
+    private fun flushBitmap(bmp: Bitmap, out: MutableList<NativePage>) {
+        out.add(NativePage(bmp.width, bmp.height, jpeg(bmp)))
         bmp.recycle()
     }
 

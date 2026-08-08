@@ -30,14 +30,14 @@ app/src/main/
   cpp/engine.c              Native page engine (invert, Rec.601 grayscale, clear-bg,
                             adaptive B&W, region fill/remove/invert) — own implementation
   cpp/CMakeLists.txt
+  cpp/pdf_writer.c         Native PDF-1.4 writer (DCTDecode pages, xref, trailer) — no libraries
   java/com/juyel/printreadyai/
     MainActivity.kt         Single activity
     PrintReadyApp.kt
     core/Engine.kt          JNI bridge
     core/Settings.kt        FilterSettings / OutputSettings / Quality / Orientation
     core/PageItem.kt
-    core/PdfEngine.kt       Pipeline: render -> enhance -> sheet layout -> JPEG-80 -> write
-    core/PdfWriter.kt       PDF-1.4 writer (DCTDecode pages, xref, trailer) — no libraries
+    core/PdfEngine.kt       Pipeline: render -> enhance -> sheet layout -> JPEG-80 -> native write
     util/FeatureFlags.kt    Coming Soon / ad slots
     util/Prefs.kt
     ui/...                  Compose UI: bottom nav, Home, Convert, Merge, Contact, Settings

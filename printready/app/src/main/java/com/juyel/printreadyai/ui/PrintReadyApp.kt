@@ -91,7 +91,7 @@ fun PrintReadyApp() {
         ) {
             composable(Routes.HOME) { HomeScreen(nav) }
             composable(Routes.FLOW) { ConvertScreen(nav) }
-            composable(Routes.TOOLS) { ComingSoonScreen("Tools") }
+            composable(Routes.TOOLS) { ToolsScreen(nav) }
             composable(Routes.CONTACT) { ComingSoonScreen("Contact") }
             composable(Routes.LIBRARY) { ComingSoonScreen("Library") }
             composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }

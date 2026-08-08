@@ -14,7 +14,7 @@ class PrintReadyApp : Application() {
         super.onCreate()
         
         // Native lib load
-        System.loadLibrary("printready-native")
+        System.loadLibrary("printready_engine")
         
         // Firebase init
         FirebaseApp.initializeApp(this)

@@ -14,10 +14,15 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
-      - name: Create debug keystore
+      - name: Create debug keystore (AGP 8.x path)
         run: |
+          mkdir -p ~/.config/.android
           mkdir -p ~/.android
-          keytool -genkey -v -keystore ~/.android/debug.keystore             -alias androiddebugkey -storepass android -keypass android             -keyalg RSA -keysize 2048 -validity 10000             -dname "CN=Android Debug,O=Android,C=US"
+          for DIR in ~/.config/.android ~/.android; do
+            keytool -genkey -v -keystore $DIR/debug.keystore               -alias androiddebugkey -storepass android -keypass android               -keyalg RSA -keysize 2048 -validity 10000               -dname "CN=Android Debug,O=Android,C=US"
+          done
+          echo "--- keystores created ---"
+          ls -la ~/.config/.android/ ~/.android/
 
       - name: Generate SHA1 fingerprint
         working-directory: ./printready

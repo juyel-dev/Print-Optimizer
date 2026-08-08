@@ -1,5 +1,6 @@
 package com.juyel.printreadyai.core
 
+import android.app.ActivityManager
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
@@ -91,7 +92,15 @@ object PdfEngine {
             }
         ) ?: throw IOException("Could not create output file")
 
-        retryPipeline(context, items, filter, output, gatedRatio(output.quality, freeBytes()), onProgress, outUri)
+        try {
+            retryPipeline(context, items, filter, output, gatedRatio(output.quality, freeBytes(context)), onProgress, outUri)
+        } catch (e: Exception) {
+            // Pipeline failed -> remove the MediaStore entry so no 0-byte ghost
+            // file is left behind in Documents/PrintReady/.
+            runCatching { context.contentResolver.delete(outUri, null, null) }
+            throw e
+        }
+        outUri.toString()
     }
 
     /**
@@ -204,7 +213,7 @@ object PdfEngine {
                 if (cellIndex >= pagesPerSheet) flushSheet()
                 rendered.recycle()
 
-                if (freeBytes() < MEMORY_GATE_BYTES) {
+                if (freeBytes(context) < MEMORY_GATE_BYTES) {
                     System.gc()
                 }
             }
@@ -394,9 +403,11 @@ object PdfEngine {
         return baos.toByteArray()
     }
 
-    private fun freeBytes(): Long {
-        val rt = Runtime.getRuntime()
-        return rt.freeMemory() + (rt.maxMemory() - rt.totalMemory())
+    private fun freeBytes(context: Context): Long {
+        val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val memInfo = ActivityManager.MemoryInfo()
+        am.getMemoryInfo(memInfo)
+        return memInfo.availMem
     }
 
 

@@ -358,6 +358,8 @@ fun ConvertScreen(nav: NavHostController) {
                                 }
                                 val ps = querySize(context, Uri.parse(outUri))
                                 result = it.copy(outputUri = outUri, processedSize = ps)
+                            } catch (e: Exception) {
+                                errorMsg = e.message ?: "Download failed. Please try again."
                             } finally { downloading = false }
                         }
                     },
@@ -811,6 +813,10 @@ private fun FlowReorder(pages: MutableList<FlowPage>, onBack: () -> Unit, onCont
 // ---------- State 3: Preview ----------
 @Composable
 private fun FlowPreview(pages: MutableList<FlowPage>, onBack: () -> Unit, onContinue: () -> Unit) {
+    // TODO (Phase F): Add per-page edit UI here
+    // Users should be able to tap a page thumbnail to enter edit mode,
+    // then draw InvertRect / InvertOval / MaskRect / MaskOval regions.
+    // For now, edits list is always empty.
     val selected = pages.count { it.isSelected }
     Column(Modifier.fillMaxSize()) {
         FlowTopBar("Preview & Edit", onBack)
@@ -1350,6 +1356,7 @@ private fun FlowSuccess(
     onProcessAnother: () -> Unit,
     downloading: Boolean
 ) {
+    val hasFile = result.outputUri.isNotEmpty()
     Column(Modifier.fillMaxSize()) {
         FlowTopBar("Processing Complete", onBack)
         LazyColumn(
@@ -1390,6 +1397,7 @@ private fun FlowSuccess(
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(
                     onClick = onView,
+                    enabled = hasFile,
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(14.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = AppColors.Accent)
@@ -1400,6 +1408,7 @@ private fun FlowSuccess(
                 }
                 Button(
                     onClick = onShare,
+                    enabled = hasFile,
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(14.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = AppColors.Accent)
@@ -1408,6 +1417,14 @@ private fun FlowSuccess(
                     Spacer(Modifier.width(6.dp))
                     Text("Share File")
                 }
+            }
+            if (!hasFile) {
+                Text(
+                    "Tap Download to generate the file first",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
             }
             Button(
                 onClick = onDownload,

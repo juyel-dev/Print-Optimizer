@@ -95,9 +95,9 @@ fun PrintReadyApp() {
             composable(Routes.FLOW) { ConvertScreen(nav) }
             composable(Routes.TOOLS) { ToolsScreen(nav) }
             composable(Routes.CONTACT) { ContactScreen(nav) }
-            composable(Routes.LIBRARY) { ComingSoonScreen("Library") }
-            composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }
-            composable(Routes.SETTINGS) { ComingSoonScreen("Settings") }
+            composable(Routes.LIBRARY) { LibraryScreen(nav) }
+            composable(Routes.PREMIUM) { PremiumScreen(nav) }
+            composable(Routes.SETTINGS) { SettingsScreen(nav) }
             
             // Tool screens
             composable("pdf-merge") { MergePdfScreen(nav) }

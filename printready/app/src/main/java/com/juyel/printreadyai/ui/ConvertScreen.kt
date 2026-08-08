@@ -111,10 +111,12 @@ import com.juyel.printreadyai.core.PageSize
 import com.juyel.printreadyai.core.FilterSettings
 import com.juyel.printreadyai.core.Orientation
 import com.juyel.printreadyai.core.OutputSettings
+import com.juyel.printreadyai.core.PageEdit
 import com.juyel.printreadyai.core.PageItem
 import com.juyel.printreadyai.core.PdfEngine
 import com.juyel.printreadyai.core.Quality
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.abs
@@ -136,7 +138,13 @@ import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Remove
 // ---------- Data ----------
 private data class PdfDoc(val uri: Uri, val name: String, val size: Long, val pageCount: Int)
-private data class FlowPage(val docUri: Uri, val pageIndex: Int, val isSelected: Boolean = true, val thumbnail: Bitmap? = null)
+private data class FlowPage(
+    val docUri: Uri,
+    val pageIndex: Int,
+    val isSelected: Boolean = true,
+    val thumbnail: Bitmap? = null,
+    val edits: List<PageEdit> = emptyList()
+)
 private data class FlowResult(val outputUri: String, val originalSize: Long, val processedSize: Long, val pageCount: Int)
 private data class LogoRegion(val left: Float = 0.05f, val top: Float = 0.05f, val w: Float = 0.4f, val h: Float = 0.15f)
 
@@ -286,7 +294,7 @@ fun ConvertScreen(nav: NavHostController) {
                 onLogoCircle = { logoCircle = it },
                 onBack = { state = 3 },
                 onProcess = {
-                    val items = pages.filter { it.isSelected }.map { PageItem(it.docUri, it.pageIndex) }
+                    val items = pages.filter { it.isSelected }.map { PageItem(it.docUri, it.pageIndex, it.edits) }
                     if (items.isEmpty()) { errorMsg = "Please select at least one page."; return@FlowEnhance }
                     // RE: single logoBox + logoShape ("circle" | "rectangle")
                     val (logoBox, logoShape) = if (removeLogo) {
@@ -315,21 +323,20 @@ fun ConvertScreen(nav: NavHostController) {
                     lastItems = items; lastFilter = filter; lastOutput = output
                     state = 5
                     processing = true
+                    progress = 0f
+                    progressInfo = "Optimizing..."
+                    progressCounts = 0 to items.size
                     scope.launch {
-                        try {
-                            val originalSize = docs.sumOf { it.size }
-                            val outUri = PdfEngine.process(context, PdfEngine.Mode.CONVERT, items, filter, output) { p ->
-                                progress = if (p.total > 0) p.done.toFloat() / p.total else 0f
-                                progressInfo = p.stage
-                                progressCounts = p.done to p.total
-                            }
-                            val processedSize = querySize(context, Uri.parse(outUri))
-                            result = FlowResult(outUri, originalSize, processedSize, items.size)
-                            state = 6
-                        } catch (e: Exception) {
-                            errorMsg = e.message ?: "Unknown error"
-                            state = 4
-                        } finally { processing = false }
+                        // Option A UX trick: "Process File" shows ~1s FAKE progress.
+                        // The real pipeline runs on Download (state 6) — same as RE.
+                        for (i in 1..100) {
+                            progress = i / 100f
+                            delay(10)
+                        }
+                        val originalSize = docs.sumOf { it.size }
+                        result = FlowResult("", originalSize, 0L, items.size)
+                        state = 6
+                        processing = false
                     }
                 }
             )

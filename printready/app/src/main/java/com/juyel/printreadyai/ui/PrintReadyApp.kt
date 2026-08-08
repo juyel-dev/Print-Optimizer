@@ -42,7 +42,17 @@ object Routes {
     const val LIBRARY = "library"
     const val PREMIUM = "premium"
     const val SETTINGS = "settings"
-    
+
+    // Info hub routes (replicated from old app)
+    const val FEATURES = "features"
+    const val ABOUT_US = "about-us"
+    const val COMMUNITY = "community"
+    const val HELP = "help"
+    const val PRIVACY_POLICY = "privacy-policy"
+    const val TERMS_OF_SERVICE = "terms-of-service"
+    const val REFUND_POLICY = "refund-policy"
+    const val SHIPPING_POLICY = "shipping-policy"
+
     fun soon(title: String) = "soon/" + Uri.encode(title)
 }
 
@@ -99,6 +109,16 @@ fun PrintReadyApp() {
             composable(Routes.PREMIUM) { ComingSoonScreen("Premium") }
             composable(Routes.SETTINGS) { SettingsScreen(nav) }
             composable("ai") { ComingSoonScreen("AI") }
+
+            // Info hub screens (replicated from old app)
+            composable(Routes.FEATURES) { FeaturesScreen(nav) }
+            composable(Routes.ABOUT_US) { AboutUsScreen(nav) }
+            composable(Routes.COMMUNITY) { CommunityScreen(nav) }
+            composable(Routes.HELP) { HelpCenterScreen(nav) }
+            composable(Routes.PRIVACY_POLICY) { LegalScreen(nav, "Privacy Policy", "Review how we handle and protect your data") }
+            composable(Routes.TERMS_OF_SERVICE) { LegalScreen(nav, "Terms of Service", "Read our standard terms and user guidelines") }
+            composable(Routes.REFUND_POLICY) { LegalScreen(nav, "Refund Policy", "Learn about our donation and print refund terms") }
+            composable(Routes.SHIPPING_POLICY) { LegalScreen(nav, "Shipping Policy", "Timelines and logistics rules for print delivery") }
             
             // Tool screens
             composable("pdf-merge") { MergePdfScreen(nav) }

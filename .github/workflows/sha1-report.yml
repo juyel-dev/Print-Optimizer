@@ -1,0 +1,28 @@
+name: SHA1 Report
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sha1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Generate debug keystore and print SHA-1
+        working-directory: ./printready
+        run: |
+          chmod +x gradlew
+          ./gradlew signingReport 2>&1 | tee signing-report.txt
+
+      - name: Upload signing report
+        uses: actions/upload-artifact@v4
+        with:
+          name: signing-report
+          path: printready/signing-report.txt

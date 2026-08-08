@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
 import com.juyel.printreadyai.ui.AppColors
 
 private val brandGradient = listOf(Color(0xFFA855F7), Color(0xFFEC4899))
@@ -229,16 +230,37 @@ fun MergePdfScreen(nav: NavHostController) {
         // Bottom button
         Button(
             onClick = {
-                // TODO: Implement merge logic using PdfEngine
                 processing = true
-                // Simulate progress
-                LaunchedEffect(Unit) {
-                    for (i in 1..100) {
-                        progress = i / 100f
-                        kotlinx.coroutines.delay(50)
+                progress = 0f
+                kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                    try {
+                        val items = mutableListOf<com.juyel.printreadyai.core.PageItem>()
+                        for (uri in selectedFiles) {
+                            context.contentResolver.openFileDescriptor(uri, "r")?.use { pfd ->
+                                android.graphics.pdf.PdfRenderer(pfd).use { r ->
+                                    for (i in 0 until r.pageCount) {
+                                        items.add(com.juyel.printreadyai.core.PageItem(uri, i))
+                                    }
+                                }
+                            }
+                        }
+                        val resStr = com.juyel.printreadyai.core.PdfEngine.process(
+                            context, 
+                            items, 
+                            com.juyel.printreadyai.core.FilterSettings(invertColors = false, clearBackground = false), 
+                            com.juyel.printreadyai.core.OutputSettings(documentSize = com.juyel.printreadyai.core.PageSize.ORIGINAL, nupRows = 1, nupColumns = 1, addPageNumbers = false)
+                        ) { p ->
+                            progress = if (p.total > 0) p.done.toFloat() / p.total.toFloat() else 0f
+                        }
+                        resultUri = android.net.Uri.parse(resStr)
+                        android.widget.Toast.makeText(context, "Merge Complete!", android.widget.Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        android.widget.Toast.makeText(context, "Error: " + e.message, android.widget.Toast.LENGTH_LONG).show()
+                    } finally {
+                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                            processing = false
+                        }
                     }
-                    processing = false
-                    // resultUri = merged file URI
                 }
             },
             enabled = selectedFiles.size >= 2 && !processing,

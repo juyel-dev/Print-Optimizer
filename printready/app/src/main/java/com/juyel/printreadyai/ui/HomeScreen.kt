@@ -20,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -136,9 +137,9 @@ private fun ProductContainer(
     @androidx.annotation.DrawableRes fallbackDrawable: Int = 0
 ) {
     var isPressed by remember { mutableStateOf(false) }
-    val scale by animateFloatAsState(
+    val cardScale by animateFloatAsState(
         targetValue = if (isPressed) 0.98f else 1.0f,
-        animationSpec = spring(stiffness = Spring.StiffnessDefault, dampingRatio = 0.0f),
+        animationSpec = spring(stiffness = Spring.StiffnessMediumLow, dampingRatio = 0.0f),
         label = "card_scale"
     )
     
@@ -148,14 +149,14 @@ private fun ProductContainer(
             .clip(RoundedCornerShape(16.dp))
             .background(
                 if (gradient != null) Brush.linearGradient(gradient)
-                else color!!.copy(alpha = 0.6f)
+                else Brush.linearGradient(listOf(color!!.copy(alpha = 0.6f)))
             )
             .border(
                 width = 1.dp,
                 color = AppColors.Accent.copy(alpha = 0.25f),
                 shape = RoundedCornerShape(16.dp)
             )
-            .scale(scale)
+            .scale(cardScale)
     ) {
         // Header row (clickable to navigate)
         Box(
@@ -258,7 +259,7 @@ private fun TrustBadge(icon: ImageVector, title: String, subtitle: String) {
             modifier = Modifier
                 .size(40.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(Brush.linearGradient(brandGradient).copy(alpha = 0.15f)),
+                .background(Brush.linearGradient(brandGradient.map { it.copy(alpha = 0.15f) })),
             contentAlignment = Alignment.Center
         ) {
             Icon(

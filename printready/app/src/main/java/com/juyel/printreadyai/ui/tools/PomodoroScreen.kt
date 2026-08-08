@@ -187,12 +187,9 @@ fun PomodoroScreen(nav: NavHostController) {
                         )
                     }
                     Text(
-                        "• Work for 25 minutes, then take a 5-minute break
-" +
-                        "• After 4 work sessions, take a longer break (15-30 min)
-" +
-                        "• Stay focused during work sessions
-" +
+                        "• Work for 25 minutes, then take a 5-minute break\n" +
+                        "• After 4 work sessions, take a longer break (15-30 min)\n" +
+                        "• Stay focused during work sessions\n" +
                         "• Use breaks to stretch or walk",
                         style = MaterialTheme.typography.bodySmall,
                         color = AppColors.TextSecondary

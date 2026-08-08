@@ -95,7 +95,7 @@ fun ContactScreen(nav: NavHostController) {
     )
     
     val socialItems = listOf(
-        SocialItem("Instagram", Icons.Outlined.Instagram, Color(0xFFE1306C)),
+        SocialItem("Instagram", Icons.Outlined.PhotoCamera, Color(0xFFE1306C)),
         SocialItem("X (Twitter)", Icons.Outlined.Share, Color(0xFF1DA1F2)),
         SocialItem("Telegram", Icons.Outlined.Send, Color(0xFF0088CC))
     )
@@ -204,7 +204,7 @@ fun ContactScreen(nav: NavHostController) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             socialItems.forEach { social ->
-                SocialCard(social) {
+                SocialCard(social, Modifier.weight(1f)) {
                     Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -310,12 +310,11 @@ private fun ContactCard(item: ContactItem) {
 }
 
 @Composable
-private fun SocialCard(social: SocialItem, onClick: () -> Unit) {
+private fun SocialCard(social: SocialItem, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = AppColors.Surface),
-        modifier = Modifier
-            .weight(1f)
+        modifier = modifier
             .height(100.dp)
             .clickable(onClick = onClick)
     ) {

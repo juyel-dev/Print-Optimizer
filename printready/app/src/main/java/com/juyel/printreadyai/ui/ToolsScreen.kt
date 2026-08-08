@@ -153,7 +153,7 @@ fun ToolsScreen(nav: NavHostController) {
                         contentPadding = PaddingValues(horizontal = 16.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.height((categoryTools.size / 2 + categoryTools.size % 2) * 180.dp)
+                        modifier = Modifier.height(((categoryTools.size / 2 + categoryTools.size % 2) * 180).dp)
                     ) {
                         items(categoryTools) { tool ->
                             ToolCard(tool) { nav.navigate(tool.route) }
@@ -188,7 +188,7 @@ private fun ToolCard(tool: QuickTool, onClick: () -> Unit) {
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(Brush.linearGradient(brandGradient).copy(alpha = 0.15f))
+                    .background(Brush.linearGradient(brandGradient.map { it.copy(alpha = 0.15f) }))
                     .border(2.dp, Brush.linearGradient(brandGradient), CircleShape),
                 contentAlignment = Alignment.Center
             ) {

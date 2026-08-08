@@ -128,7 +128,7 @@ object SponsorCarouselRepository {
             for (i in 0 until sponsorFiles.length()) {
                 val name = sponsorFiles.getJSONObject(i).optString("name")
                 // Match pattern: {prefix}_{n}.jpg
-                val match = Regex("^(flow|ai|tools)_(\d+)\.jpg$").matchEntire(name) ?: continue
+                val match = Regex("^(flow|ai|tools)_(\\d+)\\.jpg$").matchEntire(name) ?: continue
                 val prefix = match.groupValues[1]
                 val num = match.groupValues[2].toIntOrNull() ?: continue
                 

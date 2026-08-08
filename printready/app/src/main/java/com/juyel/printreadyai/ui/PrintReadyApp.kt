@@ -5,6 +5,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Assignment
@@ -241,7 +242,7 @@ private fun SubHeaderTabs(currentRoute: String?, onTabSelected: (String) -> Unit
                             .clip(CircleShape)
                             .background(
                                 if (isActive) Brush.linearGradient(brandGradient)
-                                else Color.Transparent
+                                else Brush.linearGradient(listOf(Color.Transparent))
                             )
                     )
                 }

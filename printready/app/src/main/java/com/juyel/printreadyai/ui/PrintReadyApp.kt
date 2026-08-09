@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -242,7 +243,7 @@ private fun SubHeaderTabs(currentRoute: String?, onTabSelected: (String) -> Unit
                             .clip(CircleShape)
                             .background(
                                 if (isActive) Brush.linearGradient(brandGradient)
-                                else Brush.linearGradient(listOf(Color.Transparent))
+                                else SolidColor(Color.Transparent)
                             )
                     )
                 }

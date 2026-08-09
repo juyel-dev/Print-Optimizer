@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
@@ -115,7 +116,7 @@ private fun ProductContainers(nav: NavHostController) {
             title = "TOOLS",
             subtitle = "PDF & Document Utilities",
             icon = Icons.Outlined.Build,
-            color = Color(0xFF75A2B),
+            color = Color(0xFF75A2B0),
             onClick = { nav.navigate(Routes.TOOLS) },
             showCarousel = true,
             carouselPrefix = "tools",
@@ -149,7 +150,7 @@ private fun ProductContainer(
             .clip(RoundedCornerShape(16.dp))
             .background(
                 if (gradient != null) Brush.linearGradient(gradient)
-                else Brush.linearGradient(listOf(color!!.copy(alpha = 0.6f)))
+                else SolidColor(color!!.copy(alpha = 0.6f))
             )
             .border(
                 width = 1.dp,

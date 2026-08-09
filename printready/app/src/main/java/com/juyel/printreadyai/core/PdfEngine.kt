@@ -9,7 +9,9 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfRenderer
 import android.graphics.RectF
+import android.net.Uri
 import android.os.Environment
+import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
@@ -47,12 +49,6 @@ object PdfEngine {
     private const val CM_PT = 28.35f
 
     data class Progress(val done: Int, val total: Int, val stage: String)
-
-    private data class NativePage(val width: Int, val height: Int, val jpeg: ByteArray) {
-        override fun equals(other: Any?) = other is NativePage &&
-            width == other.width && height == other.height && jpeg.contentEquals(other.jpeg)
-        override fun hashCode(): Int = 31 * (31 * width + height) + jpeg.contentHashCode()
-    }
 
     private val ratios = listOf(Quality.HIGH.ratio, Quality.MEDIUM.ratio, Quality.LOW.ratio)
 
@@ -150,16 +146,21 @@ object PdfEngine {
         val sheetBase = sheetBaseSize(context, items.first(), output, ratio)
 
         // Write PDF via native writer into app-private temp file, then copy to MediaStore.
+        // Pages are streamed to the writer as each sheet completes so memory stays flat
+        // regardless of document length (avoids OOM mid-pipeline and full restarts).
         val tempFile = File(context.filesDir, "printready_tmp_${System.currentTimeMillis()}.pdf")
+        var renderer: PdfRenderer? = null
+        var pfd: ParcelFileDescriptor? = null
         try {
             val handle = Engine.initPdfWriter(tempFile.absolutePath)
             if (handle == 0L) throw IOException("Failed to initialize native PDF writer at ${tempFile.absolutePath}")
 
-            val writerPages = ArrayList<NativePage>(items.size)
             var sheetBitmap: Bitmap? = null
             var sheetCanvas: Canvas? = null
             var cellIndex = 0
             var sheetsDone = 0
+            var pagesWritten = 0
+            var currentUri: Uri? = null
 
             fun beginSheet(): Bitmap {
                 val (sw, sh) = sheetBase
@@ -170,6 +171,8 @@ object PdfEngine {
 
             fun flushSheet() {
                 val sb = sheetBitmap ?: return
+                val w = sb.width
+                val h = sb.height
                 if (output.addPageNumbers) {
                     val text = Paint(Paint.ANTI_ALIAS_FLAG).apply {
                         color = Color.BLACK
@@ -183,11 +186,16 @@ object PdfEngine {
                         text
                     )
                 }
-                flushBitmap(sb, writerPages)
+                val baos = ByteArrayOutputStream()
+                sb.compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, baos)
+                val ok = Engine.writePageNative(handle, baos.toByteArray(), w, h)
+                sb.recycle()
                 sheetBitmap = null
                 sheetCanvas = null
                 cellIndex = 0
                 sheetsDone++
+                pagesWritten++
+                if (!ok) throw IOException("Failed to write page (${w}x${h})")
                 if (sheetsDone % GC_EVERY_SHEETS == 0) System.gc()
             }
 
@@ -195,7 +203,16 @@ object PdfEngine {
                 coroutineContext.ensureActive()
                 onProgress(Progress(index, items.size, "Processing page ${index + 1} of ${items.size}"))
 
-                val rendered = renderEnhancedPage(context, item, ratio, filter)
+                if (item.sourceUri != currentUri) {
+                    renderer?.close()
+                    pfd?.close()
+                    pfd = resolver.openFileDescriptor(item.sourceUri, "r")
+                        ?: throw IOException("Cannot open source file")
+                    renderer = PdfRenderer(pfd)
+                    currentUri = item.sourceUri
+                }
+
+                val rendered = renderEnhancedPage(renderer!!, item, ratio, filter)
 
                 if (cellIndex == 0) {
                     sheetBitmap = beginSheet()
@@ -212,16 +229,8 @@ object PdfEngine {
             }
             if (cellIndex > 0) flushSheet()
 
-            if (writerPages.isEmpty()) throw IOException("No pages were produced")
-            var finalized = false
-            try {
-                for (page in writerPages) {
-                    val ok = Engine.writePageNative(handle, page.jpeg, page.width, page.height)
-                    if (!ok) throw IOException("Failed to write page (${page.width}x${page.height})")
-                }
-            } finally {
-                finalized = Engine.finishPdfWriter(handle)
-            }
+            if (pagesWritten == 0) throw IOException("No pages were produced")
+            val finalized = Engine.finishPdfWriter(handle)
             if (!finalized) throw IOException("Failed to finalize native PDF writer")
 
             // Copy temp file bytes to MediaStore OutputStream
@@ -230,6 +239,8 @@ object PdfEngine {
                 tempFile.inputStream().use { it.copyTo(outStream) }
             }
         } finally {
+            renderer?.close()
+            pfd?.close()
             if (tempFile.exists()) tempFile.delete()
         }
     }
@@ -265,33 +276,26 @@ object PdfEngine {
     }
 
     private fun renderEnhancedPage(
-        context: Context,
+        renderer: PdfRenderer,
         item: PageItem,
         ratio: Float,
         filter: FilterSettings
     ): Bitmap {
-        val fd = context.contentResolver.openFileDescriptor(item.sourceUri, "r")
-            ?: throw IOException("Cannot open source file")
-        fd.use { pfd ->
-            val renderer = PdfRenderer(pfd)
-            renderer.use { r ->
-                if (item.originalPageIndex >= r.pageCount) {
-                    throw IOException("Page ${item.originalPageIndex + 1} not found")
-                }
-                val page = r.openPage(item.originalPageIndex)
-                page.use { p ->
-                    val w = (p.width * ratio).toInt().coerceAtLeast(1)
-                    val h = (p.height * ratio).toInt().coerceAtLeast(1)
-                    val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
-                    p.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    return try {
-                        enhance(bmp, filter, item.edits)
-                    } catch (oom: OutOfMemoryError) {
-                        Log.w("PdfEngine", "OOM during page processing. Skipping filters to save crash.")
-                        System.gc()
-                        bmp
-                    }
-                }
+        if (item.originalPageIndex >= renderer.pageCount) {
+            throw IOException("Page ${item.originalPageIndex + 1} not found")
+        }
+        val page = renderer.openPage(item.originalPageIndex)
+        page.use { p ->
+            val w = (p.width * ratio).toInt().coerceAtLeast(1)
+            val h = (p.height * ratio).toInt().coerceAtLeast(1)
+            val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+            p.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+            return try {
+                enhance(bmp, filter, item.edits)
+            } catch (oom: OutOfMemoryError) {
+                Log.w("PdfEngine", "OOM during page processing. Skipping filters to save crash.")
+                System.gc()
+                bmp
             }
         }
     }
@@ -383,17 +387,6 @@ object PdfEngine {
                 canvas.drawLine(margin, y, margin + contentW, y, line)
             }
         }
-    }
-
-    private fun flushBitmap(bmp: Bitmap, out: MutableList<NativePage>) {
-        out.add(NativePage(bmp.width, bmp.height, jpeg(bmp)))
-        bmp.recycle()
-    }
-
-    private fun jpeg(bmp: Bitmap): ByteArray {
-        val baos = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, baos)
-        return baos.toByteArray()
     }
 
     private fun freeBytes(context: Context): Long {
